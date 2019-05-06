@@ -17,6 +17,7 @@ namespace smcs.backend.data.model
             this.Type = type;
             this.Entity = ent;
             this.Agent = ag;
+            this.TimeStmp = DateTime.Now;
         }
 
         [Key]
@@ -28,5 +29,7 @@ namespace smcs.backend.data.model
         [Required] public Iterative Entity { get; set; }
 
         public string Agent { get; set; }
+
+        [Required] [Column(TypeName = "datetime2")] public DateTime TimeStmp { get; set; }
     }
 }
