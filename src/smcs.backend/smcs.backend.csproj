@@ -63,7 +63,7 @@
     <Compile Include="data\model\iterative\Absence.cs" />
     <Compile Include="data\model\Agent.cs" />
     <Compile Include="data\model\iterative\UndTreat.cs" />
-    <Compile Include="data\model\Operation.cs" />
+    <Compile Include="data\model\History.cs" />
     <Compile Include="data\model\parent\Iterative.cs" />
     <Compile Include="data\model\parent\Base.cs" />
     <Compile Include="data\model\Mission.cs" />

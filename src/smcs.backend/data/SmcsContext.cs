@@ -10,6 +10,7 @@ namespace smcs.backend.data
     {
         public DbSet<Absence> Absence { get; set; }
         public DbSet<Agent> Agent { get; set; }
+        public DbSet<History> History { get; set; }
         public DbSet<Mission> Mission { get; set; }
         public DbSet<OffDay> OffDay { get; set; }
         public DbSet<Office> Office { get; set; }
@@ -40,6 +41,7 @@ namespace smcs.backend.data
         {
             modelBuilder.Entity<Absence>().ToTable("Absence").HasKey(x => x.Id);
             modelBuilder.Entity<Agent>().ToTable("Agent").HasKey(x => x.Id);
+            modelBuilder.Entity<History>().ToTable("History").HasKey(x => x.Id);
             modelBuilder.Entity<Mission>().ToTable("Mission").HasKey(x => x.MisId);
             modelBuilder.Entity<OffDay>().ToTable("OffDay").HasKey(x => x.Id);
             modelBuilder.Entity<Office>().ToTable("Office").HasKey(x => x.Id);
