@@ -14,6 +14,7 @@ namespace smcs.backend.data.model
         public Mission(DateTime init, Int32 sprtRef, Int32 offcRef, string ordr, Int32 sesRef)
         {
             this.InitDate = init;
+            this.DeadLine = init.AddMonths(1); // مدت پیش‌فرض ماموریت ۱ماه است
             this.SprtRef = sprtRef;
             this.OrdrBy = ordr;
             this.OffcRef = offcRef;
@@ -27,6 +28,7 @@ namespace smcs.backend.data.model
         [Required] public Int32 MisId { get; set; }
         [Required] [Column(TypeName = "datetime2")] public DateTime InitDate { get; set; }
         [Column(TypeName = "datetime2")] public DateTime? Ret2UntDate { get; set; }
+        [Required] [Column(TypeName = "datetime2")] public DateTime DeadLine { get; set; } // تاریخ انقضای ماموریت
         [Required] public Int32 SprtRef { get; set; }
         public Int32 OffcRef { get; set; }
         [Required] public string OrdrBy { get; set; } // پذیرش به دستور چه کسی انجام پذیرفته

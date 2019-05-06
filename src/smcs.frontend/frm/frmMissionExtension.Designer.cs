@@ -30,9 +30,9 @@
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblPickUntil = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblLastExtDate = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblNotExtendedCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dPickUntil = new System.Windows.Forms.DateTimePicker();
             this.btnSelectAgent = new System.Windows.Forms.Button();
@@ -43,8 +43,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lstMarkedAgnts = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnApply = new System.Windows.Forms.Button();
             this.chkGenRpt = new System.Windows.Forms.CheckBox();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.btnSelectAll = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -52,9 +53,10 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lblPickUntil);
-            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.btnSelectAll);
+            this.groupBox2.Controls.Add(this.lblLastExtDate);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.lblNotExtendedCount);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.dPickUntil);
             this.groupBox2.Controls.Add(this.btnSelectAgent);
@@ -83,46 +85,46 @@
             this.lblPickUntil.TabIndex = 6;
             this.lblPickUntil.Text = "تا تاریخ: (آخرین تاریخ موجه)";
             // 
-            // label4
+            // lblLastExtDate
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Location = new System.Drawing.Point(9, 389);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(256, 26);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "-";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLastExtDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLastExtDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblLastExtDate.Location = new System.Drawing.Point(12, 329);
+            this.lblLastExtDate.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblLastExtDate.Name = "lblLastExtDate";
+            this.lblLastExtDate.Size = new System.Drawing.Size(256, 26);
+            this.lblLastExtDate.TabIndex = 15;
+            this.lblLastExtDate.Text = "-";
+            this.lblLastExtDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(127, 359);
+            this.label3.Location = new System.Drawing.Point(130, 299);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 26);
             this.label3.TabIndex = 15;
             this.label3.Text = "تاریخ آخرین تمدید:";
             // 
-            // label2
+            // lblNotExtendedCount
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(9, 324);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(256, 26);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "0";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNotExtendedCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNotExtendedCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNotExtendedCount.Location = new System.Drawing.Point(12, 264);
+            this.lblNotExtendedCount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblNotExtendedCount.Name = "lblNotExtendedCount";
+            this.lblNotExtendedCount.Size = new System.Drawing.Size(256, 26);
+            this.lblNotExtendedCount.TabIndex = 15;
+            this.lblNotExtendedCount.Text = "0";
+            this.lblNotExtendedCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(127, 293);
+            this.label1.Location = new System.Drawing.Point(130, 233);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(140, 26);
@@ -245,15 +247,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "اشخاص موردنظر";
             // 
-            // btnApply
-            // 
-            this.btnApply.Location = new System.Drawing.Point(9, 367);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(116, 48);
-            this.btnApply.TabIndex = 17;
-            this.btnApply.Text = "اعمال";
-            this.btnApply.UseVisualStyleBackColor = true;
-            // 
             // chkGenRpt
             // 
             this.chkGenRpt.AutoSize = true;
@@ -266,6 +259,24 @@
             this.chkGenRpt.TabIndex = 18;
             this.chkGenRpt.Text = "ایجاد گزارش";
             this.chkGenRpt.UseVisualStyleBackColor = true;
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(9, 374);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(116, 48);
+            this.btnApply.TabIndex = 17;
+            this.btnApply.Text = "اعمال";
+            this.btnApply.UseVisualStyleBackColor = true;
+            // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.Location = new System.Drawing.Point(12, 374);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(256, 48);
+            this.btnSelectAll.TabIndex = 17;
+            this.btnSelectAll.Text = "انتخاب کل نفرات تمدید نشده";
+            this.btnSelectAll.UseVisualStyleBackColor = true;
             // 
             // frmMissionExtension
             // 
@@ -300,11 +311,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblPickUntil;
         private System.Windows.Forms.DateTimePicker dPickUntil;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNotExtendedCount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnApply;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblLastExtDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox chkGenRpt;
+        private System.Windows.Forms.Button btnSelectAll;
     }
 }

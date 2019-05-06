@@ -47,7 +47,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.lblAddr = new System.Windows.Forms.Label();
-            this.lblRegDT = new System.Windows.Forms.Label();
+            this.lblRegDt = new System.Windows.Forms.Label();
             this.lblEmgNum = new System.Windows.Forms.Label();
             this.lblCntcNum = new System.Windows.Forms.Label();
             this.lblOnDutyCont = new System.Windows.Forms.Label();
@@ -90,6 +90,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.rbtnSrchByNtioCode = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByName = new System.Windows.Forms.RadioButton();
+            this.lblExtDt = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.gpbLower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.gbxUpper.SuspendLayout();
@@ -105,6 +107,7 @@
             this.gpbLower.Controls.Add(this.label23);
             this.gpbLower.Controls.Add(this.btnModfAgnt);
             this.gpbLower.Controls.Add(this.btnApply);
+            this.gpbLower.Controls.Add(this.label27);
             this.gpbLower.Controls.Add(this.label18);
             this.gpbLower.Controls.Add(this.label17);
             this.gpbLower.Controls.Add(this.label19);
@@ -116,7 +119,8 @@
             this.gpbLower.Controls.Add(this.label22);
             this.gpbLower.Controls.Add(this.label24);
             this.gpbLower.Controls.Add(this.lblAddr);
-            this.gpbLower.Controls.Add(this.lblRegDT);
+            this.gpbLower.Controls.Add(this.lblExtDt);
+            this.gpbLower.Controls.Add(this.lblRegDt);
             this.gpbLower.Controls.Add(this.lblEmgNum);
             this.gpbLower.Controls.Add(this.lblCntcNum);
             this.gpbLower.Controls.Add(this.lblOnDutyCont);
@@ -233,11 +237,11 @@
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.AutoEllipsis = true;
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(235, 210);
+            this.label18.Location = new System.Drawing.Point(250, 205);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(110, 25);
+            this.label18.Size = new System.Drawing.Size(95, 25);
             this.label18.TabIndex = 41;
-            this.label18.Text = "تاریخ‌و‌زمان‌ثبت:";
+            this.label18.Text = "تاریخ‌ ‌پذیرش:";
             // 
             // label17
             // 
@@ -299,7 +303,7 @@
             this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label25.AutoEllipsis = true;
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(269, 354);
+            this.label25.Location = new System.Drawing.Point(269, 390);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(76, 25);
             this.label25.TabIndex = 30;
@@ -310,7 +314,7 @@
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoEllipsis = true;
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(293, 247);
+            this.label21.Location = new System.Drawing.Point(293, 282);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(52, 25);
             this.label21.TabIndex = 30;
@@ -332,9 +336,9 @@
             this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label24.AutoEllipsis = true;
             this.label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label24.Location = new System.Drawing.Point(21, 379);
+            this.label24.Location = new System.Drawing.Point(21, 426);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(324, 74);
+            this.label24.Size = new System.Drawing.Size(324, 27);
             this.label24.TabIndex = 33;
             // 
             // lblAddr
@@ -342,22 +346,22 @@
             this.lblAddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAddr.AutoEllipsis = true;
             this.lblAddr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblAddr.Location = new System.Drawing.Point(21, 280);
+            this.lblAddr.Location = new System.Drawing.Point(21, 319);
             this.lblAddr.Name = "lblAddr";
-            this.lblAddr.Size = new System.Drawing.Size(323, 63);
+            this.lblAddr.Size = new System.Drawing.Size(323, 60);
             this.lblAddr.TabIndex = 33;
             // 
-            // lblRegDT
+            // lblRegDt
             // 
-            this.lblRegDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRegDT.AutoEllipsis = true;
-            this.lblRegDT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblRegDT.Location = new System.Drawing.Point(21, 205);
-            this.lblRegDT.Name = "lblRegDT";
-            this.lblRegDT.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblRegDT.Size = new System.Drawing.Size(203, 25);
-            this.lblRegDT.TabIndex = 34;
-            this.lblRegDT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblRegDt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRegDt.AutoEllipsis = true;
+            this.lblRegDt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblRegDt.Location = new System.Drawing.Point(21, 205);
+            this.lblRegDt.Name = "lblRegDt";
+            this.lblRegDt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblRegDt.Size = new System.Drawing.Size(203, 25);
+            this.lblRegDt.TabIndex = 34;
+            this.lblRegDt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblEmgNum
             // 
@@ -858,6 +862,29 @@
             this.rbtnSrchByName.Text = "نام‌مامور؛";
             this.rbtnSrchByName.UseVisualStyleBackColor = true;
             // 
+            // lblExtDt
+            // 
+            this.lblExtDt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblExtDt.AutoEllipsis = true;
+            this.lblExtDt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblExtDt.Location = new System.Drawing.Point(20, 241);
+            this.lblExtDt.Name = "lblExtDt";
+            this.lblExtDt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblExtDt.Size = new System.Drawing.Size(203, 25);
+            this.lblExtDt.TabIndex = 34;
+            this.lblExtDt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label27
+            // 
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label27.AutoEllipsis = true;
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(258, 241);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(87, 25);
+            this.label27.TabIndex = 41;
+            this.label27.Text = "تاریخ تمدید:";
+            // 
             // frmSearch
             // 
             this.AcceptButton = this.btnShowInfo;
@@ -924,7 +951,7 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label lblAddr;
-        private System.Windows.Forms.Label lblRegDT;
+        private System.Windows.Forms.Label lblRegDt;
         private System.Windows.Forms.Label lblEmgNum;
         private System.Windows.Forms.Label lblCntcNum;
         private System.Windows.Forms.Label lblOnDutyCont;
@@ -946,5 +973,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lblExtDt;
     }
 }

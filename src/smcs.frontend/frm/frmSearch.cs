@@ -187,14 +187,13 @@ namespace smcs.frontend.frm
             lblOrdrBy.Text = mis.OrdrBy;
             lblCntcNum.Text = ag.Cntc;
             lblEmgNum.Text = ag.ECntc;
-            lblRegDT.Text = ag.TimeStmp.ToString(); // NOTE نمایش تاریخ‌وزمان قابل قبول است؟
+            lblRegDt.Text = ag.TimeStmp.ToString(); // NOTE نمایش تاریخ‌وزمان قابل قبول است؟
+            lblExtDt.Text = mis.DeadLine.ToShortDateString();
             lblAddr.Text = ag.Addr;
 
             lblOffDatCont.Text = extTotalDaysFromPeriodEntity<OffDay>(mis.MisId).ToString();
             lblAbsCont.Text = extTotalDaysFromPeriodEntity<Absence>(mis.MisId).ToString();
             lblOnDutyCont.Text = extTotalDaysFromPeriodEntity<OnDuty>(mis.MisId).ToString();
         }
-
-        
     }
 }
