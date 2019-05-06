@@ -12,11 +12,11 @@ namespace smcs.backend.data.model
 
         }
 
-        public History(string type, Iterative ent, string ag)
+        public History(Crud type, string ent, Int32 id)
         {
             this.Type = type;
             this.Entity = ent;
-            this.Agent = ag;
+            this.entId = ag;
             this.TimeStmp = DateTime.Now;
         }
 
@@ -24,11 +24,11 @@ namespace smcs.backend.data.model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
 
-        [Required] public string Type { get; set; }
+        [Required] public Crud Type { get; set; }
 
-        [Required] public Iterative Entity { get; set; }
+        [Required] public string Entity { get; set; }
 
-        public string Agent { get; set; }
+        public Int32 entId { get; set; }
 
         [Required] [Column(TypeName = "datetime2")] public DateTime TimeStmp { get; set; }
     }

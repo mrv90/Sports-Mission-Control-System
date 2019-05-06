@@ -52,6 +52,7 @@
     <Compile Include="biz\BizProvider.cs" />
     <Compile Include="biz\CrntUser.cs" />
     <Compile Include="biz\IBizProvider.cs" />
+    <Compile Include="data\access\Crud.cs" />
     <Compile Include="data\access\PairDataItem.cs" />
     <Compile Include="data\access\ConStrProvider.cs" />
     <Compile Include="data\access\DbSupplier.cs" />

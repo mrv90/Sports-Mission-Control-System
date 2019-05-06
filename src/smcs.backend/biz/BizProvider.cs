@@ -65,8 +65,8 @@ namespace smcs.backend.biz
         
         public void RegisterTheAgent(Mission mis, Agent ag)
         {
-            using (var repOfMiss = new Repository<Mission>(csName))
-                if (!repOfMiss.Add(mis))
+            using (var repOfMis = new Repository<Mission>(csName))
+                if (!repOfMis.Add(mis))
                     throw BizErrCod.DB_INS_FAIL;
 
             ag.MisRef = mis.MisId;
@@ -74,14 +74,20 @@ namespace smcs.backend.biz
             using (var repOfAgnts = new Repository<Agent>(csName))
                 if (!repOfAgnts.Add(ag)) //TODO smoketest: System.Data.Entity.Validation.DbEntityValidationException: 'Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.'
                     throw BizErrCod.DB_INS_FAIL;
+
+            using (var repOfHis = new Repository<History>(csName))
+                repOfHis.Add(new History(Crud.Create, "Mission", ag.Id));
         }
 
-        public void UpdateAgent(Agent agnt)
+        public void UpdateAgent(Agent ag)
         {
             //UNDONE بسیاری از مشخصات مامور به ماموریت انتقال یافته و اینجا صرفا ماموریت انتقال می‌یابد؟! 
             using (var repo = new Repository<Agent>(csName))
-                if (!repo.Upd(agnt))
+                if (!repo.Upd(ag))
                     throw BizErrCod.DB_UPDT_FAIL;
+
+            using (var repOfHis = new Repository<History>(csName))
+                repOfHis.Add(new History(Crud.Update, "Mission", ag.Id));
         }
 
         public void DismissTheAgent(Agent ag, DateTime retToUnt)
@@ -111,9 +117,12 @@ namespace smcs.backend.biz
                 if (!repOfMis.Upd(exMi))
                     throw BizErrCod.DB_UPDT_FAIL;
             }
+
+            using (var repOfHis = new Repository<History>(csName))
+                repOfHis.Add(new History(Crud.Delete, "Mission", ag.MisRef));
         }
 
-        public void RegisterTheAgentOnOffice(Agent agnt, Int32 offcId)
+        public void RegisterTheAgentOnOffice(Agent agnt, Int32 off)
         {
             // بهتر نیست که ثبت‌قسمت صرفا با شناسه مامور صورت بگیرد
             using (var repOfMis = new Repository<Mission>(csName))
@@ -194,9 +203,12 @@ namespace smcs.backend.biz
 
         private void WriteOperation<T>(T t) where T: Iterative
         {
-            using (var repo = new Repository<T>(csName))
-                if (!repo.Add(t))
+            using (var rep = new Repository<T>(csName))
+                if (!rep.Add(t))
                     throw BizErrCod.DB_INS_FAIL;
+
+            using (var repOfHis = new Repository<History>(csName))
+                repOfHis.Add(new History(Crud.Create, typeof(T).Name, t.Id));
         }
 
         private void NoOtherOperationShouldExistOnThisDate<T>(int misId, DateTime date) where T: Iterative
@@ -217,6 +229,9 @@ namespace smcs.backend.biz
                 iter.Enbl = false;
                 if (!repo.Upd(iter))
                     throw BizErrCod.DB_UPDT_FAIL;
+
+                using (var repOfHis = new Repository<History>(csName))
+                    repOfHis.Add(new History(Crud.Delete, typeof(T).Name, iter.Id));
             }
         }
     }
