@@ -176,6 +176,7 @@ namespace smcs.backend.biz
 
             // UNDONE نمایش انجام به کاربر
         }
+
         public void RemoveTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
         {
             int misId = -1;
@@ -199,6 +200,13 @@ namespace smcs.backend.biz
             }
             
             // UNDONE نمایش انجام به کاربر
+        }
+
+        public void UpdateSignature(Signature sign)
+        {
+            using (var rep = new Repository<Signature>())
+                if (!rep.Upd(sign))
+                    throw BizErrCod.DB_UPDT_FAIL;
         }
 
         /* ------------------ private merhod(es) ------------------ */
