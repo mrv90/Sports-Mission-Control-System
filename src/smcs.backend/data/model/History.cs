@@ -16,7 +16,7 @@ namespace smcs.backend.data.model
         {
             this.Type = type;
             this.Entity = ent;
-            this.entId = ag;
+            this.entId = id;
             this.TimeStmp = DateTime.Now;
         }
 

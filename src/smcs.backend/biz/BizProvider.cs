@@ -201,6 +201,8 @@ namespace smcs.backend.biz
             // UNDONE نمایش انجام به کاربر
         }
 
+        /* ------------------ private merhod(es) ------------------ */
+
         private void WriteOperation<T>(T t) where T: Iterative
         {
             using (var rep = new Repository<T>(csName))
