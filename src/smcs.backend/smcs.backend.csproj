@@ -74,7 +74,7 @@
     <Compile Include="data\model\Session.cs" />
     <Compile Include="data\model\basic\Sports.cs" />
     <Compile Include="data\model\basic\Unit.cs" />
-    <Compile Include="data\model\Signature.cs" />
+    <Compile Include="data\model\basic\Signature.cs" />
     <Compile Include="data\model\User.cs" />
     <Compile Include="data\SmcsContext.cs" />
     <Compile Include="ext\ConvertExtensionMethods.cs" />
