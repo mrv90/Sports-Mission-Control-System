@@ -1,0 +1,61 @@
+﻿---- delete from pmamor where thozor = '[Empty Value]'
+--select count(*) from pmamor
+--select * from pmamor
+------------------------------------------------------------------
+---- همه مامورها؛ چه داخل تیم و چه داخل باشگاه، بدون قسمت
+--select distinct daraje as N'درجه' , names as N'نام‌و‌نشان', nameyegan as N'یگان', reshte as N'رشته', thozor as N'تاریخ‌حضور', tpayan as N'تاریخ‌پایان' 
+--from pmamor 
+--where (daraje is not null and names is not null and nameyegan is not null and thozor is not null and tpayan is not null)
+----group by reshte, thozor
+--order by thozor, reshte asc
+------------------------------------------------------------------
+---- کل مامورهای ۹۵ و ۹۶ به تفکیک رشته
+--select distinct count(*)
+----select distinct daraje as N'درجه' , names as N'نام‌و‌نشان', nameyegan as N'یگان', reshte as N'رشته', thozor as N'تاریخ‌حضور', tpayan as N'تاریخ‌پایان' 
+--from pmamor 
+--where (daraje is not null and names is not null and nameyegan is not null and thozor is not null and tpayan is not null) and 
+--      (left(thozor, 2) = N'95' or left(thozor, 2) = N'96' or left(thozor, 4) = N'1395' or left(thozor, 2) = N'1396')
+----group by reshte
+--order by thozor, reshte asc
+------------------------------------------------------------------
+--select distinct reshte 
+--from pmamor
+--where (reshte is not null) and (left(thozor, 2) = N'95' or left(thozor, 2) = N'96' or left(thozor, 4) = N'1395' or left(thozor, 2) = N'1396')
+----------------------------------------------------------------
+--select distinct *
+--from pmamor
+--where 
+--	(reshte is not null) and 
+--	(left(thozor, 2) = N'96' or left(thozor, 4) = N'1396') and
+--	(reshte not in (N'سوارکاري', N'کشتي فرنگي', N'جهت يابي', N'سه گانه', N'هندبال', N'بدمينتون', N'بسکتبال', N'پنجگانه', N'کاراته', N'باستاني', N'جودو', N'کشتي آزاد', N'اسکيت', N'فوتبال',
+--					N'دفاع شخصي', N'شنا', N'شيرجه', N'واليبال', N'وزنه برداري', N'دو صحرانوردي', N'تکواندو', N'تنيس روي ميز', N'واترپلو', N'فوتبال نزاجا', N'پاورليفتينگ', N'فوتسال', 
+--					N'آمادگي جسماني', N'تيراندازي', N'دووميداني', N'تنيس ارضي', N'کيک بوکسينگ', N'بوکس'))					
+----------------------------------------------------------------
+--select distinct *
+--from pmamor
+--where 
+--	(reshte is not null) and 
+--	(left(thozor, 2) = N'95' or left(thozor, 4) = N'1395') and
+--	(reshte = N'دوچرخه سواري')
+----------------------------------------------------------------
+--select daraje as N'درجه' , names as N'نام‌و‌نشان', nameyegan as N'یگان', reshte as N'رشته', thozor as N'تاریخ‌حضور', tpayan as N'تاریخ‌پایان'
+--from pmamor
+--where 
+--	(reshte is not null)
+--and (left(thozor, 2) = N'97' or left(thozor, 4) = N'1397')
+----and (reshte = N'آمادگي جسماني')
+--order by reshte asc
+----------------------------------------------------------------
+--select distinct count(*)
+--from pmamor
+--where 
+--	(reshte is not null)
+--and (left(thozor, 2) = N'97' or left(thozor, 4) = N'1397')
+--and (reshte = N'کيک بوکسينگ')
+
+--select * from pmamor order by pkey desc
+----------------------------------------------------------------
+select distinct vaziat as N'وضعیت', daraje as N'درجه', names as N'نام‌و‌نشان', nameyegan as N'یگان', reshte as N'رشته', thozor as N'تاریخ‌حضور'--, tpayan
+from pmamor 
+where tpayan is null or LEN(tpayan) = 0
+order by thozor asc

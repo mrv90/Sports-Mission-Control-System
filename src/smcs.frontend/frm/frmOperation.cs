@@ -1,0 +1,256 @@
+﻿using smcs.backend.biz;
+using smcs.backend.data.access;
+using smcs.backend.data.model;
+using smcs.backend.data.model.basic;
+using smcs.backend.data.model.iterative;
+using smcs.backend.data.model.parent;
+using System;
+using System.Windows.Forms;
+
+namespace smcs.frontend.frm
+{
+    public partial class frmOperation : frmBase
+    {
+        public frmOperation()
+        {
+            InitializeComponent();
+        }
+
+        private void frmOperation_Load(object sender, EventArgs e)
+        {
+            /*UNDONE نام مامور را باید بتوان جستجو کرد*/
+            loadSearchBox<Agent>();
+            btnSelectAgent.Enabled = btnApply.Enabled = false;
+            cmbOprType.Items.AddRange(new PairDataItem[] {
+                new PairDataItem(1, "مرخصی"),
+                new PairDataItem(2, "امورخدمتی"),
+                new PairDataItem(3, "اعزام‌به‌بهداری"),
+                new PairDataItem(4, "نهست"),
+
+                //new PairDataItem(-1, "لغو مرخصی"),
+                //new PairDataItem(-2, "لغو امورخدمتی"),
+                //new PairDataItem(-3, "لغو اعزام‌به‌بهداری"),
+                //new PairDataItem(-4, "لغو نهست")
+            });
+        }
+
+        private void cmbOprType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            regulateControlsOnDemand();
+        }
+
+        private void rbtnSingleAgent_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnSingleAgent.Checked)
+            {
+                cmbSearchAgnts.Items.Clear();
+                loadSearchBox<Agent>();
+            }
+
+            regulateControlsOnDemand();
+        }
+
+        private void rbtnWholeOffice_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnWholeOffice.Checked)
+            {
+                cmbSearchAgnts.Items.Clear();
+                loadSearchBox<Office>();
+            }
+
+            regulateControlsOnDemand();
+        }
+
+        private void cmbSearchAgnts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            regulateControlsOnDemand();
+        }
+
+        private void btnSelectAgent_Click(object sender, EventArgs e)
+        {
+            if (rbtnSingleAgent.Checked)
+                lstMarkedAgnts.Items.Add(cmbSearchAgnts.SelectedItem);
+
+            else if (rbtnWholeOffice.Checked)
+            {
+                using (var repOfMi = new Repository<Mission>())
+                {
+                    foreach (Mission mi in repOfMi.RetList(m => m.OffcRef == ((PairDataItem)cmbSearchAgnts.SelectedItem).Id && m.Enbl == true))
+                    {
+                        using (var repOfAg = new Repository<Agent>())
+                        {
+                            var ag = repOfAg.Ret(a => a.MisRef == mi.MisId && a.Enbl == true);
+                            lstMarkedAgnts.Items.Add(new PairDataItem(ag.Id, ag.Name));
+                        }
+                    }
+                }
+            }
+
+            else
+                return;
+
+            regulateControlsOnDemand();
+        }
+
+        private void rbtnSingleDay_CheckedChanged(object sender, EventArgs e)
+        {
+            regulateControlsOnDemand();
+        }
+
+        private void rbtnTimespan_CheckedChanged(object sender, EventArgs e)
+        {
+            regulateControlsOnDemand();
+        }
+
+        private void btnSelectDate_Click(object sender, EventArgs e)
+        {
+            if (rbtnSingleDay.Checked)
+                lstMarkedDates.Items.Add(dPickFrom.Value.ToShortDateString());
+
+            else if (rbtnTimespan.Checked)
+            {
+                for (DateTime d = dPickFrom.Value.Date; d <= dPickUntil.Value.Date; d.AddDays(1))
+                    lstMarkedDates.Items.Add(d);
+            }
+
+            else
+                return;
+
+            regulateControlsOnDemand();
+        }
+
+        private void lstMarkedAgnts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstMarkedAgnts.SelectedIndex != ListBox.NoMatches)
+                cmuWholeForm.Show(Cursor.Position);
+        }
+
+        private void lstMarkedDates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstMarkedDates.SelectedIndex != ListBox.NoMatches)
+                cmuWholeForm.Show(Cursor.Position);
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            int flag = 0;
+            switch (((PairDataItem)cmbOprType.SelectedItem).Value)
+            {
+                case "مرخصی":
+                    flag = 1;
+                    break;
+                //case "لغو مرخصی":
+                //    flag = -1;
+                //    break;
+                case "امورخدمتی":
+                    flag = 2;
+                    break;
+                //case "لغو امورخدمتی":
+                //    flag = -2;
+                //    break;
+                case "اعزام‌به‌بهداری":
+                    flag = 3;
+                    break;
+                //case "لغو اعزام‌به‌بهداری":
+                //    flag = -3;
+                //    break;
+                case "نهست":
+                    flag = 4;
+                    break;
+                //case "لغو نهست":
+                //    flag = -4;
+                //    break;
+            }
+
+            foreach (PairDataItem ag in lstMarkedAgnts.Items)
+            {
+                var biz = new BizProvider();
+                foreach (string shortDT in lstMarkedDates.Items)
+                {
+                    switch (flag) {
+                        case -1:
+                            biz.RemoveTheAgentsIteration<OffDay>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        case 1:
+                            biz.WriteTheAgentsIteration<OffDay>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        case -2:
+                            biz.RemoveTheAgentsIteration<OnDuty>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        case 2:
+                            biz.WriteTheAgentsIteration<OnDuty>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        case -3:
+                            biz.RemoveTheAgentsIteration<UndTreat>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        case 3:
+                            biz.WriteTheAgentsIteration<UndTreat>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        case -4:
+                            biz.RemoveTheAgentsIteration<Absence>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        case 4:
+                            biz.WriteTheAgentsIteration<Absence>(ag.Id, DateTime.Parse(shortDT));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            clearAll();
+        }
+
+        private void loadSearchBox<T>() where T: Base
+        {
+            using (var rep = new Repository<T>())
+            {
+                foreach (var e in rep.RetList(e => e.Enbl == true))
+                    cmbSearchAgnts.Items.Add(new PairDataItem(e.Id, e.Name));
+            }
+        }
+
+        private Office[] loadAllAgentsOfSingleOffice(string office) {
+            using (var repo = new Repository<Office>())
+                return repo.RetList(e => e.Name == office && e.Enbl == true).ToArray();
+        }
+
+        private void regulateControlsOnDemand()
+        {
+            lblAgentCount.Text = lstMarkedAgnts.Items.Count.ToString();
+            lblDaysCount.Text = lstMarkedDates.Items.Count.ToString();
+
+            btnApply.Enabled = true ? (cmbOprType.SelectedIndex != -1 && 
+                                       lstMarkedDates.Items.Count > 0 && 
+                                       lstMarkedAgnts.Items.Count > 0) : false;
+
+            btnSelectAgent.Enabled = true ? cmbSearchAgnts.SelectedIndex != -1 : false;
+
+            lblPickUntil.Enabled = dPickUntil.Enabled = true ? rbtnTimespan.Checked : false;
+        }
+
+        private void tspRem_Click(object sender, EventArgs e)
+        {
+            if (lstMarkedAgnts.Focused)
+                lstMarkedAgnts.Items.Remove(lstMarkedAgnts.SelectedItem);
+                
+            else if (lstMarkedDates.Focused)
+                lstMarkedDates.Items.Remove(lstMarkedDates.SelectedItem);
+                
+            regulateControlsOnDemand();
+        }
+
+        protected override void clearAll()
+        {
+            base.clearAll();
+
+            lblAgentCount.Text = "0";
+            lstMarkedAgnts.Items.Clear();
+            lblDaysCount.Text = "0";
+            lstMarkedDates.Items.Clear();
+        }        
+    }
+}

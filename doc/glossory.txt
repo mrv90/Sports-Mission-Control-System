@@ -1,0 +1,14 @@
+﻿athlete ورزشکار
+agent مامور
+absence نهست
+day off مرخصی
+office قسمت
+unit یگان
+military rank درجه نظامی
+sport رشته ورزشی
+mission extension تمدید ماموریت
+user authentication احراز هویت کاربر
+dismissed پایان خوردن
+on duty امور خدمتی
+session نشست
+------------------------------------------

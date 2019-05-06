@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C9482F97-BCCA-492B-BBAD-696342934C5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>smcs.backend</RootNamespace>
+    <AssemblyName>smcs.backend</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="biz\BizErrorCodes.cs" />
+    <Compile Include="biz\BizProvider.cs" />
+    <Compile Include="biz\CrntUser.cs" />
+    <Compile Include="biz\IBizProvider.cs" />
+    <Compile Include="data\access\PairDataItem.cs" />
+    <Compile Include="data\access\ConStrProvider.cs" />
+    <Compile Include="data\access\DbSupplier.cs" />
+    <Compile Include="data\access\IRepository.cs" />
+    <Compile Include="data\access\IUnitOfWork.cs" />
+    <Compile Include="data\access\Repository.cs" />
+    <Compile Include="data\access\SqlProvider.cs" />
+    <Compile Include="data\access\UnitOfWork.cs" />
+    <Compile Include="data\model\iterative\Absence.cs" />
+    <Compile Include="data\model\Agent.cs" />
+    <Compile Include="data\model\iterative\UndTreat.cs" />
+    <Compile Include="data\model\Operation.cs" />
+    <Compile Include="data\model\parent\Iterative.cs" />
+    <Compile Include="data\model\parent\Base.cs" />
+    <Compile Include="data\model\Mission.cs" />
+    <Compile Include="data\model\iterative\OffDay.cs" />
+    <Compile Include="data\model\basic\Office.cs" />
+    <Compile Include="data\model\iterative\OnDuty.cs" />
+    <Compile Include="data\model\basic\Rank.cs" />
+    <Compile Include="data\model\Session.cs" />
+    <Compile Include="data\model\basic\Sports.cs" />
+    <Compile Include="data\model\basic\Unit.cs" />
+    <Compile Include="data\model\Signature.cs" />
+    <Compile Include="data\model\User.cs" />
+    <Compile Include="data\SmcsContext.cs" />
+    <Compile Include="ext\ConvertExtensionMethods.cs" />
+    <Compile Include="ext\DateTimeExtensionMethod.cs" />
+    <Compile Include="ext\StringExtensionMethods.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="rpt\tmpl\rptIntvw.frx" />
+    <None Include="rpt\tmpl\rptOffDay.frx" />
+    <None Include="rpt\tmpl\rptOnDuty.frx" />
+    <None Include="rpt\tmpl\rptRetToUnt.frx" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

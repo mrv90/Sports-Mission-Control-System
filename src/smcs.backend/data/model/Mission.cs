@@ -1,0 +1,42 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace smcs.backend.data.model
+{
+    public class Mission
+    {
+        internal Mission()
+        {
+
+        }
+
+        public Mission(DateTime init, Int32 sprtRef, Int32 offcRef, string ordr, Int32 sesRef)
+        {
+            this.InitDate = init;
+            this.SprtRef = sprtRef;
+            this.OrdrBy = ordr;
+            this.OffcRef = offcRef;
+            this.SesRef = sesRef;
+            this.TimeStmp = DateTime.Now;
+            this.Enbl = true;
+        }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required] public Int32 MisId { get; set; }
+        [Required] [Column(TypeName = "datetime2")] public DateTime InitDate { get; set; }
+        [Column(TypeName = "datetime2")] public DateTime? Ret2UntDate { get; set; }
+        [Required] public Int32 SprtRef { get; set; }
+        public Int32 OffcRef { get; set; }
+        [Required] public string OrdrBy { get; set; } // پذیرش به دستور چه کسی انجام پذیرفته
+        [Required] public Int32 SesRef { get; set; }
+        [Required] [Column(TypeName = "datetime2")] public DateTime TimeStmp { get; set; } // تاریخ‌وزمان آخرین بروز‌رسانی
+        [Required] public bool Enbl { get; set; }
+
+        public string InitDesc { get; set; }
+        public string TermDesc { get; set; }        
+
+        //TODO فیلد ارسال پایان به یگان افزوده شود
+    }
+}
