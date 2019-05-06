@@ -1,4 +1,5 @@
-﻿using smcs.backend.data.access;
+﻿using smcs.backend.biz;
+using smcs.backend.data.access;
 using smcs.backend.data.model;
 using smcs.backend.data.model.basic;
 using System;
@@ -51,12 +52,24 @@ namespace smcs.frontend.frm
 
         private void btnApply_Click(object sender, System.EventArgs e)
         {
-            //UNDONE افزودن بیزنس مناسب برای بروز کردن مامورین
+            if (lstMarkedAgnts.Items.Count > 0)
+            {
+                var biz = new BizProvider();
+                foreach (PairDataItem it in lstMarkedAgnts.Items)
+                {
+                    using (var rep = new Repository<Agent>())
+                    {
+                        var mi = rep.Ret(a => a.Id == it.Id);
+                        biz.ExtendMission(mi.Id, dPickUntil.Value);
+                    }
+                }
 
-            updateUI();
+                updateUI();
 
-            //if (chkGenRpt.Checked)
-                //UNDONE چاپ گزارش تمدید با امضاها مورد نیاز
+                //if (chkGenRpt.Checked)
+                    //UNDONE چاپ گزارش تمدید با امضاها مورد نیاز
+            }
+
         }
 
         /* ------------------ private method(es) ------------------ */

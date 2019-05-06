@@ -6,7 +6,7 @@ using System;
 
 namespace smcs.backend.biz
 {
-    public class BizProvider : IBizProvider
+    public class BizProvider
     {
         readonly string csName = "end-user";
 
@@ -207,6 +207,16 @@ namespace smcs.backend.biz
             using (var rep = new Repository<Signature>())
                 if (!rep.Upd(sign))
                     throw BizErrCod.DB_UPDT_FAIL;
+        }
+
+        public void ExtendMission(Int32 mi, DateTime extDt)
+        {
+            using (var repOfMis = new Repository<Mission>())
+            {
+                var mis = repOfMis.Ret(m => m.MisId == mi);
+                mis.DeadLine = extDt;
+                repOfMis.Upd(mis);
+            }
         }
 
         /* ------------------ private merhod(es) ------------------ */

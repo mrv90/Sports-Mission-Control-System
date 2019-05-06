@@ -4,6 +4,7 @@ using System;
 
 namespace smcs.backend.biz
 {
+    [Obsolete("طراحی کلاس پیاده‌کننده را بدون ایجاد ارزش افزوده، پیچیده می‌کند", true)]
     public interface IBizProvider 
     {
         void Login(string usrNam, string pass);
