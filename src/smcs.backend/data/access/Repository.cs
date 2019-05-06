@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace smcs.backend.data.access
 {
-    public class Repository<T> : IDisposable, IRepository<T> where T: class
+    public class Repository<T> : IDisposable where T: class
     {
         IUnitOfWork unOfWrk;
 
@@ -37,13 +37,9 @@ namespace smcs.backend.data.access
             return unOfWrk.Commit();
         }
 
-        /// <summary>
-        /// NOTE if return IQueryable<T>, we cannot use IDisposalbe On UnitOfWork ..
-        /// because the only way to chech emptiness of generic IQueryable is .Any(), so
-        /// this LINQ extension method needs to access DbContext...or another way ??!
-        /// </summary>
-        /// <param name="expr">expression to evaluate on return proper results</param>
-        /// <returns></returns>
+        /*using IQueryable<T>, we cannot use IDisposalbe On UnitOfWork ..
+          because the only way to chech emptiness of generic IQueryable is .Any(), so
+          this LINQ extension method needs to access DbContext...or another way ??! */
         public virtual T Ret(Expression<Func<T, bool>> expr)
         {
             /*UNDONE InvalidOperationException: The class 'smcs.backend.data.model.iterative.OffDay' has no parameterless constructor.*/
@@ -69,7 +65,7 @@ namespace smcs.backend.data.access
             return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).ToList();
         }
 
-        public bool Upd(T t)
+        internal bool Upd(T t)
         {
             unOfWrk.Cntx.Entry(t).State = EntityState.Modified;
             //unOfWrk.Cntx.Set<T>().Attach(t); // this method prevent dbcontext from saving ..
@@ -81,7 +77,7 @@ namespace smcs.backend.data.access
             return unOfWrk.Commit();
         }
 
-        public bool Del(T t)
+        internal bool Del(T t)
         {
             T existing = unOfWrk.Cntx.Set<T>().Find(t);
             if (existing != null)
