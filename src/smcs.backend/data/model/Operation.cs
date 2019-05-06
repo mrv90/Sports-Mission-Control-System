@@ -2,9 +2,9 @@
 
 namespace smcs.backend.data.model
 {
-    public class Operation : Base
+    public class History : Base
     {
-        internal Operation() : base()
+        internal History() : base()
         {
 
         }
