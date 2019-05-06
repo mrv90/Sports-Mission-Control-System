@@ -30,13 +30,14 @@
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblPickUntil = new System.Windows.Forms.Label();
+            this.btnSelectAll = new System.Windows.Forms.Button();
             this.lblLastExtDate = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblNotExtendedCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dPickUntil = new System.Windows.Forms.DateTimePicker();
             this.btnSelectAgent = new System.Windows.Forms.Button();
-            this.cmbSearchAgnts = new System.Windows.Forms.ComboBox();
+            this.cmbSearch = new System.Windows.Forms.ComboBox();
             this.rbtnWholeOffice = new System.Windows.Forms.RadioButton();
             this.rbtnSingleAgent = new System.Windows.Forms.RadioButton();
             this.lblAgentCount = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkGenRpt = new System.Windows.Forms.CheckBox();
             this.btnApply = new System.Windows.Forms.Button();
-            this.btnSelectAll = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +60,7 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.dPickUntil);
             this.groupBox2.Controls.Add(this.btnSelectAgent);
-            this.groupBox2.Controls.Add(this.cmbSearchAgnts);
+            this.groupBox2.Controls.Add(this.cmbSearch);
             this.groupBox2.Controls.Add(this.rbtnWholeOffice);
             this.groupBox2.Controls.Add(this.rbtnSingleAgent);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -79,17 +79,27 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lblPickUntil.AutoSize = true;
             this.lblPickUntil.Enabled = false;
-            this.lblPickUntil.Location = new System.Drawing.Point(64, 167);
+            this.lblPickUntil.Location = new System.Drawing.Point(62, 29);
             this.lblPickUntil.Name = "lblPickUntil";
             this.lblPickUntil.Size = new System.Drawing.Size(206, 26);
             this.lblPickUntil.TabIndex = 6;
             this.lblPickUntil.Text = "تا تاریخ: (آخرین تاریخ موجه)";
             // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.Location = new System.Drawing.Point(7, 234);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(256, 48);
+            this.btnSelectAll.TabIndex = 17;
+            this.btnSelectAll.Text = "انتخاب‌نفرات‌تمدید‌نشده‌تا‌این‌تاریخ";
+            this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            // 
             // lblLastExtDate
             // 
             this.lblLastExtDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLastExtDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblLastExtDate.Location = new System.Drawing.Point(12, 329);
+            this.lblLastExtDate.Location = new System.Drawing.Point(7, 195);
             this.lblLastExtDate.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblLastExtDate.Name = "lblLastExtDate";
             this.lblLastExtDate.Size = new System.Drawing.Size(256, 26);
@@ -101,7 +111,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(130, 299);
+            this.label3.Location = new System.Drawing.Point(122, 169);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 26);
@@ -112,7 +122,7 @@
             // 
             this.lblNotExtendedCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNotExtendedCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblNotExtendedCount.Location = new System.Drawing.Point(12, 264);
+            this.lblNotExtendedCount.Location = new System.Drawing.Point(7, 130);
             this.lblNotExtendedCount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblNotExtendedCount.Name = "lblNotExtendedCount";
             this.lblNotExtendedCount.Size = new System.Drawing.Size(256, 26);
@@ -124,7 +134,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(130, 233);
+            this.label1.Location = new System.Drawing.Point(125, 99);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(140, 26);
@@ -136,15 +146,16 @@
             this.dPickUntil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dPickUntil.Enabled = false;
-            this.dPickUntil.Location = new System.Drawing.Point(9, 196);
+            this.dPickUntil.Location = new System.Drawing.Point(7, 58);
             this.dPickUntil.Name = "dPickUntil";
             this.dPickUntil.Size = new System.Drawing.Size(256, 34);
             this.dPickUntil.TabIndex = 5;
+            this.dPickUntil.ValueChanged += new System.EventHandler(this.dPickUntil_ValueChanged);
             // 
             // btnSelectAgent
             // 
             this.btnSelectAgent.Font = new System.Drawing.Font("Samim", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelectAgent.Location = new System.Drawing.Point(9, 113);
+            this.btnSelectAgent.Location = new System.Drawing.Point(7, 377);
             this.btnSelectAgent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnSelectAgent.Name = "btnSelectAgent";
             this.btnSelectAgent.Size = new System.Drawing.Size(99, 36);
@@ -152,29 +163,30 @@
             this.btnSelectAgent.Text = "+";
             this.btnSelectAgent.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSelectAgent.UseVisualStyleBackColor = true;
+            this.btnSelectAgent.Click += new System.EventHandler(this.btnSelectAgent_Click);
             // 
-            // cmbSearchAgnts
+            // cmbSearch
             // 
-            this.cmbSearchAgnts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbSearchAgnts.AutoCompleteCustomSource.AddRange(new string[] {
+            this.cmbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSearch.AutoCompleteCustomSource.AddRange(new string[] {
             "علی ",
             "اکبر",
             "کاظم"});
-            this.cmbSearchAgnts.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmbSearchAgnts.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbSearchAgnts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSearchAgnts.FormattingEnabled = true;
-            this.cmbSearchAgnts.Location = new System.Drawing.Point(9, 69);
-            this.cmbSearchAgnts.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.cmbSearchAgnts.Name = "cmbSearchAgnts";
-            this.cmbSearchAgnts.Size = new System.Drawing.Size(256, 34);
-            this.cmbSearchAgnts.TabIndex = 3;
+            this.cmbSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSearch.FormattingEnabled = true;
+            this.cmbSearch.Location = new System.Drawing.Point(7, 337);
+            this.cmbSearch.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cmbSearch.Name = "cmbSearch";
+            this.cmbSearch.Size = new System.Drawing.Size(256, 34);
+            this.cmbSearch.TabIndex = 3;
             // 
             // rbtnWholeOffice
             // 
             this.rbtnWholeOffice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnWholeOffice.AutoSize = true;
-            this.rbtnWholeOffice.Location = new System.Drawing.Point(41, 29);
+            this.rbtnWholeOffice.Location = new System.Drawing.Point(39, 297);
             this.rbtnWholeOffice.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.rbtnWholeOffice.Name = "rbtnWholeOffice";
             this.rbtnWholeOffice.Size = new System.Drawing.Size(104, 30);
@@ -182,13 +194,14 @@
             this.rbtnWholeOffice.TabStop = true;
             this.rbtnWholeOffice.Text = "کل‌قسمت.";
             this.rbtnWholeOffice.UseVisualStyleBackColor = true;
+            this.rbtnWholeOffice.CheckedChanged += new System.EventHandler(this.rbtnWholeOffice_CheckedChanged);
             // 
             // rbtnSingleAgent
             // 
             this.rbtnSingleAgent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnSingleAgent.AutoSize = true;
             this.rbtnSingleAgent.Checked = true;
-            this.rbtnSingleAgent.Location = new System.Drawing.Point(157, 29);
+            this.rbtnSingleAgent.Location = new System.Drawing.Point(155, 297);
             this.rbtnSingleAgent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.rbtnSingleAgent.Name = "rbtnSingleAgent";
             this.rbtnSingleAgent.Size = new System.Drawing.Size(108, 30);
@@ -196,6 +209,7 @@
             this.rbtnSingleAgent.TabStop = true;
             this.rbtnSingleAgent.Text = "مامور‌منفرد؛";
             this.rbtnSingleAgent.UseVisualStyleBackColor = true;
+            this.rbtnSingleAgent.CheckedChanged += new System.EventHandler(this.rbtnSingleAgent_CheckedChanged);
             // 
             // lblAgentCount
             // 
@@ -262,21 +276,13 @@
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(9, 374);
+            this.btnApply.Location = new System.Drawing.Point(9, 365);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(116, 48);
             this.btnApply.TabIndex = 17;
             this.btnApply.Text = "اعمال";
             this.btnApply.UseVisualStyleBackColor = true;
-            // 
-            // btnSelectAll
-            // 
-            this.btnSelectAll.Location = new System.Drawing.Point(12, 374);
-            this.btnSelectAll.Name = "btnSelectAll";
-            this.btnSelectAll.Size = new System.Drawing.Size(256, 48);
-            this.btnSelectAll.TabIndex = 17;
-            this.btnSelectAll.Text = "انتخاب کل نفرات تمدید نشده";
-            this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // frmMissionExtension
             // 
@@ -290,6 +296,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "frmMissionExtension";
             this.Text = "تمدید ماموریت";
+            this.Load += new System.EventHandler(this.frmMissionExtension_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -305,7 +312,7 @@
         private System.Windows.Forms.Label lblAgentCount;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSelectAgent;
-        private System.Windows.Forms.ComboBox cmbSearchAgnts;
+        private System.Windows.Forms.ComboBox cmbSearch;
         private System.Windows.Forms.RadioButton rbtnWholeOffice;
         private System.Windows.Forms.RadioButton rbtnSingleAgent;
         private System.Windows.Forms.GroupBox groupBox1;
