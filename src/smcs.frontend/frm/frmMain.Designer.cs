@@ -131,56 +131,56 @@
             // searchMenuItem
             // 
             this.searchMenuItem.Name = "searchMenuItem";
-            this.searchMenuItem.Size = new System.Drawing.Size(182, 30);
+            this.searchMenuItem.Size = new System.Drawing.Size(184, 30);
             this.searchMenuItem.Text = "جستجو";
             this.searchMenuItem.Click += new System.EventHandler(this.serchMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(181, 6);
             // 
             // dataEntryMenuItem
             // 
             this.dataEntryMenuItem.Name = "dataEntryMenuItem";
-            this.dataEntryMenuItem.Size = new System.Drawing.Size(182, 30);
-            this.dataEntryMenuItem.Text = "پذیرش/ویرایش";
+            this.dataEntryMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.dataEntryMenuItem.Text = "پذیرش|ویرایش";
             this.dataEntryMenuItem.Click += new System.EventHandler(this.dataEntryMenuItem_Click);
             // 
             // operationMenuItem
             // 
             this.operationMenuItem.Name = "operationMenuItem";
-            this.operationMenuItem.Size = new System.Drawing.Size(182, 30);
+            this.operationMenuItem.Size = new System.Drawing.Size(184, 30);
             this.operationMenuItem.Text = "گردش‌کار";
             this.operationMenuItem.Click += new System.EventHandler(this.operationMenuItem_Click);
             // 
             // terminateOperationMenuItem
             // 
             this.terminateOperationMenuItem.Name = "terminateOperationMenuItem";
-            this.terminateOperationMenuItem.Size = new System.Drawing.Size(182, 30);
+            this.terminateOperationMenuItem.Size = new System.Drawing.Size(184, 30);
             this.terminateOperationMenuItem.Text = "پایان";
             this.terminateOperationMenuItem.Click += new System.EventHandler(this.terminateOperationMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 6);
             // 
             // removeOperationMenuItem
             // 
             this.removeOperationMenuItem.Name = "removeOperationMenuItem";
-            this.removeOperationMenuItem.Size = new System.Drawing.Size(182, 30);
+            this.removeOperationMenuItem.Size = new System.Drawing.Size(184, 30);
             this.removeOperationMenuItem.Text = "لغو عملیات";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
             // 
             // missionExtensionMenuItem
             // 
             this.missionExtensionMenuItem.Name = "missionExtensionMenuItem";
-            this.missionExtensionMenuItem.Size = new System.Drawing.Size(182, 30);
+            this.missionExtensionMenuItem.Size = new System.Drawing.Size(184, 30);
             this.missionExtensionMenuItem.Text = "تمدید ماموریت";
             this.missionExtensionMenuItem.Click += new System.EventHandler(this.missionExtensionMenuItem_Click);
             // 

@@ -26,11 +26,7 @@ namespace smcs.frontend.frm
                 new PairDataItem(2, "امورخدمتی"),
                 new PairDataItem(3, "اعزام‌به‌بهداری"),
                 new PairDataItem(4, "نهست"),
-
-                //new PairDataItem(-1, "لغو مرخصی"),
-                //new PairDataItem(-2, "لغو امورخدمتی"),
-                //new PairDataItem(-3, "لغو اعزام‌به‌بهداری"),
-                //new PairDataItem(-4, "لغو نهست")
+                /*TODO مکانیزم مستثنی از آمار، افزوده شود*/
             });
         }
 
@@ -139,27 +135,15 @@ namespace smcs.frontend.frm
                 case "مرخصی":
                     flag = 1;
                     break;
-                //case "لغو مرخصی":
-                //    flag = -1;
-                //    break;
                 case "امورخدمتی":
                     flag = 2;
                     break;
-                //case "لغو امورخدمتی":
-                //    flag = -2;
-                //    break;
                 case "اعزام‌به‌بهداری":
                     flag = 3;
                     break;
-                //case "لغو اعزام‌به‌بهداری":
-                //    flag = -3;
-                //    break;
                 case "نهست":
                     flag = 4;
                     break;
-                //case "لغو نهست":
-                //    flag = -4;
-                //    break;
             }
 
             foreach (PairDataItem ag in lstMarkedAgnts.Items)
@@ -168,26 +152,14 @@ namespace smcs.frontend.frm
                 foreach (string shortDT in lstMarkedDates.Items)
                 {
                     switch (flag) {
-                        case -1:
-                            biz.RemoveTheAgentsIteration<OffDay>(ag.Id, DateTime.Parse(shortDT));
-                            break;
                         case 1:
                             biz.WriteTheAgentsIteration<OffDay>(ag.Id, DateTime.Parse(shortDT));
-                            break;
-                        case -2:
-                            biz.RemoveTheAgentsIteration<OnDuty>(ag.Id, DateTime.Parse(shortDT));
                             break;
                         case 2:
                             biz.WriteTheAgentsIteration<OnDuty>(ag.Id, DateTime.Parse(shortDT));
                             break;
-                        case -3:
-                            biz.RemoveTheAgentsIteration<UndTreat>(ag.Id, DateTime.Parse(shortDT));
-                            break;
                         case 3:
                             biz.WriteTheAgentsIteration<UndTreat>(ag.Id, DateTime.Parse(shortDT));
-                            break;
-                        case -4:
-                            biz.RemoveTheAgentsIteration<Absence>(ag.Id, DateTime.Parse(shortDT));
                             break;
                         case 4:
                             biz.WriteTheAgentsIteration<Absence>(ag.Id, DateTime.Parse(shortDT));
