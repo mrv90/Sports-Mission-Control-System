@@ -12,7 +12,7 @@ namespace smcs.backend.data.model
 
         }
 
-        public History(Iterative type, string ent, string ag)
+        public History(string type, Iterative ent, string ag)
         {
             this.Type = type;
             this.Entity = ent;
@@ -23,9 +23,9 @@ namespace smcs.backend.data.model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
 
-        [Required] public Iterative Type { get; set; }
+        [Required] public string Type { get; set; }
 
-        [Required] public string Entity { get; set; }
+        [Required] public Iterative Entity { get; set; }
 
         public string Agent { get; set; }
     }
