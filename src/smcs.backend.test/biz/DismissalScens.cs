@@ -15,16 +15,16 @@ namespace smcs.backend.test.biz
         {
             using (ShimsContext.Create())
             {
-                var agnt = new Agent("احسان کاظمی", 1, "علی‌اصغر", "1234567890", new DateTime(1397, 1, 1),
+                var ag = new Agent("احسان کاظمی", 1, "علی‌اصغر", "1234567890", new DateTime(1397, 1, 1),
                     "(912)1234567", "(21)12345678", 1, -1);
-                agnt.Enbl = false;
+                ag.Enbl = false;
                 data.access.Fakes.ShimRepository<data.model.Agent>.AllInstances.RetExpressionOfFuncOfT0Boolean =
-                    delegate { return agnt; };
+                    delegate { return ag; };
                 data.access.Fakes.ShimRepository<data.model.Session>.AllInstances.RetExpressionOfFuncOfT0Boolean =
                     delegate { return null; };
 
                 var biz = new BizProvider("lab");
-                biz.DismissTheAgent(agnt);
+                biz.DismissTheAgent(ag, DateTime.Now.Date.AddDays(14));
             }
         }
 
@@ -33,10 +33,10 @@ namespace smcs.backend.test.biz
         {
             using (ShimsContext.Create())
             {
-                var agnt = new Agent("علی علیانی", 1, "اکبر", "1234567890", new DateTime(1397, 1, 1),
+                var ag = new Agent("علی علیانی", 1, "اکبر", "1234567890", new DateTime(1397, 1, 1),
                             "(912)1234567", "(21)12345678", 1, -1);
                 data.access.Fakes.ShimRepository<data.model.Agent>.AllInstances.RetExpressionOfFuncOfT0Boolean =
-                    delegate { return agnt; };
+                    delegate { return ag; };
                 data.access.Fakes.ShimRepository<data.model.Session>.AllInstances.RetExpressionOfFuncOfT0Boolean =
                     delegate { return new Session(1); };
                 data.access.Fakes.ShimRepository<data.model.Agent>.AllInstances.UpdT0 =
@@ -45,7 +45,7 @@ namespace smcs.backend.test.biz
                     delegate { return true; };
 
                 var biz = new BizProvider("lab");
-                biz.DismissTheAgent(agnt);
+                biz.DismissTheAgent(ag, DateTime.Now.Date.AddDays(14));
             }
         }
     }

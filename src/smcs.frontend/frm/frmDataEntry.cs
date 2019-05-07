@@ -82,17 +82,31 @@ namespace smcs.frontend.frm
 
             else if (rbtnModfAgnt.Checked)
             {
+                var biz = new BizProvider();
+
+                Agent ag;
                 using (var repOfAgnt = new Repository<Agent>())
+                    ag = notCommitedAgentUpdate(repOfAgnt, true);
+
+                Mission mi;
+                using (var rep = new Repository<Mission>())
+                    mi = rep.Ret(m => m.MisId == ag.MisRef);
+
+                mi.InitDate = dPickDteOfRecp.Value.Date;
+                mi.SprtRef = ((PairDataItem)cmbSprt.SelectedItem).Id;
+                mi.OffcRef = ((PairDataItem)cmbOffc.SelectedItem).Id;
+                mi.OrdrBy = txtOrdrBy.Text.Trim();
+                mi.InitDesc = txtDesc.Text.Trim();
+                mi.TimeStmp = DateTime.Now;
+
+                try
                 {
-                    Agent agnt = notCommitedAgentUpdate(repOfAgnt, true);
-
-                    using (var repOfMiss = new Repository<Mission>())
-                        commitedMissionUpdate(agnt, repOfMiss);
-
-                    if (repOfAgnt.Upd(agnt))
-                        tslblStatus.Text = string.Format("بروزرسانی مامور {0} با کدملی {1} انجام شد", txtName.Text.Trim(), mtxtNtioSearch.Text.Trim());
-                    else
-                        tslblStatus.Text = "خطا"; // TODO نوع خطا از کجا آورده شود؟؟
+                    biz.UpdateAgent(ag, mi);
+                    tslblStatus.Text = string.Format("بروزرسانی مامور {0} با کدملی {1} انجام شد", txtName.Text.Trim(), mtxtNtioSearch.Text.Trim());
+                }
+                catch (Exception)
+                {
+                    tslblStatus.Text = "خطا"; // TODO نوع خطا از کجا آورده شود؟؟
                 }
             }
 
@@ -100,16 +114,22 @@ namespace smcs.frontend.frm
             {
                 using (var repOfAgnt = new Repository<Agent>())
                 {
-                    Agent agnt = notCommitedAgentUpdate(repOfAgnt, true);
+                    Agent ag = notCommitedAgentUpdate(repOfAgnt, true);
 
-                    using (var repOfMiss = new Repository<Mission>())
-                        repOfMiss.Add(new Mission(dPickDteOfRecp.Value, ((PairDataItem)cmbOffc.SelectedItem).Id, 
+                    using (var rep = new Repository<Mission>())
+                        rep.Add(new Mission(dPickDteOfRecp.Value, ((PairDataItem)cmbOffc.SelectedItem).Id, 
                             ((PairDataItem)cmbSprt.SelectedItem).Id, txtOrdrBy.Text.Trim(), CrntUser.SesId));
 
-                    if (repOfAgnt.Upd(agnt))
+                    try
+                    {
+                        var biz = new BizProvider();
+                        biz.UpdateAgent(ag);
                         tslblStatus.Text = string.Format("پذیرش مجدد مامور {0} با کدملی {1} انجام شد", txtName.Text.Trim(), mtxtNtioSearch.Text.Trim());
-                    else
+                    }
+                    catch (Exception)
+                    {
                         tslblStatus.Text = "خطا"; // TODO نوع خطا از کجا آورده شود؟؟
+                    }
                 }
             }
 
@@ -178,19 +198,6 @@ namespace smcs.frontend.frm
             agnt.Enbl = true; // مامور می‌تواند از سوابق پذیرش شود
 
             return agnt;
-        }
-
-        private void commitedMissionUpdate(Agent agnt, Repository<Mission> repOfMiss)
-        {
-            var mis = repOfMiss.Ret(m => m.MisId == agnt.MisRef);
-            mis.InitDate = dPickDteOfRecp.Value.Date;
-            mis.SprtRef = ((PairDataItem)cmbSprt.SelectedItem).Id;
-            mis.OffcRef = ((PairDataItem)cmbOffc.SelectedItem).Id;
-            mis.OrdrBy = txtOrdrBy.Text.Trim();
-            mis.InitDesc = txtDesc.Text.Trim();
-            mis.TimeStmp = DateTime.Now;
-
-            repOfMiss.Upd(mis);
         }
     }
 }

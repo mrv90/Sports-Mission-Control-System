@@ -81,7 +81,20 @@ namespace smcs.backend.biz
 
         public void UpdateAgent(Agent ag)
         {
-            //UNDONE بسیاری از مشخصات مامور به ماموریت انتقال یافته و اینجا صرفا ماموریت انتقال می‌یابد؟! 
+            using (var repo = new Repository<Agent>(csName))
+                if (!repo.Upd(ag))
+                    throw BizErrCod.DB_UPDT_FAIL;
+
+            using (var repOfHis = new Repository<History>(csName))
+                repOfHis.Add(new History(Crud.Update, "Mission", ag.Id));
+        }
+
+        public void UpdateAgent(Agent ag, Mission mi)
+        {
+            using (var repo = new Repository<Mission>(csName))
+                if (!repo.Upd(mi))
+                    throw BizErrCod.DB_UPDT_FAIL;
+
             using (var repo = new Repository<Agent>(csName))
                 if (!repo.Upd(ag))
                     throw BizErrCod.DB_UPDT_FAIL;

@@ -1,9 +1,8 @@
 ﻿using Microsoft.QualityTools.Testing.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using smcs.backend.biz;
-using smcs.backend.data;
 using smcs.backend.data.model;
-using smcs.backend.data.model.period;
+using smcs.backend.data.model.iterative;
 using System;
 
 namespace smcs.backend.test.biz
@@ -30,7 +29,7 @@ namespace smcs.backend.test.biz
                         delegate { return true; };
 
                 var biz = new BizProvider("lab");
-                biz.WriteTheAgentsPeriod<OnDuty>(agnt.AgntId, DateTime.Now.Date, DateTime.Now.Date);
+                biz.WriteTheAgentsIteration<OnDuty>(agnt.Id, DateTime.Now.Date);
             }
         }
 
@@ -44,12 +43,12 @@ namespace smcs.backend.test.biz
                 data.access.Fakes.ShimRepository<Agent>.AllInstances.RetExpressionOfFuncOfT0Boolean =
                         delegate { return agnt; };
                 data.access.Fakes.ShimRepository<OnDuty>.AllInstances.RetExpressionOfFuncOfT0Boolean =
-                        delegate { return new OnDuty(DateTime.Now.Date, DateTime.Now.Date, agnt.AgntId, CrntUser.SesId); };
+                        delegate { return new OnDuty(DateTime.Now.Date, agnt.Id, CrntUser.SesId); };
                 data.access.Fakes.ShimRepository<OnDuty>.AllInstances.UpdT0 =
                         delegate { return true; };
 
                 var biz = new BizProvider("lab");
-                biz.RemoveTheAgentsPeriod<OnDuty>(agnt.AgntId, DateTime.Now.Date, DateTime.Now.Date);
+                biz.RemoveTheAgentsIteration<OnDuty>(agnt.Id, DateTime.Now.Date);
             }
         }
 
@@ -64,10 +63,10 @@ namespace smcs.backend.test.biz
                 data.access.Fakes.ShimRepository<Agent>.AllInstances.RetExpressionOfFuncOfT0Boolean =
                         delegate { return agnt; };
                 data.access.Fakes.ShimRepository<OffDay>.AllInstances.RetExpressionOfFuncOfT0Boolean =
-                        delegate { return new OffDay(DateTime.Now.Date, DateTime.Now.Date, agnt.AgntId, CrntUser.SesId); };
+                        delegate { return new OffDay(DateTime.Now.Date, agnt.Id, CrntUser.SesId); };
 
                 var biz = new BizProvider("lab");
-                biz.WriteTheAgentsPeriod<OnDuty>(agnt.AgntId, DateTime.Now.Date, DateTime.Now.Date);
+                biz.WriteTheAgentsIteration<OnDuty>(agnt.Id, DateTime.Now.Date);
             }
         }
 
@@ -86,10 +85,10 @@ namespace smcs.backend.test.biz
                 data.access.Fakes.ShimRepository<OnDuty>.AllInstances.RetExpressionOfFuncOfT0Boolean =
                         delegate { return null; };
                 data.access.Fakes.ShimRepository<Absence>.AllInstances.RetExpressionOfFuncOfT0Boolean =
-                        delegate { return new Absence(DateTime.Now.Date, DateTime.Now.Date, agnt.AgntId, CrntUser.SesId); };
+                        delegate { return new Absence(DateTime.Now.Date, agnt.Id, CrntUser.SesId); };
 
                 var biz = new BizProvider("lab");
-                biz.WriteTheAgentsPeriod<OnDuty>(agnt.AgntId, DateTime.Now.Date, DateTime.Now.Date);
+                biz.WriteTheAgentsIteration<OnDuty>(agnt.Id, DateTime.Now.Date);
             }
         }
     }

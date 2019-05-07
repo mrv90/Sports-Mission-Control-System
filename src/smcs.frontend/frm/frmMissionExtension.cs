@@ -69,7 +69,6 @@ namespace smcs.frontend.frm
                 //if (chkGenRpt.Checked)
                     //UNDONE چاپ گزارش تمدید با امضاها مورد نیاز
             }
-
         }
 
         /* ------------------ private method(es) ------------------ */
