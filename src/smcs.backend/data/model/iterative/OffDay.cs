@@ -13,6 +13,8 @@ namespace smcs.backend.data.model.iterative
         public OffDay(DateTime date, Int32 misRef, Int32 sesRef) : base(date, misRef, sesRef)
         {
             
-        }        
+        }
+
+        //UNDONE افزودن محل مرخصی
     }
 }
