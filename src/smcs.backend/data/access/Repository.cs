@@ -44,14 +44,16 @@ namespace smcs.backend.data.access
         {
             /*UNDONE InvalidOperationException: The class 'smcs.backend.data.model.iterative.OffDay' has no parameterless constructor.*/
             /*UNDONE System.InvalidOperationException: 'The entity type UndTreat is not part of the model for the current context.'*/
-            return unOfWrk.Cntx.Set<T>().Where(expr).FirstOrDefault();
+            return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
         }
 
+        [Obsolete("ظاهرا برای بعضی موارد کار نمیکنه..", true)]
         public virtual T RetMax(Expression<Func<T, bool>> expr)
         {
             /*UNDONE System.NotSupportedException: 'LINQ to Entities does not recognize the method 'smcs.backend.data.model.Agent 
              * LastOrDefault[Agent](System.Linq.IQueryable`1[smcs.backend.data.model.Agent])' method, and this method cannot be translated into a store expression.'*/
-            return unOfWrk.Cntx.Set<T>().Where(expr).LastOrDefault();
+            //return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).OrderByDescending().First();
+            return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).Max();
         }
 
         public List<T> RetList(Expression<Func<T, bool>> expr)
