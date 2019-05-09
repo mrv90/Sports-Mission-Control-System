@@ -25,6 +25,8 @@ namespace smcs.frontend.frm
                 using (var repOfAg = new Repository<Agent>())
                     ag = repOfAg.Ret(a => a.NtioCode == mtxtNtioSearch.Text.Trim() && a.Enbl == true);
                 lblAgntName.Text = ag.Name;
+                lblCntc.Text = ag.Cntc;
+                lblECntc.Text = ag.ECntc;
 
                 Mission mi;
                 using (var repOfMis = new Repository<Mission>())
@@ -41,12 +43,16 @@ namespace smcs.frontend.frm
                     AbsNum.Value = repOfAbs.Ret(b => b.MisRef == ag.MisRef && b.Enbl == true).TotalDays;
             }
         }
+
         private void btnApply_Click(object sender, EventArgs e)
         {
             if (ag != null)
             {
                 var biz = new BizProvider();
                 biz.DismissTheAgent(ag, dPickUntil.Value);
+
+                //if (chkGenRpt.Checked)
+                    /*UNDONE چاپ گزارش پایان*/
 
                 /*UNDONE اطلاع به کاربر در صورت موفق بودن*/
             }
