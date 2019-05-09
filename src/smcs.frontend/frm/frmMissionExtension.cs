@@ -17,14 +17,14 @@ namespace smcs.frontend.frm
 
         private void frmMissionExtension_Load(object sender, System.EventArgs e)
         {
-            loadNotExtendedAgents(DateTime.Now, null);
+            loadNotExtAgOnCmb(DateTime.Now, null);
             updateUI();
         }
 
         private void dPickUntil_ValueChanged(object sender, System.EventArgs e)
         {
             if (rbtnSingleAgent.Checked)
-                loadNotExtendedAgents(dPickUntil.Value, null);
+                loadNotExtAgOnCmb(dPickUntil.Value, null);
 
             updateUI();
         }
@@ -32,7 +32,7 @@ namespace smcs.frontend.frm
         private void rbtnSingleAgent_CheckedChanged(object sender, System.EventArgs e)
         {
             if (rbtnSingleAgent.Checked)
-                loadNotExtendedAgents(dPickUntil.Value, null);
+                loadNotExtAgOnCmb(dPickUntil.Value, null);
         }
 
         private void rbtnWholeOffice_CheckedChanged(object sender, System.EventArgs e)
@@ -41,14 +41,21 @@ namespace smcs.frontend.frm
                 loadAllOffices();
         }
 
-        private void btnSelectAll_Click(object sender, System.EventArgs e)
+        private void btnSelAllNotExt_Click(object sender, System.EventArgs e)
         {
-            selectAllAgents();
+            addNotExtAgToLst(null);
+
+            updateUI();
         }
 
-        private void btnSelectAgent_Click(object sender, System.EventArgs e)
+        private void btnSelAgOrWhlOfc_Click(object sender, System.EventArgs e)
         {
-            lstMarkedAgnts.Items.Add(cmbSearch.SelectedItem);
+            if (rbtnSingleAgent.Checked)
+                lstMarkedAgnts.Items.Add(cmbSearch.SelectedItem);
+            else if (rbtnWholeOffice.Checked)
+                addNotExtAgToLst(((PairDataItem)cmbSearch.SelectedItem).Id);
+
+            updateUI();
         }
 
         private void btnApply_Click(object sender, System.EventArgs e)
@@ -74,7 +81,7 @@ namespace smcs.frontend.frm
 
         /* ------------------ private method(es) ------------------ */
 
-        private void loadNotExtendedAgents(DateTime extDt, int? ofc)
+        private void loadNotExtAgOnCmb(DateTime extDt, int? ofc)
         {
             List<Mission> ls_of_mi;
             using (var repOfMi = new Repository<Mission>())
@@ -104,11 +111,16 @@ namespace smcs.frontend.frm
             }
         }
 
-        private void selectAllAgents()
+        private void addNotExtAgToLst(int? ofc)
         {
             List<Mission> ls_of_mi;
             using (var repOfMi = new Repository<Mission>())
-                ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < dPickUntil.Value);
+            {
+                if (ofc is null)
+                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < dPickUntil.Value.Date);
+                else
+                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < dPickUntil.Value.Date && m.OffcRef == ofc);
+            }
 
             using (var repOfAg = new Repository<Agent>())
             {

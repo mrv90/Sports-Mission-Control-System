@@ -30,13 +30,13 @@
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblPickUntil = new System.Windows.Forms.Label();
-            this.btnSelectAll = new System.Windows.Forms.Button();
+            this.btnSelAllNotExt = new System.Windows.Forms.Button();
             this.lblLastExtDate = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblNotExtendedCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dPickUntil = new System.Windows.Forms.DateTimePicker();
-            this.btnSelectAgent = new System.Windows.Forms.Button();
+            this.btnSelAgOrOfc = new System.Windows.Forms.Button();
             this.cmbSearch = new System.Windows.Forms.ComboBox();
             this.rbtnWholeOffice = new System.Windows.Forms.RadioButton();
             this.rbtnSingleAgent = new System.Windows.Forms.RadioButton();
@@ -53,13 +53,13 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lblPickUntil);
-            this.groupBox2.Controls.Add(this.btnSelectAll);
+            this.groupBox2.Controls.Add(this.btnSelAllNotExt);
             this.groupBox2.Controls.Add(this.lblLastExtDate);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.lblNotExtendedCount);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.dPickUntil);
-            this.groupBox2.Controls.Add(this.btnSelectAgent);
+            this.groupBox2.Controls.Add(this.btnSelAgOrOfc);
             this.groupBox2.Controls.Add(this.cmbSearch);
             this.groupBox2.Controls.Add(this.rbtnWholeOffice);
             this.groupBox2.Controls.Add(this.rbtnSingleAgent);
@@ -84,15 +84,15 @@
             this.lblPickUntil.TabIndex = 6;
             this.lblPickUntil.Text = "تا تاریخ: (آخرین تاریخ موجه)";
             // 
-            // btnSelectAll
+            // btnSelAllNotExt
             // 
-            this.btnSelectAll.Location = new System.Drawing.Point(7, 234);
-            this.btnSelectAll.Name = "btnSelectAll";
-            this.btnSelectAll.Size = new System.Drawing.Size(256, 48);
-            this.btnSelectAll.TabIndex = 17;
-            this.btnSelectAll.Text = "انتخاب‌نفرات‌تمدید‌نشده‌تا‌این‌تاریخ";
-            this.btnSelectAll.UseVisualStyleBackColor = true;
-            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            this.btnSelAllNotExt.Location = new System.Drawing.Point(7, 234);
+            this.btnSelAllNotExt.Name = "btnSelAllNotExt";
+            this.btnSelAllNotExt.Size = new System.Drawing.Size(256, 48);
+            this.btnSelAllNotExt.TabIndex = 17;
+            this.btnSelAllNotExt.Text = "انتخاب‌نفرات‌تمدید‌نشده‌تا‌این‌تاریخ";
+            this.btnSelAllNotExt.UseVisualStyleBackColor = true;
+            this.btnSelAllNotExt.Click += new System.EventHandler(this.btnSelAllNotExt_Click);
             // 
             // lblLastExtDate
             // 
@@ -151,18 +151,18 @@
             this.dPickUntil.TabIndex = 5;
             this.dPickUntil.ValueChanged += new System.EventHandler(this.dPickUntil_ValueChanged);
             // 
-            // btnSelectAgent
+            // btnSelAgOrOfc
             // 
-            this.btnSelectAgent.Font = new System.Drawing.Font("Samim", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelectAgent.Location = new System.Drawing.Point(7, 377);
-            this.btnSelectAgent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnSelectAgent.Name = "btnSelectAgent";
-            this.btnSelectAgent.Size = new System.Drawing.Size(99, 36);
-            this.btnSelectAgent.TabIndex = 4;
-            this.btnSelectAgent.Text = "+";
-            this.btnSelectAgent.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSelectAgent.UseVisualStyleBackColor = true;
-            this.btnSelectAgent.Click += new System.EventHandler(this.btnSelectAgent_Click);
+            this.btnSelAgOrOfc.Font = new System.Drawing.Font("Samim", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelAgOrOfc.Location = new System.Drawing.Point(7, 377);
+            this.btnSelAgOrOfc.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnSelAgOrOfc.Name = "btnSelAgOrOfc";
+            this.btnSelAgOrOfc.Size = new System.Drawing.Size(99, 36);
+            this.btnSelAgOrOfc.TabIndex = 4;
+            this.btnSelAgOrOfc.Text = "+";
+            this.btnSelAgOrOfc.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSelAgOrOfc.UseVisualStyleBackColor = true;
+            this.btnSelAgOrOfc.Click += new System.EventHandler(this.btnSelAgOrWhlOfc_Click);
             // 
             // cmbSearch
             // 
@@ -310,7 +310,7 @@
         private System.Windows.Forms.ListBox lstMarkedAgnts;
         private System.Windows.Forms.Label lblAgentCount;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnSelectAgent;
+        private System.Windows.Forms.Button btnSelAgOrOfc;
         private System.Windows.Forms.ComboBox cmbSearch;
         private System.Windows.Forms.RadioButton rbtnWholeOffice;
         private System.Windows.Forms.RadioButton rbtnSingleAgent;
@@ -323,6 +323,6 @@
         private System.Windows.Forms.Label lblLastExtDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox chkGenRpt;
-        private System.Windows.Forms.Button btnSelectAll;
+        private System.Windows.Forms.Button btnSelAllNotExt;
     }
 }
