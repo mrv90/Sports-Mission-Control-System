@@ -18,8 +18,7 @@ namespace smcs.frontend.frm
 
         //UNDONE شماره نامه شروع و توضیحات مربوط به آن
         //UNDONE شماره اتمام ماموریت و توضیحات مربوط به آن
-        //TODO باید شهر مامور نیز ثبت شود تا برای آن شهر بتوان مرخصی ثبت کرد
-        //TODO امضا متصدی برنامه به دیتا و درنهایت به گزارش افزوده شود
+
         private void frmSearch_Load(object sender, EventArgs e)
         {
             cmbMisPerd.ValueMember = "MisId";
