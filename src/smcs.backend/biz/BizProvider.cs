@@ -140,7 +140,7 @@ namespace smcs.backend.biz
             // بهتر نیست که ثبت‌قسمت صرفا با شناسه مامور صورت بگیرد
             using (var repOfMis = new Repository<Mission>(csName))
             {
-                var mis = repOfMis.RetMax(e => e.MisId == agnt.MisRef && e.Enbl == true);
+                var mis = repOfMis.Ret(e => e.MisId == agnt.MisRef && e.Enbl == true);
                 mis.OffcRef = -1;
                 if (!repOfMis.Upd(mis))
                     throw BizErrCod.DB_UPDT_FAIL;
@@ -152,7 +152,7 @@ namespace smcs.backend.biz
             // بهتر نیست که ثبت‌قسمت صرفا با شناسه مامور صورت بگیرد
             using (var repOfMiss = new Repository<Mission>(csName))
             {
-                var mis = repOfMiss.RetMax(e => e.MisId == agnt.MisRef && e.Enbl == true);
+                var mis = repOfMiss.Ret(e => e.MisId == agnt.MisRef && e.Enbl == true);
                 mis.OffcRef = -1;
                 if (!repOfMiss.Upd(mis))
                     throw BizErrCod.DB_UPDT_FAIL;
