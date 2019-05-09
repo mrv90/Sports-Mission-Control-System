@@ -78,7 +78,6 @@
             this.lblPickUntil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lblPickUntil.AutoSize = true;
-            this.lblPickUntil.Enabled = false;
             this.lblPickUntil.Location = new System.Drawing.Point(62, 29);
             this.lblPickUntil.Name = "lblPickUntil";
             this.lblPickUntil.Size = new System.Drawing.Size(206, 26);
@@ -102,6 +101,7 @@
             this.lblLastExtDate.Location = new System.Drawing.Point(7, 195);
             this.lblLastExtDate.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblLastExtDate.Name = "lblLastExtDate";
+            this.lblLastExtDate.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblLastExtDate.Size = new System.Drawing.Size(256, 26);
             this.lblLastExtDate.TabIndex = 15;
             this.lblLastExtDate.Text = "-";
@@ -145,7 +145,6 @@
             // 
             this.dPickUntil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.dPickUntil.Enabled = false;
             this.dPickUntil.Location = new System.Drawing.Point(7, 58);
             this.dPickUntil.Name = "dPickUntil";
             this.dPickUntil.Size = new System.Drawing.Size(256, 34);

@@ -129,10 +129,15 @@ namespace smcs.frontend.frm
             
             using (var rep = new Repository<Mission>())
             {
-                lblLastExtDate.Text = rep.RetEnum(m => m.Enbl == true && m.DeadLine < dPickUntil.Value)
-                    .Max(m => m.DeadLine).ToShortDateString();
-                lblNotExtendedCount.Text = rep.RetList(m => m.Enbl == true &&
-                    m.DeadLine < dPickUntil.Value).Count.ToString();
+                var ls_of_not_ext = rep.RetList(m => m.Enbl == true &&
+                    m.DeadLine < dPickUntil.Value);
+
+                if (ls_of_not_ext.Count > 0)
+                {
+                    lblNotExtendedCount.Text = ls_of_not_ext.Count.ToString();
+                    lblLastExtDate.Text = rep.RetEnum(m => m.Enbl == true && m.DeadLine < dPickUntil.Value)
+                        .Max(m => m.DeadLine).ToShortDateString();
+                }
             }
         }
     }
