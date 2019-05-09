@@ -182,6 +182,19 @@ namespace smcs.frontend.frm
             clearAll();
         }
 
+        private void tspRem_Click(object sender, EventArgs e)
+        {
+            if (lstMarkedAgnts.Focused)
+                lstMarkedAgnts.Items.Remove(lstMarkedAgnts.SelectedItem);
+                
+            else if (lstMarkedDates.Focused)
+                lstMarkedDates.Items.Remove(lstMarkedDates.SelectedItem);
+                
+            regulateControlsOnDemand();
+        }
+
+        /* ------------------ private method(es) ------------------ */
+
         private void loadSearchBox<T>() where T: Base
         {
             using (var rep = new Repository<T>())
@@ -208,17 +221,6 @@ namespace smcs.frontend.frm
             btnSelectAgent.Enabled = true ? cmbSearchAgnts.SelectedIndex != -1 : false;
 
             lblPickUntil.Enabled = dPickUntil.Enabled = true ? rbtnTimespan.Checked : false;
-        }
-
-        private void tspRem_Click(object sender, EventArgs e)
-        {
-            if (lstMarkedAgnts.Focused)
-                lstMarkedAgnts.Items.Remove(lstMarkedAgnts.SelectedItem);
-                
-            else if (lstMarkedDates.Focused)
-                lstMarkedDates.Items.Remove(lstMarkedDates.SelectedItem);
-                
-            regulateControlsOnDemand();
         }
 
         protected override void clearAll()
