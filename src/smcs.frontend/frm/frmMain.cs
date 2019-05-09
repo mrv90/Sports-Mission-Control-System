@@ -39,6 +39,11 @@ namespace smcs.frontend
             new frmOperation().ShowDialog();
         }
 
+        private void removeOperationMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmRemoveOperation().ShowDialog();
+        }
+
         private void terminateOperationMenuItem_Click(object sender, EventArgs e)
         {
             new frmTerminateMission().ShowDialog();
@@ -54,6 +59,7 @@ namespace smcs.frontend
             new BizProvider().Logout();
 
             System.Windows.Forms.Application.Exit();
-        }        
+        }
+
     }
 }

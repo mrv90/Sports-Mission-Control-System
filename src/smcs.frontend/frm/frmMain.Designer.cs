@@ -171,6 +171,7 @@
             this.removeOperationMenuItem.Name = "removeOperationMenuItem";
             this.removeOperationMenuItem.Size = new System.Drawing.Size(184, 30);
             this.removeOperationMenuItem.Text = "لغو عملیات";
+            this.removeOperationMenuItem.Click += new System.EventHandler(this.removeOperationMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -304,7 +305,7 @@
             // لاگتغییراتToolStripMenuItem
             // 
             this.لاگتغییراتToolStripMenuItem.Name = "لاگتغییراتToolStripMenuItem";
-            this.لاگتغییراتToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.لاگتغییراتToolStripMenuItem.Size = new System.Drawing.Size(162, 30);
             this.لاگتغییراتToolStripMenuItem.Text = "لاگ تغییرات";
             // 
             // lblVersion
