@@ -43,6 +43,8 @@ namespace smcs.frontend.frm
             }
         }
 
+        /* ------------------ private method(es) ------------------ */
+
         private void updateUI(string ntio)
         {
             using (var repOfAg = new Repository<Agent>())
