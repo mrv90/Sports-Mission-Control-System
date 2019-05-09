@@ -107,7 +107,7 @@ namespace smcs.backend.biz
         {
             using (var repOfAg = new Repository<Agent>(csName))
             {
-                var exAg = repOfAg.Ret(a => a.Equals(ag));
+                var exAg = repOfAg.Ret(a => a.Id == ag.Id);
 
                 if (exAg == null)
                     throw BizErrCod.AGNT_NOT_EXST;
