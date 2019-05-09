@@ -64,8 +64,10 @@ namespace smcs.frontend.frm
 
         private void btnSelectAgent_Click(object sender, EventArgs e)
         {
-            if (rbtnSingleAgent.Checked)
-                lstMarkedAgnts.Items.Add(cmbSearchAgnts.SelectedItem);
+            var one_ag = cmbSearchAgnts.SelectedItem;
+
+            if (rbtnSingleAgent.Checked && !lstMarkedAgnts.Items.Contains(one_ag))
+                lstMarkedAgnts.Items.Add(one_ag);
 
             else if (rbtnWholeOffice.Checked)
             {
@@ -76,7 +78,10 @@ namespace smcs.frontend.frm
                         using (var repOfAg = new Repository<Agent>())
                         {
                             var ag = repOfAg.Ret(a => a.MisRef == mi.MisId && a.Enbl == true);
-                            lstMarkedAgnts.Items.Add(new PairDataItem(ag.Id, ag.Name));
+                            var pair_data_ag = new PairDataItem(ag.Id, ag.Name);
+
+                            if (!lstMarkedAgnts.Items.Contains(pair_data_ag))
+                                lstMarkedAgnts.Items.Add(pair_data_ag);
                         }
                     }
                 }
@@ -100,13 +105,16 @@ namespace smcs.frontend.frm
 
         private void btnSelectDate_Click(object sender, EventArgs e)
         {
-            if (rbtnSingleDay.Checked)
+            string one_d = dPickFrom.Value.ToShortDateString();
+
+            if (rbtnSingleDay.Checked && !lstMarkedDates.Items.Contains(one_d))
                 lstMarkedDates.Items.Add(dPickFrom.Value.ToShortDateString());
 
             else if (rbtnTimespan.Checked)
             {
                 for (DateTime d = dPickFrom.Value.Date; d <= dPickUntil.Value.Date; d.AddDays(1))
-                    lstMarkedDates.Items.Add(d);
+                    if (!lstMarkedDates.Items.Contains(d))
+                        lstMarkedDates.Items.Add(d);
             }
 
             else
