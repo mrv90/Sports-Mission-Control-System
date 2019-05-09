@@ -44,6 +44,8 @@ namespace smcs.backend.data.access
         {
             /*UNDONE InvalidOperationException: The class 'smcs.backend.data.model.iterative.OffDay' has no parameterless constructor.*/
             /*UNDONE System.InvalidOperationException: 'The entity type UndTreat is not part of the model for the current context.'*/
+            /*System.NotSupportedException: 'Unable to create a constant value of type 'smcs.backend.data.model.Agent'. 
+             * Only primitive types or enumeration types are supported in this context.'*/
             return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
         }
 
