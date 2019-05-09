@@ -169,6 +169,9 @@ namespace smcs.frontend.frm
                     }
                 }
             }
+
+            //if (chkGenRpt.Checked)
+            //UNDONE چاپ گزارش به تعداد و کیفیت موردنیاز
         }
         
         private void btnClearAll_Click(object sender, EventArgs e)
