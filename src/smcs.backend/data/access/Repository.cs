@@ -47,12 +47,17 @@ namespace smcs.backend.data.access
             return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
         }
 
+        public virtual IEnumerable<T> RetEnum(Expression<Func<T, bool>> expr)
+        {
+            /*NOTE توجه شود که استثناها در متدها مشابه در این مورد نیز احتمالا برقرار است*/
+            return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).AsEnumerable();
+        }
+
         [Obsolete("ظاهرا برای بعضی موارد کار نمیکنه..", true)]
         public virtual T RetMax(Expression<Func<T, bool>> expr)
         {
             /*UNDONE System.NotSupportedException: 'LINQ to Entities does not recognize the method 'smcs.backend.data.model.Agent 
              * LastOrDefault[Agent](System.Linq.IQueryable`1[smcs.backend.data.model.Agent])' method, and this method cannot be translated into a store expression.'*/
-            //return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).OrderByDescending().First();
             return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).Max();
         }
 

@@ -4,6 +4,7 @@ using smcs.backend.data.model;
 using smcs.backend.data.model.basic;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace smcs.frontend.frm
 {
@@ -128,8 +129,8 @@ namespace smcs.frontend.frm
             
             using (var rep = new Repository<Mission>())
             {
-                lblLastExtDate.Text = rep.RetMax(m => m.Enbl == true && 
-                    m.DeadLine < dPickUntil.Value).DeadLine.ToShortDateString();
+                lblLastExtDate.Text = rep.RetEnum(m => m.Enbl == true && m.DeadLine < dPickUntil.Value)
+                    .Max(m => m.DeadLine).ToShortDateString();
                 lblNotExtendedCount.Text = rep.RetList(m => m.Enbl == true &&
                     m.DeadLine < dPickUntil.Value).Count.ToString();
             }
