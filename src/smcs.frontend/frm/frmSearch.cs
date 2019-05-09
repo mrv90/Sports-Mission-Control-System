@@ -110,6 +110,8 @@ namespace smcs.frontend.frm
             //TODO با فشردن این دکمه، فرم ویرایش مامور با همین کدملی باز شود
         }
 
+        /* ------------------ private method(es) ------------------ */
+
         private void loadSearchBox(string prop, string filt)
         {
             var source = new AutoCompleteStringCollection();
