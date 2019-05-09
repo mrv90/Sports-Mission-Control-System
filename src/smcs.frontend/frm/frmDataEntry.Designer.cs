@@ -332,7 +332,7 @@
             this.mtxtPersCode.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.mtxtPersCode.Location = new System.Drawing.Point(321, 315);
             this.mtxtPersCode.Margin = new System.Windows.Forms.Padding(2);
-            this.mtxtPersCode.Mask = "00-00-00-000000";
+            this.mtxtPersCode.Mask = "00-00-00-00000";
             this.mtxtPersCode.Name = "mtxtPersCode";
             this.mtxtPersCode.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.mtxtPersCode.Size = new System.Drawing.Size(206, 32);
