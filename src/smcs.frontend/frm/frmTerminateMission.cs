@@ -18,29 +18,14 @@ namespace smcs.frontend.frm
 
         private void mtxtNtioSearch_TextChanged(object sender, EventArgs e)
         {
-            if (mtxtNtioSearch.Text.Length == 10)
+            string ntio = mtxtNtioSearch.Text.Replace("-", "");
+
+            if (ntio.Length == 10)
+                updateUI(ntio);
+            else
             {
-                /*UNDONE درصورت اشتباه بودن کدملی، استثنا ایجاد می‌شود*/
-
-                using (var repOfAg = new Repository<Agent>())
-                    ag = repOfAg.Ret(a => a.NtioCode == mtxtNtioSearch.Text.Trim() && a.Enbl == true);
-                lblAgntName.Text = ag.Name;
-                lblCntc.Text = ag.Cntc;
-                lblECntc.Text = ag.ECntc;
-
-                Mission mi;
-                using (var repOfMis = new Repository<Mission>())
-                    mi = repOfMis.Ret(m => m.MisId == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
-                lblRecpDate.Text = mi.InitDate.ToShortDateString();
-
-                using (var repOfOfc = new Repository<Office>())
-                    lblOffc.Text = repOfOfc.Ret(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
-
-                using (var repOfOff = new Repository<OffDay>())
-                    offDayNum.Value = repOfOff.Ret(o => o.MisRef == ag.MisRef && o.Enbl == true).TotalDays;
-
-                using (var repOfAbs = new Repository<Absence>())
-                    AbsNum.Value = repOfAbs.Ret(b => b.MisRef == ag.MisRef && b.Enbl == true).TotalDays;
+                lblAgNam.Text = lblRcpDat.Text = lblOfc.Text = lblCntc.Text = lblECntc.Text = string.Empty;
+                NumOffDay.Value = NumAbs.Value = 0;
             }
         }
 
@@ -49,12 +34,45 @@ namespace smcs.frontend.frm
             if (ag != null)
             {
                 var biz = new BizProvider();
-                biz.DismissTheAgent(ag, dPickUntil.Value);
+                biz.DismissTheAgent(ag, dPickUntil.Value.Date);
 
                 //if (chkGenRpt.Checked)
-                    /*UNDONE چاپ گزارش پایان*/
+                    /*UNDONE چاپ گزارش پایان با تعداد مرخصی|نهست انتخاب شده*/
 
                 /*UNDONE اطلاع به کاربر در صورت موفق بودن*/
+            }
+        }
+
+        private void updateUI(string ntio)
+        {
+            using (var repOfAg = new Repository<Agent>())
+                ag = repOfAg.Ret(a => a.NtioCode == ntio && a.Enbl == true);
+
+            if (ag != null)
+            {
+                lblAgNam.Text = ag.Name;
+                lblCntc.Text = ag.Cntc;
+                lblECntc.Text = ag.ECntc;
+
+                Mission mi;
+                using (var repOfMis = new Repository<Mission>())
+                    mi = repOfMis.Ret(m => m.MisId == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
+                lblRcpDat.Text = mi.InitDate.ToShortDateString();
+
+                using (var repOfOfc = new Repository<Office>())
+                    lblOfc.Text = repOfOfc.Ret(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
+
+                using (var repOfOff = new Repository<OffDay>())
+                {
+                    var off = repOfOff.Ret(o => o.MisRef == ag.MisRef && o.Enbl == true);
+                    NumOffDay.Value = (off != null) ? off.TotalDays : 0;
+                }
+
+                using (var repOfAbs = new Repository<Absence>())
+                {
+                    var abs = repOfAbs.Ret(b => b.MisRef == ag.MisRef && b.Enbl == true);
+                    NumAbs.Value = (abs != null) ? abs.TotalDays : 0;
+                }
             }
         }
     }
