@@ -40,6 +40,8 @@ namespace smcs.frontend.frm
             updateUI(all_signs);
         }
 
+        /* ------------------ private method(es) ------------------ */
+
         private void updateUI(List<Signature> all)
         {
             lblManager.Text = all[0].Name;
