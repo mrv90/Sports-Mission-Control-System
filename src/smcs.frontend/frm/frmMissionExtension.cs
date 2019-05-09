@@ -32,13 +32,19 @@ namespace smcs.frontend.frm
         private void rbtnSingleAgent_CheckedChanged(object sender, System.EventArgs e)
         {
             if (rbtnSingleAgent.Checked)
+            {
+                cmbSearch.Items.Clear();
                 loadNotExtAgOnCmb(dPickUntil.Value, null);
+            }
         }
 
         private void rbtnWholeOffice_CheckedChanged(object sender, System.EventArgs e)
         {
             if (rbtnWholeOffice.Checked)
+            {
+                cmbSearch.Items.Clear();
                 loadAllOffices();
+            }
         }
 
         private void btnSelAllNotExt_Click(object sender, System.EventArgs e)
@@ -79,6 +85,8 @@ namespace smcs.frontend.frm
 
                 //if (chkGenRpt.Checked)
                     //UNDONE چاپ گزارش تمدید با امضاها مورد نیاز
+
+                //UNDONE نتیجه عملیات به کاربر اطلاع داده شود
             }
         }
 
@@ -98,9 +106,9 @@ namespace smcs.frontend.frm
             using (var repOfMi = new Repository<Mission>())
             {
                 if (ofc is null)
-                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < extDt);
+                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < extDt.Date);
                 else
-                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < extDt && m.OffcRef == ofc);
+                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < extDt.Date && m.OffcRef == ofc);
             }
 
             using (var repOfAg = new Repository<Agent>())
@@ -153,7 +161,7 @@ namespace smcs.frontend.frm
             using (var rep = new Repository<Mission>())
             {
                 var ls_of_not_ext = rep.RetList(m => m.Enbl == true &&
-                    m.DeadLine < dPickUntil.Value);
+                    m.DeadLine < dPickUntil.Value.Date);
 
                 if (ls_of_not_ext.Count > 0)
                 {
