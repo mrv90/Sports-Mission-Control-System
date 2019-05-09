@@ -34,8 +34,7 @@
             this.btnGenRpt = new System.Windows.Forms.Button();
             this.ckhKeepOpenWindow = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.btnModfAgnt = new System.Windows.Forms.Button();
-            this.btnApply = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -47,6 +46,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.lblAddr = new System.Windows.Forms.Label();
+            this.lblExtDt = new System.Windows.Forms.Label();
             this.lblRegDt = new System.Windows.Forms.Label();
             this.lblEmgNum = new System.Windows.Forms.Label();
             this.lblCntcNum = new System.Windows.Forms.Label();
@@ -90,8 +90,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.rbtnSrchByNtioCode = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByName = new System.Windows.Forms.RadioButton();
-            this.lblExtDt = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.gpbLower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.gbxUpper.SuspendLayout();
@@ -105,8 +103,6 @@
             this.gpbLower.Controls.Add(this.btnGenRpt);
             this.gpbLower.Controls.Add(this.ckhKeepOpenWindow);
             this.gpbLower.Controls.Add(this.label23);
-            this.gpbLower.Controls.Add(this.btnModfAgnt);
-            this.gpbLower.Controls.Add(this.btnApply);
             this.gpbLower.Controls.Add(this.label27);
             this.gpbLower.Controls.Add(this.label18);
             this.gpbLower.Controls.Add(this.label17);
@@ -177,9 +173,9 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnGenRpt.Enabled = false;
             this.btnGenRpt.Font = new System.Drawing.Font("Samim", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenRpt.Location = new System.Drawing.Point(128, 463);
+            this.btnGenRpt.Location = new System.Drawing.Point(229, 464);
             this.btnGenRpt.Name = "btnGenRpt";
-            this.btnGenRpt.Size = new System.Drawing.Size(95, 24);
+            this.btnGenRpt.Size = new System.Drawing.Size(115, 60);
             this.btnGenRpt.TabIndex = 45;
             this.btnGenRpt.Text = "چاپ گزارش";
             this.btnGenRpt.UseVisualStyleBackColor = true;
@@ -188,7 +184,7 @@
             // 
             this.ckhKeepOpenWindow.AutoSize = true;
             this.ckhKeepOpenWindow.Font = new System.Drawing.Font("Samim", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckhKeepOpenWindow.Location = new System.Drawing.Point(27, 466);
+            this.ckhKeepOpenWindow.Location = new System.Drawing.Point(21, 502);
             this.ckhKeepOpenWindow.Name = "ckhKeepOpenWindow";
             this.ckhKeepOpenWindow.Size = new System.Drawing.Size(89, 21);
             this.ckhKeepOpenWindow.TabIndex = 44;
@@ -205,32 +201,16 @@
             this.label23.TabIndex = 18;
             this.label23.Text = "دوره‌ماموریت:";
             // 
-            // btnModfAgnt
+            // label27
             // 
-            this.btnModfAgnt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnModfAgnt.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnModfAgnt.Font = new System.Drawing.Font("Samim", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModfAgnt.Location = new System.Drawing.Point(128, 499);
-            this.btnModfAgnt.Name = "btnModfAgnt";
-            this.btnModfAgnt.Size = new System.Drawing.Size(95, 25);
-            this.btnModfAgnt.TabIndex = 43;
-            this.btnModfAgnt.Text = "ویرایش";
-            this.btnModfAgnt.UseVisualStyleBackColor = true;
-            this.btnModfAgnt.Click += new System.EventHandler(this.btnModfAgnt_Click);
-            // 
-            // btnApply
-            // 
-            this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnApply.Enabled = false;
-            this.btnApply.Location = new System.Drawing.Point(229, 462);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(115, 62);
-            this.btnApply.TabIndex = 43;
-            this.btnApply.Text = "ثبت";
-            this.btnApply.UseVisualStyleBackColor = true;
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label27.AutoEllipsis = true;
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(258, 241);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(87, 25);
+            this.label27.TabIndex = 41;
+            this.label27.Text = "تاریخ تمدید:";
             // 
             // label18
             // 
@@ -350,6 +330,18 @@
             this.lblAddr.Name = "lblAddr";
             this.lblAddr.Size = new System.Drawing.Size(323, 60);
             this.lblAddr.TabIndex = 33;
+            // 
+            // lblExtDt
+            // 
+            this.lblExtDt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblExtDt.AutoEllipsis = true;
+            this.lblExtDt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblExtDt.Location = new System.Drawing.Point(20, 241);
+            this.lblExtDt.Name = "lblExtDt";
+            this.lblExtDt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblExtDt.Size = new System.Drawing.Size(203, 25);
+            this.lblExtDt.TabIndex = 34;
+            this.lblExtDt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblRegDt
             // 
@@ -862,29 +854,6 @@
             this.rbtnSrchByName.Text = "نام‌مامور؛";
             this.rbtnSrchByName.UseVisualStyleBackColor = true;
             // 
-            // lblExtDt
-            // 
-            this.lblExtDt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblExtDt.AutoEllipsis = true;
-            this.lblExtDt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblExtDt.Location = new System.Drawing.Point(20, 241);
-            this.lblExtDt.Name = "lblExtDt";
-            this.lblExtDt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblExtDt.Size = new System.Drawing.Size(203, 25);
-            this.lblExtDt.TabIndex = 34;
-            this.lblExtDt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label27
-            // 
-            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label27.AutoEllipsis = true;
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(258, 241);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(87, 25);
-            this.label27.TabIndex = 41;
-            this.label27.Text = "تاریخ تمدید:";
-            // 
             // frmSearch
             // 
             this.AcceptButton = this.btnShowInfo;
@@ -959,7 +928,6 @@
         private System.Windows.Forms.Label lblOffDatCont;
         private System.Windows.Forms.Label lblOrdrBy;
         private System.Windows.Forms.CheckBox ckhKeepOpenWindow;
-        private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.RadioButton rbtnSrchByCntcNum;
         private System.Windows.Forms.Button btnGenRpt;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -967,7 +935,6 @@
         private System.Windows.Forms.ComboBox cmbSearch;
         private System.Windows.Forms.RadioButton rbtnSrchByPersCode;
         private System.Windows.Forms.RadioButton rbtnSrchByECntcNum;
-        private System.Windows.Forms.Button btnModfAgnt;
         private System.Windows.Forms.ComboBox cmbMisPerd;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label7;
