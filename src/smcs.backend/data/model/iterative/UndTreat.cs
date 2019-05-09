@@ -14,5 +14,7 @@ namespace smcs.backend.data.model.iterative
         {
 
         }
+
+        //UNDONE افزودن فیل نوع آسیب‌دیدگی و محل آن
     }
 }
