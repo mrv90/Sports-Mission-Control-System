@@ -50,10 +50,13 @@ namespace smcs.frontend.frm
 
         private void btnSelAgOrWhlOfc_Click(object sender, System.EventArgs e)
         {
-            if (rbtnSingleAgent.Checked)
-                lstMarkedAgnts.Items.Add(cmbSearch.SelectedItem);
-            else if (rbtnWholeOffice.Checked)
-                addNotExtAgToLst(((PairDataItem)cmbSearch.SelectedItem).Id);
+            if (cmbSearch.SelectedItem != null)
+            {
+                if (rbtnSingleAgent.Checked)
+                    lstMarkedAgnts.Items.Add(cmbSearch.SelectedItem);
+                else if (rbtnWholeOffice.Checked)
+                    addNotExtAgToLst(((PairDataItem)cmbSearch.SelectedItem).Id); //UNDONE نباید مامور تکراری افزوده شود
+            }
 
             updateUI();
         }
@@ -77,6 +80,14 @@ namespace smcs.frontend.frm
                 //if (chkGenRpt.Checked)
                     //UNDONE چاپ گزارش تمدید با امضاها مورد نیاز
             }
+        }
+
+        private void tspRem_Click(object sender, EventArgs e)
+        {
+            if (lstMarkedAgnts.Items.Count > 0 && lstMarkedAgnts.Focused)
+                lstMarkedAgnts.Items.Remove(lstMarkedAgnts.SelectedItem);
+
+            updateUI();
         }
 
         /* ------------------ private method(es) ------------------ */
@@ -152,5 +163,6 @@ namespace smcs.frontend.frm
                 }
             }
         }
+
     }
 }

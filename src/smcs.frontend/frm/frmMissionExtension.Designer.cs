@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblPickUntil = new System.Windows.Forms.Label();
             this.btnSelAllNotExt = new System.Windows.Forms.Button();
@@ -46,8 +47,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkGenRpt = new System.Windows.Forms.CheckBox();
             this.btnApply = new System.Windows.Forms.Button();
+            this.cmuWholeForm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tspRemAgnt = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.cmuWholeForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -235,6 +239,7 @@
             // 
             // lstMarkedAgnts
             // 
+            this.lstMarkedAgnts.ContextMenuStrip = this.cmuWholeForm;
             this.lstMarkedAgnts.DisplayMember = "Name";
             this.lstMarkedAgnts.FormattingEnabled = true;
             this.lstMarkedAgnts.ItemHeight = 26;
@@ -283,6 +288,23 @@
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
+            // cmuWholeForm
+            // 
+            this.cmuWholeForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspRemAgnt});
+            this.cmuWholeForm.Name = "cmuWholeForm";
+            this.cmuWholeForm.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmuWholeForm.Size = new System.Drawing.Size(124, 26);
+            // 
+            // tspRemAgnt
+            // 
+            this.tspRemAgnt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tspRemAgnt.Name = "tspRemAgnt";
+            this.tspRemAgnt.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.tspRemAgnt.Size = new System.Drawing.Size(123, 22);
+            this.tspRemAgnt.Text = "حذف";
+            this.tspRemAgnt.Click += new System.EventHandler(this.tspRem_Click);
+            // 
             // frmMissionExtension
             // 
             this.AcceptButton = this.btnApply;
@@ -300,6 +322,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.cmuWholeForm.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -324,5 +347,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox chkGenRpt;
         private System.Windows.Forms.Button btnSelAllNotExt;
+        private System.Windows.Forms.ContextMenuStrip cmuWholeForm;
+        private System.Windows.Forms.ToolStripMenuItem tspRemAgnt;
     }
 }
