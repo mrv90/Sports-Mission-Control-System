@@ -28,7 +28,7 @@ namespace smcs.backend.data.model
 
         [Required] public string Entity { get; set; }
 
-        public Int32 entId { get; set; }
+        [Required] public Int32 entId { get; set; }
 
         [Required] [Column(TypeName = "datetime2")] public DateTime TimeStmp { get; set; }
     }
