@@ -112,9 +112,11 @@ namespace smcs.frontend.frm
 
             else if (rbtnTimespan.Checked)
             {
-                for (DateTime d = dPickFrom.Value.Date; d <= dPickUntil.Value.Date; d.AddDays(1))
+                for (DateTime d = dPickFrom.Value.Date; d <= dPickUntil.Value.Date; d = d.AddDays(1))
+                {
                     if (!lstMarkedDates.Items.Contains(d))
                         lstMarkedDates.Items.Add(d);
+                }
             }
 
             else
