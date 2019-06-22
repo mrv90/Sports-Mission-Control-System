@@ -88,10 +88,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="rpt\tmpl\rptIntvw.frx" />
-    <None Include="rpt\tmpl\rptOffDay.frx" />
-    <None Include="rpt\tmpl\rptOnDuty.frx" />
-    <None Include="rpt\tmpl\rptRetToUnt.frx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
