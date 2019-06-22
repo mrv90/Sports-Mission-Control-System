@@ -47,13 +47,19 @@ namespace smcs.backend.data.access
             /*UNDONE System.NotSupportedException: 'Unable to create a constant value of type 'smcs.backend.data.model.Agent'. 
              * Only primitive types or enumeration types are supported in this context.'*/
             /*UNDONE System.Reflection.TargetException: 'Non-static method requires a target. در صورتیکه عبارت داده شده نامعتبر باشد:*/
-            return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
+            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
+
+            return null;
         }
 
         public virtual IEnumerable<T> RetEnum(Expression<Func<T, bool>> expr)
         {
             /*NOTE توجه شود که استثناها در متدها مشابه در این مورد نیز احتمالا برقرار است*/
-            return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).AsEnumerable();
+            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).AsEnumerable();
+
+            return null;
         }
 
         [Obsolete("ظاهرا برای بعضی موارد کار نمیکنه..", true)]
@@ -72,7 +78,22 @@ namespace smcs.backend.data.access
                Login failed for user 'sa'.
                A severe error occurred on the current command.  The results, if any, should be discarded.*/
             /*UNDONE InvalidOperationException: The class 'smcs.backend.data.model.basic.Rank' has no parameterless constructor.*/
-            return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).ToList();
+            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).ToList();
+
+            return null;
+        }
+
+        public double RetRoundedAvg(Expression<Func<T, bool>> cond, Expression<Func<T, double>> expr)
+        {
+            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+            {
+                var result = unOfWrk.Cntx.Set<T>().AsNoTracking().Where(cond);
+                if (result.Any())
+                    return Math.Round(result.Average(expr), 1);
+            }
+
+            return 0.0d;
         }
 
         internal bool Upd(T t)
