@@ -28,13 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lstOpr = new System.Windows.Forms.ListView();
             this.hdrApplyDT = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrEnt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrAgName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrTrgtDT = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmuListView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tspRemHistItm = new System.Windows.Forms.ToolStripMenuItem();
             this.btnUpd = new System.Windows.Forms.Button();
+            this.cmuListView.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstOpr
@@ -48,6 +52,7 @@
             this.hdrAgName,
             this.hdrTrgtDT,
             this.hdrDesc});
+            this.lstOpr.ContextMenuStrip = this.cmuListView;
             this.lstOpr.Location = new System.Drawing.Point(0, 1);
             this.lstOpr.MultiSelect = false;
             this.lstOpr.Name = "lstOpr";
@@ -87,6 +92,23 @@
             this.hdrDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.hdrDesc.Width = 160;
             // 
+            // cmuListView
+            // 
+            this.cmuListView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspRemHistItm});
+            this.cmuListView.Name = "cmuWholeForm";
+            this.cmuListView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmuListView.Size = new System.Drawing.Size(181, 48);
+            // 
+            // tspRemHistItm
+            // 
+            this.tspRemHistItm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tspRemHistItm.Name = "tspRemHistItm";
+            this.tspRemHistItm.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.tspRemHistItm.Size = new System.Drawing.Size(180, 22);
+            this.tspRemHistItm.Text = "حذف";
+            this.tspRemHistItm.Click += new System.EventHandler(this.tspRemHistItm_Click);
+            // 
             // btnUpd
             // 
             this.btnUpd.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -111,6 +133,7 @@
             this.Name = "frmRemoveOperation";
             this.Text = "لغو گردشکار";
             this.Load += new System.EventHandler(this.frmRemoveOperation_Load);
+            this.cmuListView.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -124,5 +147,7 @@
         private System.Windows.Forms.ColumnHeader hdrAgName;
         private System.Windows.Forms.ColumnHeader hdrTrgtDT;
         private System.Windows.Forms.ColumnHeader hdrDesc;
+        private System.Windows.Forms.ContextMenuStrip cmuListView;
+        private System.Windows.Forms.ToolStripMenuItem tspRemHistItm;
     }
 }

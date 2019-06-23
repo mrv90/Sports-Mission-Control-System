@@ -25,6 +25,11 @@ namespace smcs.frontend.frm
             updateUI();
         }
 
+        private void tspRemHistItm_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
         /* ------------------ private method(es) ------------------ */
 
         private void updateUI()
@@ -35,11 +40,36 @@ namespace smcs.frontend.frm
 
             if (ls_of_his.Count > 0)
                 foreach (History hi in ls_of_his)
-                    if (hi.Entity != "Mission")
-                        lstOpr.Items.Add(generateLVI(hi));
+                {
+                    if (hi.Entity == "Mission")
+                        lstOpr.Items.Add(generateLVIFromMission(hi));
+                    else
+                        lstOpr.Items.Add(generateLVIFromIterative(hi));
+                }
         }
 
-        private ListViewItem generateLVI(History hi)
+        private ListViewItem generateLVIFromMission(History hi)
+        {
+            Mission mi; 
+            using (var rep = new Repository<Mission>())
+                mi = rep.Ret(a => a.MisId == hi.entId);
+
+            Agent ag; 
+            using (var rep = new Repository<Agent>())
+                ag = rep.Ret(a => a.MisRef == mi.MisId);
+
+            return new ListViewItem(new string[6]
+            {
+                hi.Id.ToString(),
+                hi.TimeStmp.ToString(),
+                hi.Entity, /*UNDONE نوع موجودیت باید فارسی و مناسب کاربر باشد*/
+                ag.Name,
+                mi.InitDate.ToShortDateString(),
+                mi.InitDesc
+            });
+        }
+
+        private ListViewItem generateLVIFromIterative(History hi)
         {
             Iterative it;
             if (hi.Entity == "Absence")
@@ -61,8 +91,9 @@ namespace smcs.frontend.frm
             using (var rep = new Repository<Agent>())
                 ag = rep.Ret(a => a.MisRef == it.MisRef);
 
-            return new ListViewItem(new string[5]
+            return new ListViewItem(new string[6]
             {
+                hi.Id.ToString(),
                 hi.TimeStmp.ToString(),
                 hi.Entity, /*UNDONE نوع موجودیت باید فارسی و مناسب کاربر باشد*/
                 ag.Name,
