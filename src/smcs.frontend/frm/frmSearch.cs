@@ -24,24 +24,38 @@ namespace smcs.frontend.frm
             cmbMisPerd.ValueMember = "MisId";
             cmbMisPerd.DisplayMember = "InitDate";
 
-            
+            cmbSearch.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            cmbSearch.AutoCompleteMode = AutoCompleteMode.Suggest;
+            loadSearchBox("Name", cmbSearch.Text);
         }
 
-        private void cmbSearch_KeyUp(object sender, KeyEventArgs e)
+        private void rbtnSrchByName_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnSrchByName.Checked)
                 loadSearchBox("Name", cmbSearch.Text);
+        }
 
-            else if (rbtnSrchByNtioCode.Checked)
+        private void rbtnSrchByNtioCode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnSrchByNtioCode.Checked)
                 loadSearchBox("NtioCode", cmbSearch.Text);
+        }
 
-            else if (rbtnSrchByPersCode.Checked)
+        private void rbtnSrchByPersCode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnSrchByPersCode.Checked)
                 loadSearchBox("PersCode", cmbSearch.Text);
+        }
 
-            else if (rbtnSrchByCntcNum.Checked)
+        private void rbtnSrchByCntcNum_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnSrchByCntcNum.Checked)
                 loadSearchBox("CntcNum", cmbSearch.Text);
+        }
 
-            else if (rbtnSrchByECntcNum.Checked)
+        private void rbtnSrchByECntcNum_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnSrchByECntcNum.Checked)
                 loadSearchBox("ECntcNum", cmbSearch.Text);
         }
 
@@ -148,10 +162,8 @@ namespace smcs.frontend.frm
                         break;
                 }
             }
-
+            
             cmbSearch.AutoCompleteCustomSource = source;
-            cmbSearch.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbSearch.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         private string extNameFromBasicEntity<T>(Int32 id) where T: Base

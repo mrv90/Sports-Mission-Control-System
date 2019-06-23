@@ -753,7 +753,6 @@
             this.cmbSearch.Name = "cmbSearch";
             this.cmbSearch.Size = new System.Drawing.Size(413, 33);
             this.cmbSearch.TabIndex = 21;
-            this.cmbSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cmbSearch_KeyUp);
             // 
             // label7
             // 
@@ -778,6 +777,7 @@
             this.rbtnSrchByPersCode.TabIndex = 19;
             this.rbtnSrchByPersCode.Text = "ش‌پرسنلی؛";
             this.rbtnSrchByPersCode.UseVisualStyleBackColor = true;
+            this.rbtnSrchByPersCode.CheckedChanged += new System.EventHandler(this.rbtnSrchByPersCode_CheckedChanged);
             // 
             // rbtnSrchByECntcNum
             // 
@@ -792,6 +792,7 @@
             this.rbtnSrchByECntcNum.TabIndex = 19;
             this.rbtnSrchByECntcNum.Text = "ش‌تماس‌اضطراری.";
             this.rbtnSrchByECntcNum.UseVisualStyleBackColor = true;
+            this.rbtnSrchByECntcNum.CheckedChanged += new System.EventHandler(this.rbtnSrchByECntcNum_CheckedChanged);
             // 
             // rbtnSrchByCntcNum
             // 
@@ -806,6 +807,7 @@
             this.rbtnSrchByCntcNum.TabIndex = 19;
             this.rbtnSrchByCntcNum.Text = "ش‌تماس؛";
             this.rbtnSrchByCntcNum.UseVisualStyleBackColor = true;
+            this.rbtnSrchByCntcNum.CheckedChanged += new System.EventHandler(this.rbtnSrchByCntcNum_CheckedChanged);
             // 
             // label6
             // 
@@ -830,6 +832,7 @@
             this.rbtnSrchByNtioCode.TabIndex = 16;
             this.rbtnSrchByNtioCode.Text = "کدملی؛";
             this.rbtnSrchByNtioCode.UseVisualStyleBackColor = true;
+            this.rbtnSrchByNtioCode.CheckedChanged += new System.EventHandler(this.rbtnSrchByNtioCode_CheckedChanged);
             // 
             // rbtnSrchByName
             // 
@@ -846,6 +849,7 @@
             this.rbtnSrchByName.TabStop = true;
             this.rbtnSrchByName.Text = "نام‌مامور؛";
             this.rbtnSrchByName.UseVisualStyleBackColor = true;
+            this.rbtnSrchByName.CheckedChanged += new System.EventHandler(this.rbtnSrchByName_CheckedChanged);
             // 
             // frmSearch
             // 
