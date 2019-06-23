@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.gpbLower = new System.Windows.Forms.GroupBox();
             this.cmbMisPerd = new System.Windows.Forms.ComboBox();
             this.btnGenRpt = new System.Windows.Forms.Button();
@@ -78,7 +77,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.gbxUpper = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnShowInfo = new System.Windows.Forms.Button();
@@ -91,7 +89,6 @@
             this.rbtnSrchByNtioCode = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByName = new System.Windows.Forms.RadioButton();
             this.gpbLower.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.gbxUpper.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -701,10 +698,6 @@
             this.label10.TabIndex = 2;
             this.label10.Text = "درجه:";
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // gbxUpper
             // 
             this.gbxUpper.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -870,7 +863,6 @@
             this.Load += new System.EventHandler(this.frmSearch_Load);
             this.gpbLower.ResumeLayout(false);
             this.gpbLower.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.gbxUpper.ResumeLayout(false);
             this.gbxUpper.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -882,7 +874,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox gpbLower;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.GroupBox gbxUpper;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RadioButton rbtnSrchByNtioCode;
