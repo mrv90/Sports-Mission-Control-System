@@ -116,7 +116,8 @@ namespace smcs.frontend.frm
                 foreach (Mission mi in ls_of_mi)
                 {
                     var ag = repOfAg.Ret(a => a.Enbl == true && a.MisRef == mi.MisId);
-                    cmbSearch.Items.Add(new PairDataItem(ag.Id, ag.Name));
+                    if (ag != null)
+                        cmbSearch.Items.Add(new PairDataItem(ag.Id, ag.Name));
                 }
             }
         }
