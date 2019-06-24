@@ -140,6 +140,26 @@ namespace smcs.frontend.frm
                 cmbSearch.DroppedDown = false;
         }
 
+        private void lblApplyOpr_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblExtdMiss_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblModfAgnt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTermMiss_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /* ------------------ private method(es) ------------------ */
 
         private void loadSearchBox(string prop, string filt)

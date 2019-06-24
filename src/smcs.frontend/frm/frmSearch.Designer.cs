@@ -87,6 +87,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.rbtnSrchByNtioCode = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByName = new System.Windows.Forms.RadioButton();
+            this.lblModfAgnt = new System.Windows.Forms.Label();
+            this.lblApplyOpr = new System.Windows.Forms.Label();
+            this.lblExtdMiss = new System.Windows.Forms.Label();
+            this.lblTermMiss = new System.Windows.Forms.Label();
             this.gpbLower.SuspendLayout();
             this.gbxUpper.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -700,6 +704,10 @@
             // gbxUpper
             // 
             this.gbxUpper.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.gbxUpper.Controls.Add(this.lblTermMiss);
+            this.gbxUpper.Controls.Add(this.lblExtdMiss);
+            this.gbxUpper.Controls.Add(this.lblApplyOpr);
+            this.gbxUpper.Controls.Add(this.lblModfAgnt);
             this.gbxUpper.Controls.Add(this.groupBox2);
             this.gbxUpper.Controls.Add(this.rbtnSrchByPersCode);
             this.gbxUpper.Controls.Add(this.rbtnSrchByECntcNum);
@@ -830,6 +838,53 @@
             this.rbtnSrchByName.UseVisualStyleBackColor = true;
             this.rbtnSrchByName.CheckedChanged += new System.EventHandler(this.rbtnSrchByName_CheckedChanged);
             // 
+            // lblModfAgnt
+            // 
+            this.lblModfAgnt.AutoSize = true;
+            this.lblModfAgnt.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblModfAgnt.Location = new System.Drawing.Point(7, 30);
+            this.lblModfAgnt.Name = "lblModfAgnt";
+            this.lblModfAgnt.Size = new System.Drawing.Size(41, 17);
+            this.lblModfAgnt.TabIndex = 21;
+            this.lblModfAgnt.Text = "ویرایش";
+            this.lblModfAgnt.Click += new System.EventHandler(this.lblModfAgnt_Click);
+            // 
+            // lblApplyOpr
+            // 
+            this.lblApplyOpr.AutoSize = true;
+            this.lblApplyOpr.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplyOpr.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblApplyOpr.Location = new System.Drawing.Point(65, 30);
+            this.lblApplyOpr.Name = "lblApplyOpr";
+            this.lblApplyOpr.Size = new System.Drawing.Size(48, 17);
+            this.lblApplyOpr.TabIndex = 21;
+            this.lblApplyOpr.Text = "گردش‌کار";
+            this.lblApplyOpr.Click += new System.EventHandler(this.lblApplyOpr_Click);
+            // 
+            // lblExtdMiss
+            // 
+            this.lblExtdMiss.AutoSize = true;
+            this.lblExtdMiss.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExtdMiss.ForeColor = System.Drawing.Color.Green;
+            this.lblExtdMiss.Location = new System.Drawing.Point(73, 72);
+            this.lblExtdMiss.Name = "lblExtdMiss";
+            this.lblExtdMiss.Size = new System.Drawing.Size(33, 17);
+            this.lblExtdMiss.TabIndex = 21;
+            this.lblExtdMiss.Text = "تمدید";
+            this.lblExtdMiss.Click += new System.EventHandler(this.lblExtdMiss_Click);
+            // 
+            // lblTermMiss
+            // 
+            this.lblTermMiss.AutoSize = true;
+            this.lblTermMiss.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTermMiss.ForeColor = System.Drawing.Color.Red;
+            this.lblTermMiss.Location = new System.Drawing.Point(12, 72);
+            this.lblTermMiss.Name = "lblTermMiss";
+            this.lblTermMiss.Size = new System.Drawing.Size(30, 17);
+            this.lblTermMiss.TabIndex = 21;
+            this.lblTermMiss.Text = "پایان";
+            this.lblTermMiss.Click += new System.EventHandler(this.lblTermMiss_Click);
+            // 
             // frmSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -914,5 +969,9 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label lblExtDt;
         private System.Windows.Forms.ComboBox cmbSearch;
+        private System.Windows.Forms.Label lblTermMiss;
+        private System.Windows.Forms.Label lblExtdMiss;
+        private System.Windows.Forms.Label lblApplyOpr;
+        private System.Windows.Forms.Label lblModfAgnt;
     }
 }
