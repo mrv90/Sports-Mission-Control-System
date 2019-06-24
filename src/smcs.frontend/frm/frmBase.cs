@@ -10,9 +10,9 @@ namespace smcs.frontend.frm
             InitializeComponent();
         }
         
-        protected virtual void clearAll()
+        protected virtual void clearAll() 
         {
-            foreach (Control c in Controls)
+            foreach (Control c in Controls) // UNDONE نوع کنترل‌هایی که باید پاک شوند باید به صورت جنریک ارسال شود
             {
                 if (c.GetType() == typeof(TextBox) || c.GetType() == typeof(MaskedTextBox))
                     c.Text = "";
