@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gpbLower = new System.Windows.Forms.GroupBox();
             this.cmbMisPerd = new System.Windows.Forms.ComboBox();
             this.btnGenRpt = new System.Windows.Forms.Button();
@@ -80,20 +81,23 @@
             this.gbxUpper = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmbSearch = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.rbtnSrchByPersCode = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByECntcNum = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByCntcNum = new System.Windows.Forms.RadioButton();
             this.label6 = new System.Windows.Forms.Label();
             this.rbtnSrchByNtioCode = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByName = new System.Windows.Forms.RadioButton();
-            this.lblModfAgnt = new System.Windows.Forms.Label();
-            this.lblApplyOpr = new System.Windows.Forms.Label();
-            this.lblExtdMiss = new System.Windows.Forms.Label();
-            this.lblTermMiss = new System.Windows.Forms.Label();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmItemApplyOpr = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmItemExtdMiss = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmItemModfAgnt = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmItemTermMiss = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.gpbLower.SuspendLayout();
             this.gbxUpper.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // gpbLower
@@ -704,10 +708,6 @@
             // gbxUpper
             // 
             this.gbxUpper.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.gbxUpper.Controls.Add(this.lblTermMiss);
-            this.gbxUpper.Controls.Add(this.lblExtdMiss);
-            this.gbxUpper.Controls.Add(this.lblApplyOpr);
-            this.gbxUpper.Controls.Add(this.lblModfAgnt);
             this.gbxUpper.Controls.Add(this.groupBox2);
             this.gbxUpper.Controls.Add(this.rbtnSrchByPersCode);
             this.gbxUpper.Controls.Add(this.rbtnSrchByECntcNum);
@@ -725,31 +725,23 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.cmbSearch);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(149, 47);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox2.Location = new System.Drawing.Point(3, 47);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(556, 50);
+            this.groupBox2.Size = new System.Drawing.Size(702, 50);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             // 
             // cmbSearch
             // 
-            this.cmbSearch.Location = new System.Drawing.Point(6, 17);
+            this.cmbSearch.ContextMenuStrip = this.contextMenu;
+            this.cmbSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cmbSearch.Location = new System.Drawing.Point(3, 14);
             this.cmbSearch.Name = "cmbSearch";
-            this.cmbSearch.Size = new System.Drawing.Size(444, 33);
+            this.cmbSearch.Size = new System.Drawing.Size(696, 33);
             this.cmbSearch.TabIndex = 23;
             this.cmbSearch.TextChanged += new System.EventHandler(this.cmbSearch_TextChanged);
             this.cmbSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cmbSearch_KeyUp);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Samim", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(456, 23);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(95, 22);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "عبارت‌مورد‌نظر:";
             // 
             // rbtnSrchByPersCode
             // 
@@ -838,52 +830,56 @@
             this.rbtnSrchByName.UseVisualStyleBackColor = true;
             this.rbtnSrchByName.CheckedChanged += new System.EventHandler(this.rbtnSrchByName_CheckedChanged);
             // 
-            // lblModfAgnt
+            // contextMenu
             // 
-            this.lblModfAgnt.AutoSize = true;
-            this.lblModfAgnt.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModfAgnt.Location = new System.Drawing.Point(7, 30);
-            this.lblModfAgnt.Name = "lblModfAgnt";
-            this.lblModfAgnt.Size = new System.Drawing.Size(41, 17);
-            this.lblModfAgnt.TabIndex = 21;
-            this.lblModfAgnt.Text = "ویرایش";
-            this.lblModfAgnt.Click += new System.EventHandler(this.lblModfAgnt_Click);
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmItemApplyOpr,
+            this.tsmItemExtdMiss,
+            this.toolStripSeparator1,
+            this.tsmItemModfAgnt,
+            this.toolStripSeparator2,
+            this.tsmItemTermMiss});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.contextMenu.Size = new System.Drawing.Size(181, 126);
             // 
-            // lblApplyOpr
+            // tsmItemApplyOpr
             // 
-            this.lblApplyOpr.AutoSize = true;
-            this.lblApplyOpr.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApplyOpr.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblApplyOpr.Location = new System.Drawing.Point(65, 30);
-            this.lblApplyOpr.Name = "lblApplyOpr";
-            this.lblApplyOpr.Size = new System.Drawing.Size(48, 17);
-            this.lblApplyOpr.TabIndex = 21;
-            this.lblApplyOpr.Text = "گردش‌کار";
-            this.lblApplyOpr.Click += new System.EventHandler(this.lblApplyOpr_Click);
+            this.tsmItemApplyOpr.Name = "tsmItemApplyOpr";
+            this.tsmItemApplyOpr.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemApplyOpr.Text = "گردش‌کار";
+            this.tsmItemApplyOpr.Click += new System.EventHandler(this.tsmItemApplyOpr_Click);
             // 
-            // lblExtdMiss
+            // tsmItemExtdMiss
             // 
-            this.lblExtdMiss.AutoSize = true;
-            this.lblExtdMiss.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExtdMiss.ForeColor = System.Drawing.Color.Green;
-            this.lblExtdMiss.Location = new System.Drawing.Point(73, 72);
-            this.lblExtdMiss.Name = "lblExtdMiss";
-            this.lblExtdMiss.Size = new System.Drawing.Size(33, 17);
-            this.lblExtdMiss.TabIndex = 21;
-            this.lblExtdMiss.Text = "تمدید";
-            this.lblExtdMiss.Click += new System.EventHandler(this.lblExtdMiss_Click);
+            this.tsmItemExtdMiss.Name = "tsmItemExtdMiss";
+            this.tsmItemExtdMiss.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemExtdMiss.Text = "تمدید ماموریت";
+            this.tsmItemExtdMiss.Click += new System.EventHandler(this.tsmItemExtdMiss_Click);
             // 
-            // lblTermMiss
+            // tsmItemModfAgnt
             // 
-            this.lblTermMiss.AutoSize = true;
-            this.lblTermMiss.Font = new System.Drawing.Font("Samim", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTermMiss.ForeColor = System.Drawing.Color.Red;
-            this.lblTermMiss.Location = new System.Drawing.Point(12, 72);
-            this.lblTermMiss.Name = "lblTermMiss";
-            this.lblTermMiss.Size = new System.Drawing.Size(30, 17);
-            this.lblTermMiss.TabIndex = 21;
-            this.lblTermMiss.Text = "پایان";
-            this.lblTermMiss.Click += new System.EventHandler(this.lblTermMiss_Click);
+            this.tsmItemModfAgnt.Name = "tsmItemModfAgnt";
+            this.tsmItemModfAgnt.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemModfAgnt.Text = "ویرایش";
+            this.tsmItemModfAgnt.Click += new System.EventHandler(this.tsmItemModfAgnt_Click);
+            // 
+            // tsmItemTermMiss
+            // 
+            this.tsmItemTermMiss.Name = "tsmItemTermMiss";
+            this.tsmItemTermMiss.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemTermMiss.Text = "پایان";
+            this.tsmItemTermMiss.Click += new System.EventHandler(this.tsmItemTermMiss_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // frmSearch
             // 
@@ -903,7 +899,7 @@
             this.gbxUpper.ResumeLayout(false);
             this.gbxUpper.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -963,15 +959,17 @@
         private System.Windows.Forms.RadioButton rbtnSrchByECntcNum;
         private System.Windows.Forms.ComboBox cmbMisPerd;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label lblExtDt;
         private System.Windows.Forms.ComboBox cmbSearch;
-        private System.Windows.Forms.Label lblTermMiss;
-        private System.Windows.Forms.Label lblExtdMiss;
-        private System.Windows.Forms.Label lblApplyOpr;
-        private System.Windows.Forms.Label lblModfAgnt;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmItemApplyOpr;
+        private System.Windows.Forms.ToolStripMenuItem tsmItemExtdMiss;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem tsmItemModfAgnt;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem tsmItemTermMiss;
     }
 }

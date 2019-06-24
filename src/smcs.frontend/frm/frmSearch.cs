@@ -140,23 +140,30 @@ namespace smcs.frontend.frm
                 cmbSearch.DroppedDown = false;
         }
 
-        private void lblApplyOpr_Click(object sender, EventArgs e)
+        private void tsmItemApplyOpr_Click(object sender, EventArgs e)
         {
+            // TODO اعتبارسنجی افزوده شود
+            // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
 
         }
 
-        private void lblExtdMiss_Click(object sender, EventArgs e)
+        private void tsmItemExtdMiss_Click(object sender, EventArgs e)
         {
+            // TODO اعتبارسنجی افزوده شود
+            // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
+        }
+
+        private void tsmItemModfAgnt_Click(object sender, EventArgs e)
+        {
+            // TODO اعتبارسنجی افزوده شود
+            // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
 
         }
 
-        private void lblModfAgnt_Click(object sender, EventArgs e)
+        private void tsmItemTermMiss_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void lblTermMiss_Click(object sender, EventArgs e)
-        {
+            // TODO اعتبارسنجی افزوده شود
+            // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
 
         }
 
@@ -244,6 +251,6 @@ namespace smcs.frontend.frm
             lblOffDatCont.Text = extTotalDaysFromPeriodEntity<OffDay>(mis.MisId).ToString();
             lblAbsCont.Text = extTotalDaysFromPeriodEntity<Absence>(mis.MisId).ToString();
             lblOnDutyCont.Text = extTotalDaysFromPeriodEntity<OnDuty>(mis.MisId).ToString();
-        }
+        }        
     }
 }
