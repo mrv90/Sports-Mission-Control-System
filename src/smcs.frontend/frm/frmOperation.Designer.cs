@@ -455,7 +455,7 @@
         private System.Windows.Forms.Label lblDaysCount;
         private System.Windows.Forms.CheckBox chkGenRpt;
         private System.Windows.Forms.ListBox lstMarkedDates;
-        private System.Windows.Forms.ListBox lstMarkedAgnts;
+        public System.Windows.Forms.ListBox lstMarkedAgnts;
         private System.Windows.Forms.ToolStripMenuItem tspRemAgnt;
         private System.Windows.Forms.ContextMenuStrip cmuWholeForm;
     }
