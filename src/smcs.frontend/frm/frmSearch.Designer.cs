@@ -79,7 +79,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.gbxUpper = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnShowInfo = new System.Windows.Forms.Button();
             this.cmbSearch = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.rbtnSrchByPersCode = new System.Windows.Forms.RadioButton();
@@ -717,48 +716,28 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnShowInfo);
             this.groupBox2.Controls.Add(this.cmbSearch);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(3, 47);
+            this.groupBox2.Location = new System.Drawing.Point(149, 47);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(702, 50);
+            this.groupBox2.Size = new System.Drawing.Size(556, 50);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             // 
-            // btnShowInfo
-            // 
-            this.btnShowInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnShowInfo.Location = new System.Drawing.Point(3, 14);
-            this.btnShowInfo.Name = "btnShowInfo";
-            this.btnShowInfo.Size = new System.Drawing.Size(166, 33);
-            this.btnShowInfo.TabIndex = 22;
-            this.btnShowInfo.Text = "نمایش اطلاعات";
-            this.btnShowInfo.UseVisualStyleBackColor = true;
-            this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
-            // 
             // cmbSearch
             // 
-            this.cmbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbSearch.AutoCompleteCustomSource.AddRange(new string[] {
-            "علی ",
-            "اکبر",
-            "کاظم"});
-            this.cmbSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cmbSearch.FormattingEnabled = true;
-            this.cmbSearch.Location = new System.Drawing.Point(177, 14);
+            this.cmbSearch.Location = new System.Drawing.Point(6, 17);
             this.cmbSearch.Name = "cmbSearch";
-            this.cmbSearch.Size = new System.Drawing.Size(413, 33);
-            this.cmbSearch.TabIndex = 21;
+            this.cmbSearch.Size = new System.Drawing.Size(444, 33);
+            this.cmbSearch.TabIndex = 23;
+            this.cmbSearch.TextChanged += new System.EventHandler(this.cmbSearch_TextChanged);
+            this.cmbSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cmbSearch_KeyUp);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Samim", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(596, 20);
+            this.label7.Location = new System.Drawing.Point(456, 23);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(95, 22);
             this.label7.TabIndex = 18;
@@ -786,11 +765,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnSrchByECntcNum.AutoSize = true;
             this.rbtnSrchByECntcNum.Font = new System.Drawing.Font("Samim", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnSrchByECntcNum.Location = new System.Drawing.Point(113, 23);
+            this.rbtnSrchByECntcNum.Location = new System.Drawing.Point(149, 22);
             this.rbtnSrchByECntcNum.Name = "rbtnSrchByECntcNum";
-            this.rbtnSrchByECntcNum.Size = new System.Drawing.Size(146, 29);
+            this.rbtnSrchByECntcNum.Size = new System.Drawing.Size(110, 29);
             this.rbtnSrchByECntcNum.TabIndex = 19;
-            this.rbtnSrchByECntcNum.Text = "ش‌تماس‌اضطراری.";
+            this.rbtnSrchByECntcNum.Text = "ش اضطراری";
             this.rbtnSrchByECntcNum.UseVisualStyleBackColor = true;
             this.rbtnSrchByECntcNum.CheckedChanged += new System.EventHandler(this.rbtnSrchByECntcNum_CheckedChanged);
             // 
@@ -853,7 +832,6 @@
             // 
             // frmSearch
             // 
-            this.AcceptButton = this.btnShowInfo;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -926,8 +904,6 @@
         private System.Windows.Forms.RadioButton rbtnSrchByCntcNum;
         private System.Windows.Forms.Button btnGenRpt;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnShowInfo;
-        private System.Windows.Forms.ComboBox cmbSearch;
         private System.Windows.Forms.RadioButton rbtnSrchByPersCode;
         private System.Windows.Forms.RadioButton rbtnSrchByECntcNum;
         private System.Windows.Forms.ComboBox cmbMisPerd;
@@ -937,5 +913,6 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label lblExtDt;
+        private System.Windows.Forms.ComboBox cmbSearch;
     }
 }

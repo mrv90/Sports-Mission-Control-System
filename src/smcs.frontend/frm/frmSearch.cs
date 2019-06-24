@@ -24,8 +24,9 @@ namespace smcs.frontend.frm
             cmbMisPerd.ValueMember = "MisId";
             cmbMisPerd.DisplayMember = "InitDate";
 
-            cmbSearch.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            cmbSearch.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cmbSearch.ValueMember = "Id";
+            cmbSearch.DisplayMember = "Value";
+
             loadSearchBox("Name", cmbSearch.Text);
         }
 
@@ -61,6 +62,8 @@ namespace smcs.frontend.frm
 
         private void cmbMisPerd_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //TODO  اعتبارسنجی افزوده شود
+
             Agent ag;
             Mission mis;
 
@@ -73,62 +76,75 @@ namespace smcs.frontend.frm
             RefreshData(ag, mis);
         }
 
-        private void btnShowInfo_Click(object sender, EventArgs e)
+        private void cmbSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(cmbSearch.Text)) // UNDONE بررسی شود که متن وارده یکی از آیتم‌‌های مورد نظر باشد
-                return;
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrWhiteSpace(cmbSearch.Text) || cmbSearch.SelectedIndex == -1) // TODO این خط باید با اعتبارسنجی و خطای مناسب جایگزین شود
+                    return;
 
-            Agent ag;
-            List<Mission> lst_of_mis;
-            int act = -1; // اندیس ماموریت فعال مامور مورد پرسش
+                Agent ag;
+                List<Mission> lst_of_mis;
+                int act = -1; // اندیس ماموریت فعال مامور مورد پرسش
 
-            using (var rep = new Repository<Agent>())
+                using (var rep = new Repository<Agent>())
+                    ag = rep.Ret(a => a.Id == ((PairDataItem)cmbSearch.SelectedItem).Id);
+
+                using (var repOfMis = new Repository<Mission>())
+                    lst_of_mis = repOfMis.RetList(m => m.MisId == ag.MisRef);
+
+                foreach (Mission mis in lst_of_mis)
+                {
+                    cmbMisPerd.Items.Add(new PairDataItem(mis.MisId, mis.InitDate.ToShortDateString()));
+
+                    if (mis.Enbl == true)
+                    {
+                        act = lst_of_mis.IndexOf(mis);
+                        cmbMisPerd.SelectedItem = mis;
+                    }
+                }
+
+                lblMissCont.Text = lst_of_mis.Count.ToString();
+                RefreshData(ag, lst_of_mis[act]);
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                clearAll();
+            }
+        }
+
+        private void cmbSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (cmbSearch.Text.Length >= 3)
             {
                 if (rbtnSrchByName.Checked)
-                    ag = rep.Ret(a => a.Name == cmbSearch.Text.Trim()); // هم مامور فعلی وهم مامورسابق
+                    loadSearchBox("Name", cmbSearch.Text);
+
                 else if (rbtnSrchByNtioCode.Checked)
-                    ag = rep.Ret(a => a.NtioCode == cmbSearch.Text);
+                    loadSearchBox("NtioCode", cmbSearch.Text);
+
                 else if (rbtnSrchByPersCode.Checked)
-                    ag = rep.Ret(a => a.PersCode == cmbSearch.Text);
+                    loadSearchBox("PersCode", cmbSearch.Text);
+
                 else if (rbtnSrchByCntcNum.Checked)
-                    ag = rep.Ret(a => a.Cntc == cmbSearch.Text.Trim());
-                else
-                    ag = rep.Ret(a => a.ECntc == cmbSearch.Text.Trim());
+                    loadSearchBox("CntcNum", cmbSearch.Text);
+
+                else if (rbtnSrchByECntcNum.Checked)
+                    loadSearchBox("ECntcNum", cmbSearch.Text);
+
+                cmbSearch.DroppedDown = true;
+                cmbSearch.SelectionStart = cmbSearch.Text.Length;
+                cmbSearch.SelectionLength = 0;
             }
-
-            using (var repOfMis = new Repository<Mission>())
-                lst_of_mis = repOfMis.RetList(m => m.MisId == ag.MisRef);
-
-            foreach (Mission mis in lst_of_mis)
-            {
-                cmbMisPerd.Items.Add(new PairDataItem(mis.MisId, mis.InitDate.ToShortDateString()));
-
-                if (mis.Enbl == true)
-                {
-                    act = lst_of_mis.IndexOf(mis);
-                    cmbMisPerd.SelectedItem = mis;
-                }
-            }
-
-            lblMissCont.Text = lst_of_mis.Count.ToString();
-            RefreshData(ag, lst_of_mis[act]);
-        }
-
-        private void btnClearAll_Click(object sender, EventArgs e)
-        {
-           clearAll();
-        }
-
-        private void btnModfAgnt_Click(object sender, EventArgs e)
-        {
-            //TODO با فشردن این دکمه، فرم ویرایش مامور با همین کدملی باز شود
+            else 
+                cmbSearch.DroppedDown = false;
         }
 
         /* ------------------ private method(es) ------------------ */
 
         private void loadSearchBox(string prop, string filt)
         {
-            var source = new AutoCompleteStringCollection();
+            var items = new List<PairDataItem>();
             List<Agent> lst_of_ags;
             
             using (var repo = new Repository<Agent>())
@@ -138,32 +154,33 @@ namespace smcs.frontend.frm
                     case "Name":
                         lst_of_ags = repo.RetList(a => a.Name.Contains(filt));
                         foreach (Agent ag in lst_of_ags)
-                            source.Add(ag.Name);
+                            items.Add(new PairDataItem(ag.Id, ag.Name));
                         break;
                     case "NtioCode":
                         lst_of_ags = repo.RetList(a => a.NtioCode.Contains(filt));
                         foreach (Agent ag in lst_of_ags)
-                            source.Add(ag.NtioCode);
+                            items.Add(new PairDataItem(ag.Id, ag.NtioCode));
                         break;
                     case "PersCode":
                         lst_of_ags = repo.RetList(a => a.PersCode.Contains(filt));
                         foreach (Agent ag in lst_of_ags)
-                            source.Add(ag.PersCode);
+                            items.Add(new PairDataItem(ag.Id, ag.PersCode));
                         break;
                     case "Cntc":
                         lst_of_ags = repo.RetList(a => a.Cntc.Contains(filt));
                         foreach (Agent ag in lst_of_ags)
-                            source.Add(ag.Cntc);
+                            items.Add(new PairDataItem(ag.Id, ag.Cntc));
                         break;
                     case "ECntc":
                         lst_of_ags = repo.RetList(a => a.ECntc.Contains(filt));
                         foreach (Agent ag in lst_of_ags)
-                            source.Add(ag.ECntc);
+                            items.Add(new PairDataItem(ag.Id, ag.ECntc));
                         break;
                 }
             }
-            
-            cmbSearch.AutoCompleteCustomSource = source;
+
+            cmbSearch.Items.Clear();
+            cmbSearch.Items.AddRange(items.ToArray());
         }
 
         private string extNameFromBasicEntity<T>(Int32 id) where T: Base
