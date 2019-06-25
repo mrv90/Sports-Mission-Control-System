@@ -613,7 +613,6 @@
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "frmDataEntry";
             this.Text = "ثبت/بروزرسانی";
-            this.Load += new System.EventHandler(this.frmDataEntry_Load);
             this.gbxUpper.ResumeLayout(false);
             this.gbxUpper.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -632,9 +631,9 @@
 
         private System.Windows.Forms.GroupBox gbxUpper;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.RadioButton rbtnModfAgnt;
-        private System.Windows.Forms.RadioButton rbtnNewAgnt;
-        private System.Windows.Forms.RadioButton rbtnOldAgnt;
+        public System.Windows.Forms.RadioButton rbtnModfAgnt;
+        public System.Windows.Forms.RadioButton rbtnNewAgnt;
+        public System.Windows.Forms.RadioButton rbtnOldAgnt;
         private System.Windows.Forms.MaskedTextBox mtxtNtioSearch;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip toolStrip;

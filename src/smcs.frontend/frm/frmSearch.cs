@@ -144,6 +144,7 @@ namespace smcs.frontend.frm
         {
             // TODO اعتبارسنجی افزوده شود
             // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
+            // NOTE  گردش کار فقط با اسم یا دیگر مشخصات نیز امکان پذیر باشد؟
 
             var frm = new frmOperation();
             frm.lstMarkedAgnts.Items.Add(cmbSearch.SelectedItem as PairDataItem);
@@ -154,6 +155,7 @@ namespace smcs.frontend.frm
         {
             // TODO اعتبارسنجی افزوده شود
             // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
+            // NOTE  گردش کار فقط با اسم یا دیگر مشخصات نیز امکان پذیر باشد؟
 
             var frm = new frmExtendMission();
             frm.lstMarkedAgnts.Items.Add(cmbSearch.SelectedItem as PairDataItem);
@@ -164,19 +166,28 @@ namespace smcs.frontend.frm
         {
             // TODO اعتبارسنجی افزوده شود
             // TODO درصورتی که کاربر وجود نداشته باشد این گزینه فعال شود
+            // NOTE  گردش کار فقط با اسم یا دیگر مشخصات نیز امکان پذیر باشد؟
+
+            //NOTE پذیرش از سوابق یا پذیرش جدید
         }
 
         private void tsmItemModfAgnt_Click(object sender, EventArgs e)
         {
             // TODO اعتبارسنجی افزوده شود
             // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
+            // NOTE  گردش کار فقط با اسم یا دیگر مشخصات نیز امکان پذیر باشد؟
 
+            var frm = new frmDataEntry();
+            frm.rbtnModfAgnt.Checked = true;
+            frm.fillControls(((PairDataItem)cmbSearch.SelectedItem).Id, true);
+            frm.ShowDialog();
         }
 
         private void tsmItemTermMiss_Click(object sender, EventArgs e)
         {
             // TODO اعتبارسنجی افزوده شود
             // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
+            // NOTE  گردش کار فقط با اسم یا دیگر مشخصات نیز امکان پذیر باشد؟
 
         }
 

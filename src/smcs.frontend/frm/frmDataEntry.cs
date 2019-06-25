@@ -13,10 +13,7 @@ namespace smcs.frontend.frm
         public frmDataEntry()
         {
             InitializeComponent();
-        }
 
-        private void frmDataEntry_Load(object sender, EventArgs e)
-        {
             loadItemsInCmb<Rank>(cmbRank);
             loadItemsInCmb<Unit>(cmbUnit);
             loadItemsInCmb<Sports>(cmbSprt);
@@ -27,33 +24,12 @@ namespace smcs.frontend.frm
         {
             if (!rbtnNewAgnt.Checked && e.KeyData == Keys.Enter)
             {
-                bool enbl = true ? rbtnModfAgnt.Checked : false;
-
-                Agent ag;
-                Mission mis;
-                using (var enbleRepo = new Repository<Agent>())
-                    ag = enbleRepo.Ret(a => a.NtioCode.ToString() == mtxtNtioSearch.Text && a.Enbl == enbl);
-                using (var repOfMis = new Repository<Mission>())
-                    mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Enbl == enbl);
-
-                extrCmbItem(cmbRank, ag.RnkRef);
-                txtName.Text = ag.Name;
-                txtFthrName.Text = ag.FthrName;
-                extrCmbItem(cmbUnit, ag.UntRef);
-                dPickDteOfDisp.Value = ag.DateOfDisp.Date;
-                dPickDteOfRecp.Value = mis.InitDate.Date;
-                extrCmbItem(cmbSprt, mis.SprtRef);
-                extrCmbItem(cmbOffc, mis.OffcRef);
-                mtxtNtioSearch.Text = ag.NtioCode.ToString();
-                mtxtPersCode.Text = ag.PersCode.ToString();
-                txtOrdrBy.Text = mis.OrdrBy;
-                txtCntcNum.Text = ag.Cntc;
-                txtEmgNum.Text = ag.ECntc;
-                txtAddr.Text = ag.Addr;
-                txtDesc.Text = mis.InitDesc;
+                bool already_exist = true ? rbtnModfAgnt.Checked : false;
+                fillControls(mtxtNtioSearch.Text.Replace("-", ""), already_exist);
             }
         }
 
+        //UNDONE نیاز به بازتولید بسیار احساس می‌شود
         private void btnApply_Click(object sender, EventArgs e)
         {
             if (rbtnNewAgnt.Checked)
@@ -171,6 +147,58 @@ namespace smcs.frontend.frm
             }
         }
 
+        public void fillControls(string ntio, bool already_exist)
+        {
+            Agent ag;
+            Mission mis;
+            using (var enbleRepo = new Repository<Agent>())
+                ag = enbleRepo.Ret(a => a.NtioCode == ntio && a.Enbl == already_exist);
+            using (var repOfMis = new Repository<Mission>())
+                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Enbl == already_exist);
+
+            extrCmbItem(cmbRank, ag.RnkRef);
+            txtName.Text = ag.Name;
+            txtFthrName.Text = ag.FthrName;
+            extrCmbItem(cmbUnit, ag.UntRef);
+            dPickDteOfDisp.Value = ag.DateOfDisp.Date;
+            dPickDteOfRecp.Value = mis.InitDate.Date;
+            extrCmbItem(cmbSprt, mis.SprtRef);
+            extrCmbItem(cmbOffc, mis.OffcRef);
+            mtxtNtioSearch.Text = ag.NtioCode.ToString();
+            mtxtPersCode.Text = ag.PersCode.ToString();
+            txtOrdrBy.Text = mis.OrdrBy;
+            txtCntcNum.Text = ag.Cntc;
+            txtEmgNum.Text = ag.ECntc;
+            txtAddr.Text = ag.Addr;
+            txtDesc.Text = mis.InitDesc;
+        }
+
+        public void fillControls(int id, bool already_exist)
+        {
+            Agent ag;
+            Mission mis;
+            using (var enbleRepo = new Repository<Agent>())
+                ag = enbleRepo.Ret(a => a.Id == id && a.Enbl == already_exist);
+            using (var repOfMis = new Repository<Mission>())
+                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Enbl == already_exist);
+
+            extrCmbItem(cmbRank, ag.RnkRef);
+            txtName.Text = ag.Name;
+            txtFthrName.Text = ag.FthrName;
+            extrCmbItem(cmbUnit, ag.UntRef);
+            dPickDteOfDisp.Value = ag.DateOfDisp.Date;
+            dPickDteOfRecp.Value = mis.InitDate.Date;
+            extrCmbItem(cmbSprt, mis.SprtRef);
+            extrCmbItem(cmbOffc, mis.OffcRef);
+            mtxtNtioSearch.Text = ag.NtioCode.ToString();
+            mtxtPersCode.Text = ag.PersCode.ToString();
+            txtOrdrBy.Text = mis.OrdrBy;
+            txtCntcNum.Text = ag.Cntc;
+            txtEmgNum.Text = ag.ECntc;
+            txtAddr.Text = ag.Addr;
+            txtDesc.Text = mis.InitDesc;
+        }
+
         private void extrCmbItem(ComboBox cmb, Int32 id)
         {
             foreach (PairDataItem item in cmb.Items)
@@ -185,6 +213,7 @@ namespace smcs.frontend.frm
 
         private Agent notCommitedAgentUpdate(Repository<Agent> repOfAgnt, bool currentAgent)
         {
+            //UNDONE کل این متد باید حذف شده و به بیزنس‌پرووایدر انتقال یابد
             var agnt = repOfAgnt.Ret(a => a.NtioCode.ToString() == mtxtNtioSearch.Text && a.Enbl == currentAgent);
             agnt.RnkRef = ((PairDataItem)cmbRank.SelectedItem).Id;
             agnt.Name = txtName.Text.Trim();
