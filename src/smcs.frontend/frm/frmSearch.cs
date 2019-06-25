@@ -153,6 +153,11 @@ namespace smcs.frontend.frm
             // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
         }
 
+        private void tsmItemRecpAgnt_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void tsmItemModfAgnt_Click(object sender, EventArgs e)
         {
             // TODO اعتبارسنجی افزوده شود
@@ -251,6 +256,6 @@ namespace smcs.frontend.frm
             lblOffDatCont.Text = extTotalDaysFromPeriodEntity<OffDay>(mis.MisId).ToString();
             lblAbsCont.Text = extTotalDaysFromPeriodEntity<Absence>(mis.MisId).ToString();
             lblOnDutyCont.Text = extTotalDaysFromPeriodEntity<OnDuty>(mis.MisId).ToString();
-        }        
+        }
     }
 }
