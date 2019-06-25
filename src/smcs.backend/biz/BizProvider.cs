@@ -79,6 +79,9 @@ namespace smcs.backend.biz
                 repOfHis.Add(new History(Crud.Create, "Mission", ag.Id));
         }
 
+        //UNDONE بروزرسانی ها باید internal باشند
+        /*TODO متد ایجاد ماموریت باید ایجاد شده و جایگزین بروزرسانی ماموریت باشد؛ در صورتی که ماموریت فعلی خاتمه نیافته باشد، باید از ایجاد ماموریت جدید جلوگیری شود*/
+        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
         public void UpdateAgent(Agent ag)
         {
             using (var repo = new Repository<Agent>(csName))
@@ -89,6 +92,9 @@ namespace smcs.backend.biz
                 repOfHis.Add(new History(Crud.Update, "Mission", ag.Id));
         }
 
+        //UNDONE بروزرسانی ها باید internal باشند
+        /*TODO متد ایجاد ماموریت باید ایجاد شده و جایگزین بروزرسانی ماموریت باشد؛ در صورتی که ماموریت فعلی خاتمه نیافته باشد، باید از ایجاد ماموریت جدید جلوگیری شود*/
+        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
         public void UpdateAgent(Agent ag, Mission mi)
         {
             using (var repo = new Repository<Mission>(csName))
