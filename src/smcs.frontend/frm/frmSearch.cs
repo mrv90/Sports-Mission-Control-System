@@ -145,6 +145,9 @@ namespace smcs.frontend.frm
             // TODO اعتبارسنجی افزوده شود
             // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
 
+            var frmOpr = new frmOperation();
+            frmOpr.lstMarkedAgnts.Items.Add(cmbSearch.SelectedItem as PairDataItem);
+            frmOpr.ShowDialog();
         }
 
         private void tsmItemExtdMiss_Click(object sender, EventArgs e)
@@ -155,7 +158,8 @@ namespace smcs.frontend.frm
 
         private void tsmItemRecpAgnt_Click(object sender, EventArgs e)
         {
-
+            // TODO اعتبارسنجی افزوده شود
+            // TODO درصورتی که کاربر وجود نداشته باشد این گزینه فعال شود
         }
 
         private void tsmItemModfAgnt_Click(object sender, EventArgs e)
