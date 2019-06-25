@@ -43,15 +43,49 @@ namespace smcs.frontend.frm
             }
         }
 
-        /* ------------------ private method(es) ------------------ */
+        /* ------------------ method(es) ------------------ */
 
-        private void updateUI(string ntio)
+        public void updateUI(string ntio)
         {
             using (var repOfAg = new Repository<Agent>())
                 ag = repOfAg.Ret(a => a.NtioCode == ntio && a.Enbl == true);
 
             if (ag != null)
             {
+                lblAgNam.Text = ag.Name;
+                lblCntc.Text = ag.Cntc;
+                lblECntc.Text = ag.ECntc;
+
+                Mission mi;
+                using (var repOfMis = new Repository<Mission>())
+                    mi = repOfMis.Ret(m => m.MisId == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
+                lblRcpDat.Text = mi.InitDate.ToShortDateString();
+
+                using (var repOfOfc = new Repository<Office>())
+                    lblOfc.Text = repOfOfc.Ret(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
+
+                using (var repOfOff = new Repository<OffDay>())
+                {
+                    var off = repOfOff.Ret(o => o.MisRef == ag.MisRef && o.Enbl == true);
+                    NumOffDay.Value = (off != null) ? off.TotalDays : 0;
+                }
+
+                using (var repOfAbs = new Repository<Absence>())
+                {
+                    var abs = repOfAbs.Ret(b => b.MisRef == ag.MisRef && b.Enbl == true);
+                    NumAbs.Value = (abs != null) ? abs.TotalDays : 0;
+                }
+            }
+        }
+
+        public void updateUI(int id)
+        {
+            using (var repOfAg = new Repository<Agent>())
+                ag = repOfAg.Ret(a => a.Id == id && a.Enbl == true);
+
+            if (ag != null)
+            {
+                mtxtNtioSearch.Text = ag.NtioCode;
                 lblAgNam.Text = ag.Name;
                 lblCntc.Text = ag.Cntc;
                 lblECntc.Text = ag.ECntc;

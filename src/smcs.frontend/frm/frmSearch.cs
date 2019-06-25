@@ -189,6 +189,9 @@ namespace smcs.frontend.frm
             // TODO درصورتی که کاربر وجود داشت باید این گزینه فعال شود
             // NOTE  گردش کار فقط با اسم یا دیگر مشخصات نیز امکان پذیر باشد؟
 
+            var frm = new frmTerminateMission();
+            frm.updateUI(((PairDataItem)cmbSearch.SelectedItem).Id);
+            frm.ShowDialog();
         }
 
         /* ------------------ private method(es) ------------------ */
