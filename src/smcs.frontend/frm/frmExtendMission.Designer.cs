@@ -330,7 +330,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListBox lstMarkedAgnts;
+        public System.Windows.Forms.ListBox lstMarkedAgnts;
         private System.Windows.Forms.Label lblAgentCount;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSelAgOrOfc;
