@@ -51,7 +51,7 @@ namespace smcs.frontend
 
         private void missionExtensionMenuItem_Click(object sender, EventArgs e)
         {
-            new frmMissionExtension().ShowDialog();
+            new frmExtendMission().ShowDialog();
         }
         
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)

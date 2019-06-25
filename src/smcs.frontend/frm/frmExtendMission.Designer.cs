@@ -1,6 +1,6 @@
 ﻿namespace smcs.frontend.frm
 {
-    partial class frmMissionExtension
+    partial class frmExtendMission
     {
         /// <summary>
         /// Required designer variable.

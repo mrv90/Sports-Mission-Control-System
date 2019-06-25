@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace smcs.frontend.frm
 {
-    public partial class frmMissionExtension : frmBase
+    public partial class frmExtendMission : frmBase
     {
-        public frmMissionExtension()
+        public frmExtendMission()
         {
             InitializeComponent();
         }
