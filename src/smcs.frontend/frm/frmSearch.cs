@@ -68,10 +68,10 @@ namespace smcs.frontend.frm
             Mission mis;
 
             using (var repOfAg = new Repository<Agent>())
-                ag = repOfAg.Ret(a => a.NtioCode == lblNtioCode.Text);
+                ag = repOfAg.Ret(a => a.Id == ((PairDataItem)cmbSearch.SelectedItem).Id);
 
             using (var repOfMis = new Repository<Mission>())
-                mis = repOfMis.Ret(m => m.MisId == ag.MisRef);
+                mis = repOfMis.Ret(m => m.MisId == ((PairDataItem)cmbMisPerd.SelectedItem).Id);
 
             RefreshData(ag, mis);
         }
@@ -100,7 +100,7 @@ namespace smcs.frontend.frm
                     if (mis.Enbl == true)
                     {
                         act = lst_of_mis.IndexOf(mis);
-                        cmbMisPerd.SelectedItem = mis;
+                        cmbMisPerd.SelectedIndex = act;
                     }
                 }
 
