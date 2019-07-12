@@ -25,16 +25,14 @@ namespace smcs.frontend.frm
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            try
+            var msg = new BizProvider().Login(cmbUserName.Text, txtPass.Text.Trim());
+            if (msg.Id == Message.SUCC)
             {
-                new BizProvider().Login(cmbUserName.Text, txtPass.Text.Trim());
                 this.Hide();
                 new frmMain().ShowDialog();
             }
-            catch (ApplicationException)
-            {
-                MessageBox.Show(".نام‌کاربری و یا رمز‌عبور نامعتبر است");
-            }
+            else
+                MessageBox.Show(msg.Text);
         }
     }
 }
