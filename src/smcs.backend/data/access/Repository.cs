@@ -1,6 +1,10 @@
-﻿using System;
+﻿using smcs.backend.data.model;
+using smcs.backend.data.model.iterative;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -23,91 +27,248 @@ namespace smcs.backend.data.access
             this.unOfWrk = new UnitOfWork(csName);
         }
 
-        public bool AddSingle(T t)
+        public Repository<T> AddSingle(T t)
         {
             unOfWrk.Cntx.Entry(t).State = EntityState.Added;
-            return unOfWrk.Commit();
+            return this;
         }
 
-        /*using IQueryable<T>, we cannot use IDisposalbe On UnitOfWork ..
-          because the only way to chech emptiness of generic IQueryable is .Any(), so
-          this LINQ extension method needs to access DbContext...or another way ??! */
+        public Repository<T> AddInterDepend(T t)
+        {
+            if (typeof(T).Name == "Absence")
+                unOfWrk.Cntx.Absence.Add(t as Absence);
+
+            else if (typeof(T).Name == "OffDay")
+                unOfWrk.Cntx.OffDay.Add(t as OffDay);
+
+            else if (typeof(T).Name == "OnDuty")
+                unOfWrk.Cntx.OnDuty.Add(t as OnDuty);
+
+            else if (typeof(T).Name == "UndTreat")
+                unOfWrk.Cntx.UndTreat.Add(t as UndTreat);
+
+            else if (typeof(T).Name == "Agent")
+                unOfWrk.Cntx.Agent.Add(t as Agent);
+
+            else if (typeof(T).Name == "History")
+                unOfWrk.Cntx.History.Add(t as History);
+
+            else if (typeof(T).Name == "Mission")
+                unOfWrk.Cntx.Mission.Add(t as Mission);
+
+            else if (typeof(T).Name == "Session")
+                unOfWrk.Cntx.Session.Add(t as Session);
+
+            else if (typeof(T).Name == "User")
+                unOfWrk.Cntx.User.Add(t as User);
+
+            else {
+                // UNDONE یه استنای برنامه‌ای با متن موجودیت ثبت نشده، ایجاد شود
+            }
+
+            return this;
+        }
+
         public virtual T Ret(Expression<Func<T, bool>> expr)
         {
-            /*UNDONE InvalidOperationException: The class 'smcs.backend.data.model.iterative.OffDay' has no parameterless constructor.*/
-            /*UNDONE System.InvalidOperationException: 'The entity type UndTreat is not part of the model for the current context.'*/
-            /*UNDONE System.NotSupportedException: 'Unable to create a constant value of type 'smcs.backend.data.model.Agent'. 
-             * Only primitive types or enumeration types are supported in this context.'*/
-            /*UNDONE System.Reflection.TargetException: 'Non-static method requires a target. در صورتیکه عبارت داده شده نامعتبر باشد:*/
-            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
-                return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
+            try
+            {
+                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                    return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
+            }
+            catch (InvalidOperationException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (ArgumentNullException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (NotSupportedException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(e.Message, e);
+            }
 
             return null;
         }
 
         public virtual IEnumerable<T> RetEnum(Expression<Func<T, bool>> expr)
         {
-            /*NOTE توجه شود که استثناها در متدها مشابه در این مورد نیز احتمالا برقرار است*/
-            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
-                return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).AsEnumerable();
+            try
+            {
+                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                    return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).AsEnumerable();
+            }
+            catch (InvalidOperationException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (ArgumentNullException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (SqlException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(e.Message, e);
+            }
 
             return null;
         }
 
-        [Obsolete("ظاهرا برای بعضی موارد کار نمیکنه..", true)]
         public virtual T RetMax(Expression<Func<T, bool>> expr)
         {
-            /*UNDONE System.NotSupportedException: 'LINQ to Entities does not recognize the method 'smcs.backend.data.model.Agent 
-             * LastOrDefault[Agent](System.Linq.IQueryable`1[smcs.backend.data.model.Agent])' method, and this method cannot be translated into a store expression.'*/
-            return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).Max();
+            try
+            {
+                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                    return unOfWrk.Cntx.Set<T>().AsNoTracking().OrderByDescending(expr).First();
+            }
+            catch (NotSupportedException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (InvalidOperationException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (ArgumentNullException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (SqlException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+
+            return null;
         }
 
         public List<T> RetList(Expression<Func<T, bool>> expr)
         {
-            /*UNDONE System.InvalidOperationException: 'The model backing the 'SmcsContext' 
-             * context has changed since the database was created. Consider using Code First Migrations to update the database (http://*/
-            /*UNDONE SqlException: Resetting the connection results in a different state than the initial login. The login fails.
-               Login failed for user 'sa'.
-               A severe error occurred on the current command.  The results, if any, should be discarded.*/
-            /*UNDONE InvalidOperationException: The class 'smcs.backend.data.model.basic.Rank' has no parameterless constructor.*/
-            /*System.Data.Entity.Core.EntityCommandExecutionException: 'An error occurred while executing the command definition. 
-             * See the inner exception for details.'*/
-            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
-                return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).ToList();
+            try
+            {
+                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any()) 
+                    return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).ToList();
+            }
+            catch (DataException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (InvalidOperationException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (ArgumentNullException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (SqlException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(e.Message, e);
+            }
 
             return null;
         }
 
         public double RetRoundedAvg(Expression<Func<T, bool>> cond, Expression<Func<T, double>> expr)
         {
-            if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+            try
             {
-                var result = unOfWrk.Cntx.Set<T>().AsNoTracking().Where(cond);
-                if (result.Any())
-                    return Math.Round(result.Average(expr), 1);
+                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                {
+                    var result = unOfWrk.Cntx.Set<T>().AsNoTracking().Where(cond);
+                    if (result.Any())
+                        return Math.Round(result.Average(expr), 1);
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (ArgumentNullException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (SqlException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(e.Message, e);
             }
 
             return 0.0d;
         }
 
-        internal bool Upd(T t)
+        internal Repository<T> Upd(T t)
         {
             unOfWrk.Cntx.Entry(t).State = EntityState.Modified;
-            //unOfWrk.Cntx.Set<T>().Attach(t); // this method prevent dbcontext from saving ..
-            /*System.InvalidOperationException: 'Attaching an entity of type 'smcs.backend.data.model.Signature' failed because 
-            another entity of the same type already has the same primary key value. This can happen when using the 'Attach' method 
-            or setting the state of an entity to 'Unchanged' or 'Modified' if any entities in the graph have conflicting key values. 
-            This may be because some entities are new and have not yet received database-generated key values. In this case use the 'Add' 
-            method or the 'Added' entity state to track the graph and then set the state of non-new entities to 'Unchanged' or 'Modified' as appropriate.'*/
-            return unOfWrk.Commit();
+            return this;
         }
 
-        internal bool Del(T t)
+        internal bool RemSngl(T t)
         {
             T existing = unOfWrk.Cntx.Set<T>().Find(t);
             if (existing != null)
-                unOfWrk.Cntx.Set<T>().Remove(t);
+            {
+                (t as Enabler).Enbl = false;
+                unOfWrk.Cntx.Entry(t).State = EntityState.Modified;
+            }
 
+            return unOfWrk.Commit();
+        }
+
+        internal Repository<T> RemCond(Expression<Func<T, bool>> cond)
+        {
+            try
+            {
+                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                {
+                    var list = unOfWrk.Cntx.Set<T>().AsNoTracking().Where(cond).ToList();
+                    if (list != null && list.Count > 0)
+                    {
+                        foreach (var i in list)
+                        {
+                            (i as Enabler).Enbl = false;
+                            unOfWrk.Cntx.Entry(i).State = EntityState.Modified;
+                        }
+                    }
+                }
+            }
+            catch (ArgumentNullException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (SqlException e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(e.Message, e);
+            }
+
+            return this;
+        }
+
+        public bool Commit()
+        {
             return unOfWrk.Commit();
         }
 
