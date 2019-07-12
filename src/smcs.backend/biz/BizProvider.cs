@@ -26,251 +26,315 @@ namespace smcs.backend.biz
             }
         }
         
-        public void Login(string usrNam, string pass)
+        public Message Login(string usrNam, string pass)
         {
-            using (var usrRepo = new Repository<User>(csName))
+            using (var rOfU = new Repository<User>(csName))
             {
-                var usr = usrRepo.Ret(a => a.UsrName.Equals(usrNam) && a.Pass.Equals(pass));
-                if (usr == null)
-                    throw BizErrCod.USR_NOT_EXST;
-                
-                CrntUser.UsrId = usr.UsrId;
-                CrntUser.Name = usr.Name;
-
-                var sesRepo = new Session(usr.UsrId);
-                using (var repoOfSessions = new Repository<Session>(csName))
+                var usr = rOfU.Ret(a => a.UsrName.Equals(usrNam) && a.Pass.Equals(pass) && a.Enbl == true);
+                if (usr != null)
                 {
-                    CrntUser.SesId = sesRepo.SesId;
-                    if (!repoOfSessions.AddSingle(sesRepo))
-                        throw BizErrCod.DB_INS_FAIL;
+                    CrntUser.UsrId = usr.UsrId;
+                    CrntUser.Name = usr.Name;
+
+                    using (var repoOfSessions = new Repository<Session>(csName))
+                    {
+                        var ses = new Session(usr.UsrId);
+                        if (repoOfSessions.AddSingle(ses).Commit())
+                        {
+                            CrntUser.SesId = ses.SesId;
+                            return BizErrCod.LOG_IN_SUCC;
+                        }
+                        else
+                            return BizErrCod.LOG_IN_FAIL;
+                    }
                 }
+                else
+                    return BizErrCod.USR_NOT_EXST;
             }
         }
 
-        public void Logout()
+        public Message Logout()
         {
-            using (var repo = new Repository<Session>(csName))
+            using (var rOfS = new Repository<Session>(csName))
             {
-                var sesi = repo.Ret(a => a.SesId.Equals(CrntUser.SesId) && 
+                var sesi = rOfS.Ret(a => a.SesId.Equals(CrntUser.SesId) && 
                                          a.UsrRef.Equals(CrntUser.UsrId) && 
                                          a.TermDate.Equals(null));
-                if (sesi == null) 
-                    throw BizErrCod.SESI_NOT_EXST; /*UNDONE System.ApplicationException: 'Error in the application.'*/
+                if (sesi != null)
+                {
+                    sesi.TermDate = DateTime.Now;
+                    if (rOfS.Upd(sesi).Commit())
+                        return BizErrCod.LOG_OUT_SUCC;
 
-                sesi.TermDate = DateTime.Now;
-                if (!repo.Upd(sesi))
-                    throw BizErrCod.DB_UPDT_FAIL;
+                    return BizErrCod.LOG_OUT_FAIL;
+                }
+
+                return BizErrCod.SESI_NOT_EXST;
             }
         }
         
-        public void RegisterTheAgent(Mission mis, Agent ag)
+        public Message RegisterTheAgent(Mission mis, Agent ag)
         {
-            using (var repOfMis = new Repository<Mission>(csName))
-                if (!repOfMis.AddSingle(mis))
-                    throw BizErrCod.DB_INS_FAIL;
-
-            ag.MisRef = mis.MisId;
-
-            using (var repOfAgnts = new Repository<Agent>(csName))
-                if (!repOfAgnts.AddSingle(ag)) //TODO smoketest: System.Data.Entity.Validation.DbEntityValidationException: 'Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.'
-                    throw BizErrCod.DB_INS_FAIL;
-
             using (var repOfHis = new Repository<History>(csName))
                 repOfHis.AddSingle(new History(Crud.Create, "Mission", ag.Id));
-        }
 
-        //UNDONE بروزرسانی ها باید internal باشند
-        /*TODO متد ایجاد ماموریت باید ایجاد شده و جایگزین بروزرسانی ماموریت باشد؛ در صورتی که ماموریت فعلی خاتمه نیافته باشد، باید از ایجاد ماموریت جدید جلوگیری شود*/
-        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
-        public void UpdateAgent(Agent ag)
-        {
-            using (var repo = new Repository<Agent>(csName))
-                if (!repo.Upd(ag))
-                    throw BizErrCod.DB_UPDT_FAIL;
-
-            using (var repOfHis = new Repository<History>(csName))
-                repOfHis.AddSingle(new History(Crud.Update, "Mission", ag.Id));
-        }
-
-        //UNDONE بروزرسانی ها باید internal باشند
-        /*TODO متد ایجاد ماموریت باید ایجاد شده و جایگزین بروزرسانی ماموریت باشد؛ در صورتی که ماموریت فعلی خاتمه نیافته باشد، باید از ایجاد ماموریت جدید جلوگیری شود*/
-        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
-        public void UpdateAgent(Agent ag, Mission mi)
-        {
-            using (var repo = new Repository<Mission>(csName))
-                if (!repo.Upd(mi))
-                    throw BizErrCod.DB_UPDT_FAIL;
-
-            using (var repo = new Repository<Agent>(csName))
-                if (!repo.Upd(ag))
-                    throw BizErrCod.DB_UPDT_FAIL;
-
-            using (var repOfHis = new Repository<History>(csName))
-                repOfHis.AddSingle(new History(Crud.Update, "Mission", ag.Id));
-        }
-
-        public void DismissTheAgent(Agent ag, DateTime retToUnt)
-        {
-            using (var repOfAg = new Repository<Agent>(csName))
+            using (var rOfA = new Repository<Agent>(csName))
             {
-                var exAg = repOfAg.Ret(a => a.Id == ag.Id);
+                using (var rOfM = new Repository<Mission>(csName))
+                    rOfM.AddSingle(mis);
 
-                if (exAg == null)
-                    throw BizErrCod.AGNT_NOT_EXST;
+                ag.MisRef = mis.MisId;
+                ag.Mission = mis;
 
-                else if (exAg.Enbl == false)
-                    throw BizErrCod.AGNT_ALRDY_DISSMSD;
+                if (rOfA.AddMultiple(ag).Commit()) // تاریخچه ثبت می‌شود؟
+                    return BizErrCod.AG_REG_SUCC;
+                else
+                    return BizErrCod.AG_REG_FAIL;
 
-                ag.Enbl = false;
-                if (!repOfAg.Upd(ag))
-                    throw BizErrCod.DB_UPDT_FAIL;
+                // UNDONE نمایش انجام به کاربر
             }
+        }
 
-            using (var repOfMis = new Repository<Mission>(csName))
+        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
+        public Message UpdateAgent(Agent ag)
+        {
+            using (var repOfHis = new Repository<History>(csName))
+                repOfHis.AddSingle(new History(Crud.Update, "Mission", ag.Id));
+
+            using (var rOfA = new Repository<Agent>(csName))
+                if (rOfA.Upd(ag).Commit()) // تاریخچه ثبت می‌شود؟
+                    return BizErrCod.AG_UPDT_SUCC;
+
+            return BizErrCod.AG_UPDT_FAIL;
+            // UNDONE نمایش انجام به کاربر
+        }
+
+        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
+        public Message UpdateAgentAndMission(Agent ag, Mission mi)
+        {
+            var rOfH = new Repository<History>(csName);
+            rOfH.AddSingle(new History(Crud.Update, "Mission", ag.Id));
+
+            var rOfM = new Repository<Mission>(csName);
+            rOfM.Upd(mi);
+
+            var rOfA = new Repository<Agent>(csName);
+            if (rOfA.Upd(ag).Commit()) // تاریخچه ثبت می‌شود؟
+                return BizErrCod.AG_N_MIS_UPDT_SUCC;
+
+            return BizErrCod.AG_N_MIS_UPDT_FAIL;
+            // UNDONE نمایش انجام به کاربر
+        }
+
+        public Message DismissTheAgent(Agent ag, DateTime retToUnt)
+        {
+            var rOfH = new Repository<History>(csName);
+            rOfH.AddSingle(new History(Crud.Delete, "Mission", ag.MisRef));
+
+            var rOfA = new Repository<Agent>(csName);
+            var exAg = rOfA.Ret(a => a.Id == ag.Id);
+            if (exAg == null)
+                return BizErrCod.AGNT_NOT_EXST;
+            else if (exAg.Enbl == false)
+                return BizErrCod.AGNT_ALRDY_DISM;
+
+            ag.Enbl = false;
+            rOfA.Upd(ag);
+
+            using (var rOfM = new Repository<Mission>(csName))
             {
-                var exMi = repOfMis.Ret(s => s.MisId.Equals(ag.MisRef) && s.Ret2UntDate.Equals(null));
+                var exMi = rOfM.Ret(s => s.MisId.Equals(ag.MisRef) && s.Ret2UntDate.Equals(null));
                 if (exMi == null)
-                    throw BizErrCod.MIS_NOT_EXST;
+                    return BizErrCod.MIS_NOT_EXST;
 
                 exMi.Ret2UntDate = retToUnt;
-                if (!repOfMis.Upd(exMi))
-                    throw BizErrCod.DB_UPDT_FAIL;
-            }
+                if (rOfM.Upd(exMi).Commit())
+                    return BizErrCod.AG_DISM_SUCC;
 
-            using (var repOfHis = new Repository<History>(csName))
-                repOfHis.AddSingle(new History(Crud.Delete, "Mission", ag.MisRef));
-        }
-
-        public void RegisterTheAgentOnOffice(Agent agnt, Int32 off)
-        {
-            // بهتر نیست که ثبت‌قسمت صرفا با شناسه مامور صورت بگیرد
-            using (var repOfMis = new Repository<Mission>(csName))
-            {
-                var mis = repOfMis.Ret(e => e.MisId == agnt.MisRef && e.Enbl == true);
-                mis.OffcRef = -1;
-                if (!repOfMis.Upd(mis))
-                    throw BizErrCod.DB_UPDT_FAIL;
-            }
-        }
-
-        public void RemoveOfficeOfAgent(Agent agnt)
-        {
-            // بهتر نیست که ثبت‌قسمت صرفا با شناسه مامور صورت بگیرد
-            using (var repOfMiss = new Repository<Mission>(csName))
-            {
-                var mis = repOfMiss.Ret(e => e.MisId == agnt.MisRef && e.Enbl == true);
-                mis.OffcRef = -1;
-                if (!repOfMiss.Upd(mis))
-                    throw BizErrCod.DB_UPDT_FAIL;
-            }
-        }
-
-        public void WriteTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
-        {
-            int misId = -1;
-            using (var rep = new Repository<Agent>(csName))
-                misId = rep.Ret(e => e.Id == agId && e.Enbl == true).MisRef;
-            
-            // در این تاریخ نباید هیچ گردش‌کاری برای فرد ثبت شده باشد
-            NoOtherOperationShouldExistOnThisDate<OffDay>(misId, date);
-            NoOtherOperationShouldExistOnThisDate<OnDuty>(misId, date);
-            NoOtherOperationShouldExistOnThisDate<UndTreat>(misId, date);
-            NoOtherOperationShouldExistOnThisDate<Absence>(misId, date);
-
-            switch (typeof(T).Name)
-            {
-                case "OffDay":
-                    WriteOperation<OffDay>(new OffDay(date, misId, CrntUser.SesId));
-                    break;
-                case "OnDuty":
-                    WriteOperation<OnDuty>(new OnDuty(date, misId, CrntUser.SesId));
-                    break;
-                case "UndTreat":
-                    WriteOperation<UndTreat>(new UndTreat(date, misId, CrntUser.SesId));
-                    break;
-                case "Absence":
-                    WriteOperation<Absence>(new Absence(date, misId, CrntUser.SesId));
-                    break;
+                return BizErrCod.AG_DISM_FAIL;
             }
 
             // UNDONE نمایش انجام به کاربر
         }
 
-        public void RemoveTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
+        public Message RegisterTheAgentOnOffice(Agent agnt, Int32 off)
         {
-            int misId = -1;
-            using (var rep = new Repository<Agent>(csName))
-                misId = rep.Ret(e => e.Id == agId && e.Enbl == true).MisRef;
-
-            switch (typeof(T).Name)
+            using (var rOfM = new Repository<Mission>(csName))
             {
-                case "OffDay":
-                    RemoveOperation<OffDay>(misId, date);
-                    break;
-                case "OnDuty":
-                    RemoveOperation<OnDuty>(misId, date);
-                    break;
-                case "UndTreat":
-                    RemoveOperation<UndTreat>(misId, date);
-                    break;
-                case "Absence":
-                    RemoveOperation<Absence>(misId, date);
-                    break;
+                var mis = rOfM.Ret(e => e.MisId == agnt.MisRef && e.Enbl == true);
+                mis.OffcRef = -1;
+                if (rOfM.Upd(mis).Commit())
+                    return BizErrCod.AG_REG_OFC_SUCC;
+
+                return BizErrCod.AG_OFC_REG_FAIL;
             }
+
+            // UNDONE نمایش انجام به کاربر
+        }
+
+        public Message RemoveOfficeOfAgent(Agent agnt)
+        {
+            using (var rOfM = new Repository<Mission>(csName))
+            {
+                var mis = rOfM.Ret(e => e.MisId == agnt.MisRef && e.Enbl == true);
+                mis.OffcRef = -1;
+                if (rOfM.Upd(mis).Commit())
+                    return BizErrCod.AG_OFC_REM_SUCC;
+
+                return BizErrCod.AG_OFC_REM_FAIL;
+            }
+
+            // UNDONE نمایش انجام به کاربر
+        }
+
+        public Message WriteTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
+        {
+            var r = new Repository<Agent>(csName);
+            var ag = r.Ret(e => e.Id == agId && e.Enbl == true);
+
+            if (ag != null)
+            {
+                if (NoOtherOperationShouldExistOnThisDate<OffDay>(ag.MisRef, date) &&
+                   NoOtherOperationShouldExistOnThisDate<OnDuty>(ag.MisRef, date) &&
+                   NoOtherOperationShouldExistOnThisDate<UndTreat>(ag.MisRef, date) &&
+                   NoOtherOperationShouldExistOnThisDate<Absence>(ag.MisRef, date))
+                {
+                    switch (typeof(T).Name)
+                    {
+                        case "OffDay":
+                            if (!WriteOperation<OffDay>(new OffDay(date, ag.MisRef, CrntUser.SesId)))
+                                return BizErrCod.WRT_OFF_FAIL;
+                            break;
+                        case "OnDuty":
+                            if (!WriteOperation<OnDuty>(new OnDuty(date, ag.MisRef, CrntUser.SesId)))
+                                return BizErrCod.WRT_ONDUT_FAIL;
+                            break;
+                        case "UndTreat":
+                            if (!WriteOperation<UndTreat>(new UndTreat(date, ag.MisRef, CrntUser.SesId)))
+                                return BizErrCod.WRT_UNTRT_FAIL;
+                            break;
+                        case "Absence":
+                            if (!WriteOperation<Absence>(new Absence(date, ag.MisRef, CrntUser.SesId)))
+                                return BizErrCod.WRT_ABS_FAIL;
+                            break;
+                    }
+
+                    return BizErrCod.WRT_AG_ITER_SUCC;
+                }
+                else
+                    return BizErrCod.OFF_UNDT_ABS_UNTRT_CONF;
+            }
+            else
+                return BizErrCod.AGNT_NOT_EXST;
+
+            // UNDONE نمایش انجام به کاربر
+        }
+
+        public Message RemoveTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
+        {
+            var r = new Repository<Agent>(csName);
+            var mis = r.Ret(e => e.Id == agId && e.Enbl == true);
+
+            if (mis != null)
+            {
+                switch (typeof(T).Name)
+                {
+                    case "OffDay":
+                        if (!RemoveOperation<OffDay>(mis.MisRef, date))
+                            return BizErrCod.RMV_OFF_FAIL;
+                        break;
+                    case "OnDuty":
+                        if (!RemoveOperation<OnDuty>(mis.MisRef, date))
+                            return BizErrCod.RMV_ONDUT_FAIL;
+                        break;
+                    case "UndTreat":
+                        if (!RemoveOperation<UndTreat>(mis.MisRef, date))
+                            return BizErrCod.RMV_UNTR_FAIL;
+                        break;
+                    case "Absence":
+                        if (!RemoveOperation<Absence>(mis.MisRef, date))
+                            return BizErrCod.RMV_ABS_FAIL;
+                        break;
+                }
+
+                return BizErrCod.AG_REM_ITER_SUCC;
+            }
+            else
+                return BizErrCod.AGNT_NOT_EXST;
             
             // UNDONE نمایش انجام به کاربر
         }
 
-        public void UpdateSignature(Signature sign)
+        public Message UpdateSignature(Signature sign)
         {
-            using (var rep = new Repository<Signature>())
-                if (!rep.Upd(sign))
-                    throw BizErrCod.DB_UPDT_FAIL;
+            using (var r = new Repository<Signature>())
+                if (!r.Upd(sign).Commit())
+                    return BizErrCod.UPDT_SIGN_SUCC;
+
+            return BizErrCod.SIGN_UPDT_FAIL;
+            // UNDONE نمایش انجام به کاربر
         }
 
-        public void ExtendMission(Int32 mi, DateTime extDt)
+        public Message ExtendMission(Int32 mi, DateTime extDt)
         {
-            using (var repOfMis = new Repository<Mission>())
+            using (var r = new Repository<Mission>())
             {
-                var mis = repOfMis.Ret(m => m.MisId == mi);
-                mis.DeadLine = extDt;
-                repOfMis.Upd(mis);
+                var mis = r.Ret(m => m.MisId == mi);
+                if (mis != null)
+                {
+                    mis.DeadLine = extDt;
+                    if (r.Upd(mis).Commit())
+                        return BizErrCod.EXTN_MIS_SUCC;
+
+                    return BizErrCod.EXTN_MIS_FAIL;
+                }
+                else
+                    return BizErrCod.MIS_NOT_EXST;
             }
+
+            // UNDONE نمایش انجام به کاربر
         }
 
         /* ------------------ private merhod(es) ------------------ */
 
-        private void WriteOperation<T>(T t) where T: Iterative
+        private bool WriteOperation<T>(T t) where T: Iterative
         {
-            using (var rep = new Repository<T>(csName))
-                if (!rep.AddSingle(t))
-                    throw BizErrCod.DB_INS_FAIL;
+            using (var rOfH = new Repository<History>(csName))
+                rOfH.AddSingle(new History(Crud.Create, typeof(T).Name, t.Id));
 
-            using (var repOfHis = new Repository<History>(csName))
-                repOfHis.AddSingle(new History(Crud.Create, typeof(T).Name, t.Id));
+            using (var rOfT = new Repository<T>(csName))
+                if (rOfT.AddSingle(t).Commit()) // تاریخ‌چه هم ثبت می‌شود؟
+                    return true;
+
+            return false;
         }
 
-        private void NoOtherOperationShouldExistOnThisDate<T>(int misId, DateTime date) where T: Iterative
+        private bool NoOtherOperationShouldExistOnThisDate<T>(int misId, DateTime date) where T: Iterative
         {
+            // در این تاریخ نباید هیچ گردش‌کاری برای فرد ثبت شده باشد
             using (var repo = new Repository<T>(csName))
-                if (null != repo.Ret(o => o.MisRef.Equals(misId) && (o.Date == date) && o.Enbl == true))
-                    throw BizErrCod.OPR_FAIL;
+                if (null == repo.Ret(o => o.MisRef.Equals(misId) && (o.Date == date) && o.Enbl == true))
+                    return true;
+
+            return false;
         }
 
-        private void RemoveOperation<T>(int misId, DateTime date) where T : Iterative
+        private bool RemoveOperation<T>(int misId, DateTime date) where T : Iterative
         {
-            using (var repo = new Repository<T>(csName))
+            using (var rOfT = new Repository<T>(csName))
             {
-                var iter = repo.Ret(o => o.MisRef.Equals(misId) && o.Date == date && o.Enbl == true);
+                var iter = rOfT.Ret(o => o.MisRef.Equals(misId) && o.Date == date && o.Enbl == true);
                 if (iter == null)
-                    throw BizErrCod.OPR_FAIL;
+                    return false;
 
                 iter.Enbl = false;
-                if (!repo.Upd(iter))
-                    throw BizErrCod.DB_UPDT_FAIL;
+                rOfT.Upd(iter);
 
-                using (var repOfHis = new Repository<History>(csName))
-                    repOfHis.AddSingle(new History(Crud.Delete, typeof(T).Name, iter.Id));
+                var rOfH = new Repository<History>(csName);
+                if (rOfH.AddSingle(new History(Crud.Delete, typeof(T).Name, iter.Id)).Commit()) // تاریخچه ثبت و عملیات لغو شده؟
+                    return true;
+
+                return true;
             }
         }
     }
