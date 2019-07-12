@@ -77,7 +77,7 @@ namespace smcs.frontend.frm
 
                 try
                 {
-                    biz.UpdateAgent(ag, mi);
+                    biz.UpdateAgentAndMission(ag, mi);
                     tslblStatus.Text = string.Format("بروزرسانی مامور {0} با کدملی {1} انجام شد", txtName.Text.Trim(), mtxtNtioSearch.Text.Trim());
                 }
                 catch (Exception)
