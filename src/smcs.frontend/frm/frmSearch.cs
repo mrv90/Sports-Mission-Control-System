@@ -207,28 +207,38 @@ namespace smcs.frontend.frm
                 {
                     case "Name":
                         lst_of_ags = repo.RetList(a => a.Name.Contains(filt));
-                        foreach (Agent ag in lst_of_ags)
-                            items.Add(new PairDataItem(ag.Id, ag.Name));
+                        if (lst_of_ags != null) {
+                            foreach (Agent ag in lst_of_ags)
+                                items.Add(new PairDataItem(ag.Id, ag.Name));
+                        }
                         break;
                     case "NtioCode":
                         lst_of_ags = repo.RetList(a => a.NtioCode.Contains(filt));
-                        foreach (Agent ag in lst_of_ags)
-                            items.Add(new PairDataItem(ag.Id, ag.NtioCode));
+                        if (lst_of_ags != null) {
+                            foreach (Agent ag in lst_of_ags)
+                                items.Add(new PairDataItem(ag.Id, ag.NtioCode));
+                        }
                         break;
                     case "PersCode":
                         lst_of_ags = repo.RetList(a => a.PersCode.Contains(filt));
-                        foreach (Agent ag in lst_of_ags)
-                            items.Add(new PairDataItem(ag.Id, ag.PersCode));
+                        if (lst_of_ags != null) {
+                            foreach (Agent ag in lst_of_ags)
+                                items.Add(new PairDataItem(ag.Id, ag.PersCode));
+                        }
                         break;
                     case "Cntc":
                         lst_of_ags = repo.RetList(a => a.Cntc.Contains(filt));
-                        foreach (Agent ag in lst_of_ags)
-                            items.Add(new PairDataItem(ag.Id, ag.Cntc));
+                        if (lst_of_ags != null) {
+                            foreach (Agent ag in lst_of_ags)
+                                items.Add(new PairDataItem(ag.Id, ag.Cntc));
+                        }
                         break;
                     case "ECntc":
                         lst_of_ags = repo.RetList(a => a.ECntc.Contains(filt));
-                        foreach (Agent ag in lst_of_ags)
-                            items.Add(new PairDataItem(ag.Id, ag.ECntc));
+                        if (lst_of_ags != null) {
+                            foreach (Agent ag in lst_of_ags)
+                                items.Add(new PairDataItem(ag.Id, ag.ECntc));
+                        }
                         break;
                 }
             }
