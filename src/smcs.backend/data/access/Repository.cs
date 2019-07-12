@@ -34,7 +34,7 @@ namespace smcs.backend.data.access
             return this;
         }
 
-        public Repository<T> AddInterDepend(T t)
+        public Repository<T> AddMultiple(T t)
         {
             if (typeof(T).Name == "Absence")
                 unOfWrk.Cntx.Absence.Add(t as Absence);
