@@ -10,8 +10,6 @@ namespace smcs.backend.data.access
     {
         IUnitOfWork unOfWrk;
 
-        internal IUnitOfWork GetUnOfWrk { get { return this.unOfWrk; } }
-
         private readonly string csName = "end-user";
 
         public Repository()
@@ -31,7 +29,7 @@ namespace smcs.backend.data.access
             Dispose();
         }
 
-        public bool Add(T t)
+        public bool AddSingle(T t)
         {
             unOfWrk.Cntx.Entry(t).State = EntityState.Added;
             return unOfWrk.Commit();
@@ -78,6 +76,8 @@ namespace smcs.backend.data.access
                Login failed for user 'sa'.
                A severe error occurred on the current command.  The results, if any, should be discarded.*/
             /*UNDONE InvalidOperationException: The class 'smcs.backend.data.model.basic.Rank' has no parameterless constructor.*/
+            /*System.Data.Entity.Core.EntityCommandExecutionException: 'An error occurred while executing the command definition. 
+             * See the inner exception for details.'*/
             if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
                 return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).ToList();
 
