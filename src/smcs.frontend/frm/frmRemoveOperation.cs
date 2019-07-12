@@ -83,9 +83,9 @@ namespace smcs.frontend.frm
                     it = rep.Ret(a => a.Id == hi.entId);
             else if (hi.Entity == "UndTreat")
                 using (var rep = new Repository<UndTreat>())
-                        it = rep.Ret(a => a.Id == hi.entId);
+                    it = rep.Ret(a => a.Id == hi.entId);
             else
-                throw BizErrCod.OPR_FAIL; /*TODO استثنای مناسب ایجاد شود*/
+                return null; // استثنا ایجاد شود؟؟
 
             Agent ag; /*UNDONE اگر که پیمانه بالا تهی باشد، مامور نیز تهی می‌شود‌*/
             using (var rep = new Repository<Agent>())
