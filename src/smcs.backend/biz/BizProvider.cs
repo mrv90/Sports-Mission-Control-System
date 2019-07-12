@@ -95,7 +95,6 @@ namespace smcs.backend.biz
             }
         }
 
-        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
         public Message UpdateAgent(Agent ag)
         {
             using (var repOfHis = new Repository<History>(csName))
@@ -109,7 +108,6 @@ namespace smcs.backend.biz
             // UNDONE نمایش انجام به کاربر
         }
 
-        /*UNDONE از آنجا که این کلاس برای ارائه خدمات بیزنسی است، کلاس پایین تری وظیفه تغییرات دیتا را انجام می‌دهد*/
         public Message UpdateAgentAndMission(Agent ag, Mission mi)
         {
             var rOfH = new Repository<History>(csName);
