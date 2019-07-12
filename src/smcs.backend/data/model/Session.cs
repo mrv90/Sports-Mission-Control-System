@@ -1,4 +1,5 @@
-﻿using System;
+﻿using smcs.backend.data.model.basic;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,8 @@ namespace smcs.backend.data.model
 
         [Required] [Column(TypeName = "datetime2")] public DateTime InitDate { get; set; }
         [Column(TypeName = "datetime2")] public DateTime? TermDate { get; set; }
+
+        public virtual Unit Unit { get; set; }
         [Required] public Int32 UsrRef { get; set; }
 
         //public string ChkSum { get; set; }
