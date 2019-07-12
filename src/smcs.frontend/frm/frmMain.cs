@@ -15,8 +15,7 @@ namespace smcs.frontend
         {
             lblUser.Text = CrntUser.Name;
             lblVersion.Text = Application.ProductVersion.ToString();
-            lblStatus.Text = string.Format("کاربر گرامی «{0}»؛ ورود شما ({1}) در سیستم ثبت شد", CrntUser.Name, DateTime.Now);
-            //TODO گزارش کلی با رویداد‌ها روزانه نمایش داده شود
+            //lblStatus.Text = string.Format("کاربر گرامی «{0}»؛ ورود شما ({1}) در سیستم ثبت شد", CrntUser.Name, DateTime.Now);
         }
 
         private void signatureDefinitionMenuItem_Click(object sender, EventArgs e)
@@ -60,6 +59,5 @@ namespace smcs.frontend
 
             System.Windows.Forms.Application.Exit();
         }
-
     }
 }
