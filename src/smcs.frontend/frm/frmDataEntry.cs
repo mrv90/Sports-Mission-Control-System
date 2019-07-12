@@ -93,7 +93,7 @@ namespace smcs.frontend.frm
                     Agent ag = notCommitedAgentUpdate(repOfAgnt, true);
 
                     using (var rep = new Repository<Mission>())
-                        rep.Add(new Mission(dPickDteOfRecp.Value, ((PairDataItem)cmbOffc.SelectedItem).Id, 
+                        rep.AddSingle(new Mission(dPickDteOfRecp.Value, ((PairDataItem)cmbOffc.SelectedItem).Id, 
                             ((PairDataItem)cmbSprt.SelectedItem).Id, txtOrdrBy.Text.Trim(), CrntUser.SesId));
 
                     try

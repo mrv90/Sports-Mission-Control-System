@@ -41,7 +41,7 @@ namespace smcs.backend.biz
                 using (var repoOfSessions = new Repository<Session>(csName))
                 {
                     CrntUser.SesId = sesRepo.SesId;
-                    if (!repoOfSessions.Add(sesRepo))
+                    if (!repoOfSessions.AddSingle(sesRepo))
                         throw BizErrCod.DB_INS_FAIL;
                 }
             }
@@ -66,17 +66,17 @@ namespace smcs.backend.biz
         public void RegisterTheAgent(Mission mis, Agent ag)
         {
             using (var repOfMis = new Repository<Mission>(csName))
-                if (!repOfMis.Add(mis))
+                if (!repOfMis.AddSingle(mis))
                     throw BizErrCod.DB_INS_FAIL;
 
             ag.MisRef = mis.MisId;
 
             using (var repOfAgnts = new Repository<Agent>(csName))
-                if (!repOfAgnts.Add(ag)) //TODO smoketest: System.Data.Entity.Validation.DbEntityValidationException: 'Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.'
+                if (!repOfAgnts.AddSingle(ag)) //TODO smoketest: System.Data.Entity.Validation.DbEntityValidationException: 'Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.'
                     throw BizErrCod.DB_INS_FAIL;
 
             using (var repOfHis = new Repository<History>(csName))
-                repOfHis.Add(new History(Crud.Create, "Mission", ag.Id));
+                repOfHis.AddSingle(new History(Crud.Create, "Mission", ag.Id));
         }
 
         //UNDONE بروزرسانی ها باید internal باشند
@@ -89,7 +89,7 @@ namespace smcs.backend.biz
                     throw BizErrCod.DB_UPDT_FAIL;
 
             using (var repOfHis = new Repository<History>(csName))
-                repOfHis.Add(new History(Crud.Update, "Mission", ag.Id));
+                repOfHis.AddSingle(new History(Crud.Update, "Mission", ag.Id));
         }
 
         //UNDONE بروزرسانی ها باید internal باشند
@@ -106,7 +106,7 @@ namespace smcs.backend.biz
                     throw BizErrCod.DB_UPDT_FAIL;
 
             using (var repOfHis = new Repository<History>(csName))
-                repOfHis.Add(new History(Crud.Update, "Mission", ag.Id));
+                repOfHis.AddSingle(new History(Crud.Update, "Mission", ag.Id));
         }
 
         public void DismissTheAgent(Agent ag, DateTime retToUnt)
@@ -138,7 +138,7 @@ namespace smcs.backend.biz
             }
 
             using (var repOfHis = new Repository<History>(csName))
-                repOfHis.Add(new History(Crud.Delete, "Mission", ag.MisRef));
+                repOfHis.AddSingle(new History(Crud.Delete, "Mission", ag.MisRef));
         }
 
         public void RegisterTheAgentOnOffice(Agent agnt, Int32 off)
@@ -243,11 +243,11 @@ namespace smcs.backend.biz
         private void WriteOperation<T>(T t) where T: Iterative
         {
             using (var rep = new Repository<T>(csName))
-                if (!rep.Add(t))
+                if (!rep.AddSingle(t))
                     throw BizErrCod.DB_INS_FAIL;
 
             using (var repOfHis = new Repository<History>(csName))
-                repOfHis.Add(new History(Crud.Create, typeof(T).Name, t.Id));
+                repOfHis.AddSingle(new History(Crud.Create, typeof(T).Name, t.Id));
         }
 
         private void NoOtherOperationShouldExistOnThisDate<T>(int misId, DateTime date) where T: Iterative
@@ -270,7 +270,7 @@ namespace smcs.backend.biz
                     throw BizErrCod.DB_UPDT_FAIL;
 
                 using (var repOfHis = new Repository<History>(csName))
-                    repOfHis.Add(new History(Crud.Delete, typeof(T).Name, iter.Id));
+                    repOfHis.AddSingle(new History(Crud.Delete, typeof(T).Name, iter.Id));
             }
         }
     }
