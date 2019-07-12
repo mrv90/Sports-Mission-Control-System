@@ -1,5 +1,11 @@
 ﻿public class Message
 {
+    public static readonly int LOG_IN_FAIL = -2;
+    public static readonly int FAIL = -1;
+    public static readonly int SUCC = 0;
+    public static readonly int ALDY_EXST = 1;
+    public static readonly int ALDY_REMV = 2;
+
     public int Id { get; private set; }
 
     public string Text { get; private set; }
@@ -34,5 +40,4 @@
     {
         return new Message(2, target + "قبل‌تر از سیستم حذف شده ");
     }
-
 }
