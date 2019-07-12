@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 
 namespace smcs.backend.data.access
 {
@@ -26,18 +27,39 @@ namespace smcs.backend.data.access
         {
             try
             {
-                /*UNDONE Validation failed for one or more entities. See 'EntityValidationErrors' property for more details. */
                 this.Cntx.SaveChanges();
                 return true;
             }
             catch (DbUpdateException e)
             {
-                // UNDONE log this
-                /*Cannot insert duplicate key row in object 'dbo.Agent' with unique index 'IX_PersCode'.The duplicate key value is (0).
-                  The statement has been terminated.*/
+                //Logger.Exception(e.Message, e)
+                return false;
             }
-
-            return false;
+            catch (DbEntityValidationException e)
+            {
+                //Logger.Exception(e.Message, e)
+                return false;
+            }
+            catch (NotSupportedException e)
+            {
+                //Logger.Exception(e.Message, e)
+                return false;
+            }
+            catch (ObjectDisposedException e)
+            {
+                //Logger.Exception(e.Message, e)
+                return false;
+            }
+            catch (InvalidOperationException e)
+            {
+                //Logger.Exception(e.Message, e)
+                return false;
+            }
+            catch (Exception e)
+            {
+                //Logger.Exception(e.Message, e)
+                return false;
+            }
         }
     }
 }
