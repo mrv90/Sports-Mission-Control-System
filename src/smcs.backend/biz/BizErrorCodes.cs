@@ -1,36 +1,28 @@
-﻿/* UNDONE توجه شود که جزییات بیشتری از کد خطا لازم است..
-بدین ترتیب که باید هریک از کدهای خطا ساختاری داشته باشند که بتوان محل ایجاد خطا را به آن‌ها افزود */
-using System;
+﻿using System;
 
-namespace smcs.backend.biz
+public class BizErrCod
 {
-    public class BizErrCod
-    {
-        public readonly static Exception DB_UPDT_FAIL = new ApplicationException();
-        public readonly static Exception DB_INS_FAIL = new ApplicationException();
-
-        //TODO استثنای جنریک مینیمالیستی ایجاد شود که درون تست‌ها قابل استفاده باشد
-        public readonly static Exception AGNT_ABS_DUTY_CONF = new ApplicationException();
-        public readonly static Exception AGNT_OFF_DUTY_CONF = new ApplicationException();
-        public readonly static Exception AGNT_OFF_ABS_CONF = new ApplicationException();
-
-        //TODO استثنای جنریک مینیمالیستی ایجاد شود که درون تست‌ها قابل استفاده باشد
-        public readonly static Exception SESI_NOT_EXST = new ApplicationException();
-        public readonly static Exception ONDUTY_NOT_EXST = new ApplicationException();
-        public readonly static Exception ABS_NOT_EXST = new ApplicationException();
-        public readonly static Exception OFF_NOT_EXST = new ApplicationException();
-        public readonly static Exception MIS_NOT_EXST = new ApplicationException();
-        public readonly static Exception AGNT_NOT_EXST = new ApplicationException();
-        public readonly static Exception USR_NOT_EXST = new ApplicationException();
-
-        //TODO میتوان این استثنا را بایک خطا ایجاد کرد
-        public readonly static Exception OPR_FAIL = new ApplicationException();
-
-        public readonly static bool OPR_SUCC = true;
+    public readonly static int DB_UPDT_FAIL = -101;
+    public readonly static int DB_INS_FAIL = -100;
                                
-        public readonly static Exception AGNT_ALRDY_DISSMSD = new ApplicationException();
-        public readonly static Exception AGNT_ALRDY_HAS_OFF  = new ApplicationException();
-        public readonly static Exception AGNT_ALRDY_HAS_ABS  = new ApplicationException();
-        public readonly static Exception AGNT_ALRDY_HAS_DUTY = new ApplicationException();
-    }
+    public readonly static int AGNT_ABS_DUTY_CONF = -11;
+    public readonly static int AGNT_OFF_DUTY_CONF = -10;
+    public readonly static int AGNT_OFF_ABS_CONF = -9;
+                               
+    public readonly static int SESI_NOT_EXST = -8;
+    public readonly static int ONDUTY_NOT_EXST = -7;
+    public readonly static int ABS_NOT_EXST = -6;
+    public readonly static int OFF_NOT_EXST = -5;
+    public readonly static int MIS_NOT_EXST = -4;
+    public readonly static int AGNT_NOT_EXST = -3;
+    public readonly static int USR_NOT_EXST = -2;
+                               
+    public readonly static int OPR_FAIL = -1;
+
+    public readonly static int OPR_SUCC = 0;
+                               
+    public readonly static int AGNT_ALRDY_DISSMSD = 1;
+    public readonly static int AGNT_ALRDY_HAS_OFF  = 2;
+    public readonly static int AGNT_ALRDY_HAS_ABS  = 3;
+    public readonly static int AGNT_ALRDY_HAS_DUTY = 4;
 }
