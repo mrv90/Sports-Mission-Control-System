@@ -23,12 +23,6 @@ namespace smcs.backend.data.access
             this.unOfWrk = new UnitOfWork(csName);
         }
 
-        ~Repository()
-        {
-            //UNDONE System.InvalidOperationException: 'The operation cannot be completed because the DbContext has been disposed.'
-            Dispose();
-        }
-
         public bool AddSingle(T t)
         {
             unOfWrk.Cntx.Entry(t).State = EntityState.Added;
