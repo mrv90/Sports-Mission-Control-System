@@ -51,7 +51,7 @@
     <Compile Include="biz\BizErrorCodes.cs" />
     <Compile Include="biz\BizProvider.cs" />
     <Compile Include="biz\CrntUser.cs" />
-    <Compile Include="biz\Error.cs" />
+    <Compile Include="biz\Message.cs" />
     <Compile Include="biz\IBizProvider.cs" />
     <Compile Include="data\access\Crud.cs" />
     <Compile Include="data\access\PairDataItem.cs" />
