@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Backend.Data.Model.Parent;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model.parent
 {
-    /// <summary>
-    /// کلاس والد برای موجودیت‌های پایه
-    /// </summary>
-    public abstract class Base
+    public abstract class Base : Enabler
     {
         protected Base()
         {
-
+            this.Enbl = true;
         }
 
         internal Base(string name)
@@ -25,7 +23,5 @@ namespace smcs.backend.data.model.parent
         public Int32 Id { get; set; }
 
         [Required] public string Name { get; set; }
-
-        public bool Enbl { get; set; }
     }
 }

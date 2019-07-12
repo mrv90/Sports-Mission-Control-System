@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Backend.Data.Model.Parent;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model
 {
-    public class User
+    public class User : Enabler
     {
         internal User()
         {
@@ -29,8 +30,6 @@ namespace smcs.backend.data.model
         [Required] public string UsrName { get; set; }
         [Required] public string Pass { get; set; }
         [Required] public DateTime TimeStmp { get; set; }
-
-        public bool Enbl { get; set; }
 
         public string Desc { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Backend.Data.Model.Parent;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,7 +8,7 @@ namespace smcs.backend.data.model.parent
     /// <summary>
     /// کلاس والد برای موجودیت‌های دوره‌ای
     /// </summary>
-    public abstract class Iterative
+    public abstract class Iterative : Enabler
     {
         internal Iterative()
         {
@@ -35,7 +36,6 @@ namespace smcs.backend.data.model.parent
         [Required] public Int32 SesRef { get; set; } // توجه شود که فرزندان این کلاس همه وابسته به ماموریت‌ورزشی هستند
 
         [Required] public DateTime TimeStmp { get; set; }
-        [Required] public bool Enbl { get; set; }
 
         public Int32 TotalDays { get; protected set; } = 0;
         public string Desc { get; set; }

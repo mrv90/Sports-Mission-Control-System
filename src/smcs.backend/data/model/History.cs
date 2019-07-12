@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Backend.Data.Model.Parent;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model
 {
-    public class History
+    public class History : Enabler
     {
         internal History()
         {
@@ -17,6 +18,8 @@ namespace smcs.backend.data.model
             this.Entity = ent;
             this.entId = id;
             this.TimeStmp = DateTime.Now;
+
+            this.Enbl = true;
         }
 
         [Key]

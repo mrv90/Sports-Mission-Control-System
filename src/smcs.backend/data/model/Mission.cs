@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Backend.Data.Model.Parent;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model
 {
-    public class Mission
+    public class Mission : Enabler
     {
         internal Mission()
         {
@@ -34,7 +35,6 @@ namespace smcs.backend.data.model
         [Required] public string OrdrBy { get; set; } // پذیرش به دستور چه کسی انجام پذیرفته
         [Required] public Int32 SesRef { get; set; }
         [Required] [Column(TypeName = "datetime2")] public DateTime TimeStmp { get; set; } // تاریخ‌وزمان آخرین بروز‌رسانی
-        [Required] public bool Enbl { get; set; }
 
         public string InitDesc { get; set; }
         public string TermDesc { get; set; }        
