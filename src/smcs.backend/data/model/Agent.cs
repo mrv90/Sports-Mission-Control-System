@@ -41,6 +41,7 @@ namespace smcs.backend.data.model
         [Required] public string Addr { get; set; } 
         [Column(TypeName = "datetime2")] public DateTime? RecpDate { get; set; }
         [Required] public Int32 UntRef { get; set; }
+        public virtual Mission Mission { get; set; }
         [Required] public Int32 MisRef { get; set; }
         [Required] [Column(TypeName = "datetime2")] public DateTime TimeStmp { get; set; } // تاریخ‌وزمان آخرین بروز‌رسانی
 
