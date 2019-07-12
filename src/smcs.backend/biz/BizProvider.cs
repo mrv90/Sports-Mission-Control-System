@@ -130,7 +130,7 @@ namespace smcs.backend.biz
             {
                 var exMi = repOfMis.Ret(s => s.MisId.Equals(ag.MisRef) && s.Ret2UntDate.Equals(null));
                 if (exMi == null)
-                    throw BizErrCod.SESI_NOT_EXST;
+                    throw BizErrCod.MIS_NOT_EXST;
 
                 exMi.Ret2UntDate = retToUnt;
                 if (!repOfMis.Upd(exMi))

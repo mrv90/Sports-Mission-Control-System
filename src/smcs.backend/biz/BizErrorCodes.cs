@@ -15,10 +15,11 @@ namespace smcs.backend.biz
         public readonly static Exception AGNT_OFF_ABS_CONF = new ApplicationException();
 
         //TODO استثنای جنریک مینیمالیستی ایجاد شود که درون تست‌ها قابل استفاده باشد
+        public readonly static Exception SESI_NOT_EXST = new ApplicationException();
         public readonly static Exception ONDUTY_NOT_EXST = new ApplicationException();
         public readonly static Exception ABS_NOT_EXST = new ApplicationException();
         public readonly static Exception OFF_NOT_EXST = new ApplicationException();
-        public readonly static Exception SESI_NOT_EXST = new ApplicationException();
+        public readonly static Exception MIS_NOT_EXST = new ApplicationException();
         public readonly static Exception AGNT_NOT_EXST = new ApplicationException();
         public readonly static Exception USR_NOT_EXST = new ApplicationException();
 
