@@ -128,6 +128,8 @@ namespace smcs.frontend.frm
             //TODO مکانیزم بازماندن پنجره
         }
 
+        /************************* private *************************/
+
         protected override void clearAll()
         {
             base.clearAll();
@@ -228,5 +230,66 @@ namespace smcs.frontend.frm
 
             return agnt;
         }
+
+        private void cmbRank_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateComboBox(ref errorProvider, cmbRank, "درجه مامور انتخاب نشده", ref e);
+        }
+
+        private void txtName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, txtName, "نام مامور ثبت نشده", ref e);
+        }
+
+        private void txtFthrName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, txtName, "نام پدر مامور باید ثبت شود", ref e);
+        }
+
+        private void cmbUnit_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateComboBox(ref errorProvider, cmbUnit, "یگان مامور باید ثبت شود", ref e);
+        }
+
+        private void dPickDteOfDisp_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, dPickDteOfDisp, "تاریخ اعزام نمی‌تواند تاریخ امروز باشد", ref e);
+        }
+
+        private void cmbSprt_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateComboBox(ref errorProvider, cmbSprt, "رشته ورزشی مامور باید ثبت شود", ref e);
+        }
+
+        private void cmbOffc_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateComboBox(ref errorProvider, cmbOffc, "قسمت مامور باید ثبت شود", ref e);
+        }
+
+        private void mtxtPersCode_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, mtxtPersCode, "شماره پرسنلی مامور باید ثبت شود", ref e);
+        }
+
+        private void txtOrdrBy_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, txtOrdrBy, "دستور صادر شده برای پذیرش مامور باید ثبت شود", ref e);
+        }
+
+        private void txtCntcNum_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, txtCntcNum, "شماره تماس مامور باید ثبت شود", ref e);
+        }
+
+        private void txtEmgNum_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, txtEmgNum, "شماره تماس اضطراری مامور باید ثبت شود", ref e);
+        }
+
+        private void txtAddr_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.validateTextBox(ref errorProvider, txtAddr, "آدرس مامور باید ثبت شود", ref e);
+        }
     }
 }
+ 

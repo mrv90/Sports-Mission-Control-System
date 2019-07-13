@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gbxUpper = new System.Windows.Forms.GroupBox();
             this.mtxtNtioSearch = new System.Windows.Forms.MaskedTextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -70,11 +71,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.gbxUpper.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.gbxLower.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // gbxUpper
@@ -272,6 +275,7 @@
             this.txtAddr.Name = "txtAddr";
             this.txtAddr.Size = new System.Drawing.Size(288, 148);
             this.txtAddr.TabIndex = 12;
+            this.txtAddr.Validating += new System.ComponentModel.CancelEventHandler(this.txtAddr_Validating);
             // 
             // txtDesc
             // 
@@ -338,6 +342,7 @@
             this.mtxtPersCode.Size = new System.Drawing.Size(226, 32);
             this.mtxtPersCode.TabIndex = 8;
             this.mtxtPersCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtxtPersCode.Validating += new System.ComponentModel.CancelEventHandler(this.mtxtPersCode_Validating);
             // 
             // txtEmgNum
             // 
@@ -350,6 +355,7 @@
             this.txtEmgNum.Size = new System.Drawing.Size(226, 32);
             this.txtEmgNum.TabIndex = 11;
             this.txtEmgNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEmgNum.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmgNum_Validating);
             // 
             // txtCntcNum
             // 
@@ -362,6 +368,7 @@
             this.txtCntcNum.Size = new System.Drawing.Size(226, 32);
             this.txtCntcNum.TabIndex = 10;
             this.txtCntcNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCntcNum.Validating += new System.ComponentModel.CancelEventHandler(this.txtCntcNum_Validating);
             // 
             // txtOrdrBy
             // 
@@ -372,6 +379,7 @@
             this.txtOrdrBy.Size = new System.Drawing.Size(227, 32);
             this.txtOrdrBy.TabIndex = 9;
             this.txtOrdrBy.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtOrdrBy.Validating += new System.ComponentModel.CancelEventHandler(this.txtOrdrBy_Validating);
             // 
             // cmbOffc
             // 
@@ -383,6 +391,7 @@
             this.cmbOffc.Name = "cmbOffc";
             this.cmbOffc.Size = new System.Drawing.Size(226, 33);
             this.cmbOffc.TabIndex = 7;
+            this.cmbOffc.Validating += new System.ComponentModel.CancelEventHandler(this.cmbOffc_Validating);
             // 
             // cmbUnit
             // 
@@ -394,6 +403,7 @@
             this.cmbUnit.Name = "cmbUnit";
             this.cmbUnit.Size = new System.Drawing.Size(226, 33);
             this.cmbUnit.TabIndex = 3;
+            this.cmbUnit.Validating += new System.ComponentModel.CancelEventHandler(this.cmbUnit_Validating);
             // 
             // cmbSprt
             // 
@@ -405,6 +415,7 @@
             this.cmbSprt.Name = "cmbSprt";
             this.cmbSprt.Size = new System.Drawing.Size(226, 33);
             this.cmbSprt.TabIndex = 6;
+            this.cmbSprt.Validating += new System.ComponentModel.CancelEventHandler(this.cmbSprt_Validating);
             // 
             // dPickDteOfRecp
             // 
@@ -423,6 +434,7 @@
             this.dPickDteOfDisp.Name = "dPickDteOfDisp";
             this.dPickDteOfDisp.Size = new System.Drawing.Size(226, 32);
             this.dPickDteOfDisp.TabIndex = 4;
+            this.dPickDteOfDisp.Validating += new System.ComponentModel.CancelEventHandler(this.dPickDteOfDisp_Validating);
             // 
             // txtFthrName
             // 
@@ -433,6 +445,7 @@
             this.txtFthrName.Size = new System.Drawing.Size(226, 32);
             this.txtFthrName.TabIndex = 2;
             this.txtFthrName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFthrName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFthrName_Validating);
             // 
             // txtName
             // 
@@ -443,6 +456,7 @@
             this.txtName.Size = new System.Drawing.Size(226, 32);
             this.txtName.TabIndex = 1;
             this.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // cmbRank
             // 
@@ -455,6 +469,7 @@
             this.cmbRank.Name = "cmbRank";
             this.cmbRank.Size = new System.Drawing.Size(226, 33);
             this.cmbRank.TabIndex = 0;
+            this.cmbRank.Validating += new System.ComponentModel.CancelEventHandler(this.cmbRank_Validating);
             // 
             // label17
             // 
@@ -600,6 +615,10 @@
             this.label10.TabIndex = 60;
             this.label10.Text = "درجه:";
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // frmDataEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -623,6 +642,7 @@
             this.toolStrip.PerformLayout();
             this.gbxLower.ResumeLayout(false);
             this.gbxLower.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -671,5 +691,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
