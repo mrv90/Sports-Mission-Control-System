@@ -344,7 +344,7 @@ namespace smcs.backend.data.access
                 new Office("کبدي"),
                 new Office("کشتي آزاد"),
                 new Office("کشتي فرنگي")
-        };
+            };
             this.cntx.Office.AddRange(all_offices);
 
             var all_signs = new List<Signature>
@@ -354,7 +354,7 @@ namespace smcs.backend.data.access
                 new Signature("ف گر ورزش", "ستواندوم صدیف دانشور")
             };
             this.cntx.Signature.AddRange(all_signs);
-            var sa = new User("PowerUser", "sa", "123");
+            var sa = new User("PowerUser", "sa", "Hamid123");
             this.cntx.User.Add(sa);
 
             cntx.SaveChanges();
