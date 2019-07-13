@@ -41,6 +41,7 @@ namespace smcs.backend.data
         {
             modelBuilder.Entity<Absence>().ToTable("Absence").HasKey(x => x.Id);
             modelBuilder.Entity<Agent>().ToTable("Agent").HasKey(x => x.Id);
+            modelBuilder.Entity<Agent>().HasRequired(x => x.Mission).WithMany().HasForeignKey(x => x.MisRef);
             modelBuilder.Entity<History>().ToTable("History").HasKey(x => x.Id);
             modelBuilder.Entity<Mission>().ToTable("Mission").HasKey(x => x.MisId);
             modelBuilder.Entity<OffDay>().ToTable("OffDay").HasKey(x => x.Id);
