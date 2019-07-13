@@ -18,8 +18,11 @@ namespace smcs.frontend.frm
             using (var repo = new Repository<User>())
             {
                 var users = repo.RetList(a => a.Enbl == true);
-                foreach (var usr in users)
-                    cmbUserName.Items.Add(usr.UsrName);
+                if (users != null)
+                {
+                    foreach (var usr in users)
+                        cmbUserName.Items.Add(usr.UsrName);
+                }
             }
         }
 

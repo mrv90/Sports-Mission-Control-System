@@ -209,8 +209,12 @@ namespace smcs.frontend.frm
         {
             using (var rep = new Repository<T>())
             {
-                foreach (var e in rep.RetList(e => e.Enbl == true))
-                    cmbSearchAgnts.Items.Add(new PairDataItem(e.Id, e.Name));
+                var list = rep.RetList(e => e.Enbl == true);
+                if (list != null)
+                {
+                    foreach (var e in list)
+                        cmbSearchAgnts.Items.Add(new PairDataItem(e.Id, e.Name));
+                }
             }
         }
 

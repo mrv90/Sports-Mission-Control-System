@@ -38,7 +38,8 @@ namespace smcs.frontend.frm
             using (var rep = new Repository<History>())
                 ls_of_his = rep.RetList(h => h.Type == Crud.Create); // NOTE نیازی به عملیات‌هایی که بروزرسانی هستند، نیست؟
 
-            if (ls_of_his.Count > 0)
+            if (ls_of_his != null)
+            {
                 foreach (History hi in ls_of_his)
                 {
                     if (hi.Entity == "Mission")
@@ -46,6 +47,7 @@ namespace smcs.frontend.frm
                     else
                         lstOpr.Items.Add(generateLVIFromIterative(hi));
                 }
+            }
         }
 
         private ListViewItem generateLVIFromMission(History hi)

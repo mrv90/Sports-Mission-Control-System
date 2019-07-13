@@ -111,13 +111,16 @@ namespace smcs.frontend.frm
                     ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < extDt.Date && m.OffcRef == ofc);
             }
 
-            using (var repOfAg = new Repository<Agent>())
+            if (ls_of_mi != null)
             {
-                foreach (Mission mi in ls_of_mi)
+                using (var repOfAg = new Repository<Agent>())
                 {
-                    var ag = repOfAg.Ret(a => a.Enbl == true && a.MisRef == mi.MisId);
-                    if (ag != null)
-                        cmbSearch.Items.Add(new PairDataItem(ag.Id, ag.Name));
+                    foreach (Mission mi in ls_of_mi)
+                    {
+                        var ag = repOfAg.Ret(a => a.Enbl == true && a.MisRef == mi.MisId);
+                        if (ag != null)
+                            cmbSearch.Items.Add(new PairDataItem(ag.Id, ag.Name));
+                    }
                 }
             }
         }
@@ -164,7 +167,7 @@ namespace smcs.frontend.frm
                 var ls_of_not_ext = rep.RetList(m => m.Enbl == true &&
                     m.DeadLine < dPickUntil.Value.Date);
 
-                if (ls_of_not_ext.Count > 0)
+                if (ls_of_not_ext != null)
                 {
                     lblNotExtendedCount.Text = ls_of_not_ext.Count.ToString();
                     lblLastExtDate.Text = rep.RetEnum(m => m.Enbl == true && m.DeadLine < dPickUntil.Value)
