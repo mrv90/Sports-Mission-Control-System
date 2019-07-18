@@ -66,14 +66,14 @@ namespace smcs.frontend.frm
 
                 using (var repOfOff = new Repository<OffDay>())
                 {
-                    var off = repOfOff.Ret(o => o.MisRef == ag.MisRef && o.Enbl == true);
-                    NumOffDay.Value = (off != null) ? off.TotalDays : 0;
+                    var off = repOfOff.RetList(o => o.MisRef == ag.MisRef && o.Enbl == true);
+                    NumOffDay.Value = (off != null) ? off.Count : 0;
                 }
 
                 using (var repOfAbs = new Repository<Absence>())
                 {
-                    var abs = repOfAbs.Ret(b => b.MisRef == ag.MisRef && b.Enbl == true);
-                    NumAbs.Value = (abs != null) ? abs.TotalDays : 0;
+                    var abs = repOfAbs.RetList(b => b.MisRef == ag.MisRef && b.Enbl == true);
+                    NumAbs.Value = (abs != null) ? abs.Count : 0;
                 }
             }
         }
@@ -100,14 +100,14 @@ namespace smcs.frontend.frm
 
                 using (var repOfOff = new Repository<OffDay>())
                 {
-                    var off = repOfOff.Ret(o => o.MisRef == ag.MisRef && o.Enbl == true);
-                    NumOffDay.Value = (off != null) ? off.TotalDays : 0;
+                    var off = repOfOff.RetList(o => o.MisRef == ag.MisRef && o.Enbl == true);
+                    NumOffDay.Value = (off != null) ? off.Count : 0;
                 }
 
                 using (var repOfAbs = new Repository<Absence>())
                 {
-                    var abs = repOfAbs.Ret(b => b.MisRef == ag.MisRef && b.Enbl == true);
-                    NumAbs.Value = (abs != null) ? abs.TotalDays : 0;
+                    var abs = repOfAbs.RetList(b => b.MisRef == ag.MisRef && b.Enbl == true);
+                    NumAbs.Value = (abs != null) ? abs.Count : 0;
                 }
             }
         }
