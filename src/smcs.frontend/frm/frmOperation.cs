@@ -159,20 +159,20 @@ namespace smcs.frontend.frm
             foreach (PairDataItem ag in lstMarkedAgnts.Items)
             {
                 var biz = new BizProvider();
-                foreach (string shortDT in lstMarkedDates.Items)
+                foreach (var date in lstMarkedDates.Items)
                 {
                     switch (flag) {
                         case 1:
-                            biz.WriteTheAgentsIteration<OffDay>(ag.Id, DateTime.Parse(shortDT));
+                            biz.WriteTheAgentsIteration<OffDay>(ag.Id, DateTime.Parse(date.ToString()));
                             break;
                         case 2:
-                            biz.WriteTheAgentsIteration<OnDuty>(ag.Id, DateTime.Parse(shortDT));
+                            biz.WriteTheAgentsIteration<OnDuty>(ag.Id, DateTime.Parse(date.ToString()));
                             break;
                         case 3:
-                            biz.WriteTheAgentsIteration<UndTreat>(ag.Id, DateTime.Parse(shortDT));
+                            biz.WriteTheAgentsIteration<UndTreat>(ag.Id, DateTime.Parse(date.ToString()));
                             break;
                         case 4:
-                            biz.WriteTheAgentsIteration<Absence>(ag.Id, DateTime.Parse(shortDT));
+                            biz.WriteTheAgentsIteration<Absence>(ag.Id, DateTime.Parse(date.ToString()));
                             break;
                         default:
                             break;
