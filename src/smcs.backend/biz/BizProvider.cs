@@ -75,8 +75,8 @@ namespace smcs.backend.biz
         
         public Message RegisterTheAgent(Mission mis, Agent ag)
         {
-            using (var repOfHis = new Repository<History>(csName))
-                repOfHis.AddSingle(new History(Crud.Create, "Mission", ag.Id));
+            //using (var repOfHis = new Repository<History>(csName))
+            //    repOfHis.AddSingle(new History(Crud.Create, "Mission", ag.Id));
 
             using (var rOfA = new Repository<Agent>(csName))
             {
