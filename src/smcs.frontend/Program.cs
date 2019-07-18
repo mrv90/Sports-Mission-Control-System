@@ -1,4 +1,5 @@
-﻿using System;
+﻿using smcs.frontend.frm;
+using System;
 using System.Windows.Forms;
 
 namespace smcs.frontend
@@ -10,7 +11,7 @@ namespace smcs.frontend
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(new frmLogin());
         }
     }
 }
