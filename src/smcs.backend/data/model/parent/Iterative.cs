@@ -23,7 +23,6 @@ namespace smcs.backend.data.model.parent
 
             this.TimeStmp = DateTime.Now;
             this.Enbl = true;
-            this.TotalDays++;
         }
 
         [Key]
@@ -37,7 +36,6 @@ namespace smcs.backend.data.model.parent
 
         [Required] public DateTime TimeStmp { get; set; }
 
-        public Int32 TotalDays { get; protected set; } = 0;
         public string Desc { get; set; }
     }
 }
