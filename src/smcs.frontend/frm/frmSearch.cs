@@ -253,13 +253,13 @@ namespace smcs.frontend.frm
                 return rep.Ret(e => e.Id == id && e.Enbl == true).Name;
         }
 
-        private int extTotalDaysFromPeriodEntity<T>(Int32 id) where T : Iterative
+        private int extTotalDaysFromPeriodEntity<T>(Int32 mis) where T : Iterative
         {
             using (var rep = new Repository<T>())
             {
-                var iter = rep.Ret(e => e.Id == id && e.Enbl == true);
+                var iter = rep.RetList(e => e.MisRef == mis && e.Enbl == true);
                 if (iter != null)
-                    return iter.TotalDays;
+                    return iter.Count;
 
                 return 0;
             }
