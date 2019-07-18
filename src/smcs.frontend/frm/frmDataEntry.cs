@@ -243,7 +243,7 @@ namespace smcs.frontend.frm
 
         private void txtFthrName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            base.validateTextBox(ref errorProvider, txtName, "نام پدر مامور باید ثبت شود", ref e);
+            base.validateTextBox(ref errorProvider, txtFthrName, "نام پدر مامور باید ثبت شود", ref e);
         }
 
         private void cmbUnit_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -253,7 +253,7 @@ namespace smcs.frontend.frm
 
         private void dPickDteOfDisp_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            base.validateTextBox(ref errorProvider, dPickDteOfDisp, "تاریخ اعزام نمی‌تواند تاریخ امروز باشد", ref e);
+            base.validateDateTimePicker(ref errorProvider, dPickDteOfDisp, "تاریخ اعزام نمی‌تواند تاریخ امروز باشد", ref e);
         }
 
         private void cmbSprt_Validating(object sender, System.ComponentModel.CancelEventArgs e)
