@@ -26,7 +26,7 @@ namespace smcs.frontend.frm
 
         protected void validateTextBox(ref ErrorProvider errorProvider, Control crtl, string err, ref CancelEventArgs e)
         {
-            if (crtl.Enabled && String.IsNullOrWhiteSpace(crtl.Text.Replace("_", "").Replace("/", "").Replace("-","").Replace("(","").Replace(")",""))
+            if (crtl.Enabled && String.IsNullOrWhiteSpace(crtl.Text.Replace("_", "").Replace("/", "").Replace("-","").Replace("(","").Replace(")","")))
             {
                 e.Cancel = true;
                 //crtl.Focus();
