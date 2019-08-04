@@ -25,20 +25,17 @@ namespace smcs.frontend.frm
             var biz = new BizProvider();
             foreach (var sign in all_signs)
             {
-                if (sign.Person == lblManager.Text && sign.Name != txtManager.Text)
-                    sign.Name = txtManager.Text;
-                else if (sign.Person == lblBoss.Text && sign.Name != txtBoss.Text)
-                    sign.Name = txtBoss.Text;
-                else if (sign.Person == lblJouniorBoss.Text && sign.Name != txtJouniorBoss.Text)
-                    sign.Name = txtJouniorBoss.Text;
+                if (sign.Name == lblManager.Text && sign.Person != txtManager.Text)
+                    sign.Person = txtManager.Text;
+                else if (sign.Name == lblBoss.Text && sign.Person != txtBoss.Text)
+                    sign.Person = txtBoss.Text;
+                else if (sign.Name == lblJouniorBoss.Text && sign.Person != txtJouniorBoss.Text)
+                    sign.Person = txtJouniorBoss.Text;
                 else
-                {
-                    all_signs.Remove(sign);
                     continue;
-                }
 
                 var msg = biz.UpdateSignature(sign);
-                if (msg == BizErrCod.SIGN_UPDT_FAIL)
+                if (msg.Id != Message.SUCC)
                     MessageBox.Show(msg.Text);
             }
 

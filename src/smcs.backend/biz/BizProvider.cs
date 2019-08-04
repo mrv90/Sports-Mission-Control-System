@@ -250,7 +250,7 @@ namespace smcs.backend.biz
         public Message UpdateSignature(Signature sign)
         {
             using (var r = new Repository<Signature>())
-                if (!r.Upd(sign).Commit())
+                if (r.Upd(sign).Commit())
                     return BizErrCod.UPDT_SIGN_SUCC;
 
             return BizErrCod.SIGN_UPDT_FAIL;

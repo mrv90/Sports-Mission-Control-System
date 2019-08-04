@@ -1,4 +1,4 @@
-﻿public class BizErrCod
+﻿public static class BizErrCod
 {
     public readonly static Message UPDT_SIGN_SUCC = Message.Succ("بروزرسانی امضا");
     public readonly static Message EXTN_MIS_SUCC  = Message.Succ("تمدید ماوریت");
