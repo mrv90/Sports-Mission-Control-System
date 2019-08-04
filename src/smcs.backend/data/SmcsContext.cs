@@ -2,6 +2,8 @@
 using smcs.backend.data.model;
 using smcs.backend.data.model.basic;
 using smcs.backend.data.model.iterative;
+using smcs.backend.ext;
+using System;
 using System.Data.Entity;
 
 namespace smcs.backend.data
@@ -28,10 +30,18 @@ namespace smcs.backend.data
             if(!Database.Exists())
             {
                 this.Configuration.AutoDetectChangesEnabled = false;
-                this.Database.Create();
-                new access.DbSupplier(this).SeedDbWithInitalData();
-                SqlProvider.ExecuteNonQuery("ALTER DATABASE " + this.Database.Connection.Database + 
-                    " COLLATE Persian_100_CI_AI");
+
+                try
+                {
+                    this.Database.Create();
+                    new access.DbSupplier(this).SeedDbWithInitalData();
+                    SqlProvider.ExecuteNonQuery("ALTER DATABASE " + this.Database.Connection.Database + 
+                        " COLLATE Persian_100_CI_AI");
+                }
+                catch (Exception e)
+                {
+                    e.Log();
+                }
             }
 
             this.Configuration.AutoDetectChangesEnabled = true;
