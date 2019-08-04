@@ -349,9 +349,9 @@ namespace smcs.backend.data.access
 
             var all_signs = new List<Signature>
             {
-                new Signature("مدیر تربیت‌بدنی نزاجا", "سرهنگ توپخانه ستاد محمود محمدخانی"),
+                new Signature("مدیر تربیت‌بدنی نزاجا", "سرهنگ ستاد محمود محمدخانی"),
                 new Signature("رئیس دایره مسابقات", "سرهنگ۲ شهرام جوکار"),
-                new Signature("ف گر ورزش", "ستواندوم صدیف دانشور")
+                new Signature("ف گر ورزش", "ستواندوم مرتضی فتحی")
             };
             this.cntx.Signature.AddRange(all_signs);
             var sa = new User("PowerUser", "sa", "Hamid123");
