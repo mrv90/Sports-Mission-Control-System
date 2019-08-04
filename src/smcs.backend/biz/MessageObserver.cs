@@ -20,8 +20,6 @@ namespace smcs.backend.biz
 
         internal static void Notify(Message msg)
         {
-            // TODO به منظور ایجاد کارکرد روزانه، باید در اینجا پیغام مورد نظر در دیتابیس ثبت شود
-
             foreach (var l in listeners)
                 l.update(msg);
         }
