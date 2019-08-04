@@ -1,6 +1,7 @@
 ﻿using Backend.Data.Model.Parent;
 using smcs.backend.data.model;
 using smcs.backend.data.model.iterative;
+using smcs.backend.ext;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -79,19 +80,19 @@ namespace smcs.backend.data.access
             }
             catch (InvalidOperationException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (ArgumentNullException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (NotSupportedException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (Exception e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
 
             return null;
@@ -106,19 +107,19 @@ namespace smcs.backend.data.access
             }
             catch (InvalidOperationException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (ArgumentNullException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (SqlException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (Exception e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
 
             return null;
@@ -133,23 +134,23 @@ namespace smcs.backend.data.access
             }
             catch (NotSupportedException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (InvalidOperationException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (ArgumentNullException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (SqlException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (Exception e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
 
             return null;
@@ -164,23 +165,23 @@ namespace smcs.backend.data.access
             }
             catch (DataException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (InvalidOperationException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (ArgumentNullException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (SqlException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (Exception e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
 
             return null;
@@ -199,19 +200,19 @@ namespace smcs.backend.data.access
             }
             catch (InvalidOperationException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (ArgumentNullException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (SqlException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (Exception e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
 
             return 0.0d;
@@ -254,15 +255,15 @@ namespace smcs.backend.data.access
             }
             catch (ArgumentNullException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (SqlException e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
             catch (Exception e)
             {
-                //Logger.Error(e.Message, e);
+                e.Log();
             }
 
             return this;
