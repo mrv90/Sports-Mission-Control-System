@@ -68,6 +68,7 @@ namespace smcs.frontend
         {
             //lblStatus.Text = string.Format("کاربر گرامی «{0}»؛ ورود شما ({1}) در سیستم ثبت شد", CrntUser.Name, DateTime.Now);
             lblStatus.Text = msg.Text;
+            lblStatus.ForeColor = msg.Color;
         }
     }
 }
