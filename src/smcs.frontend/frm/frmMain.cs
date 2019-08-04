@@ -11,6 +11,7 @@ namespace smcs.frontend
         {
             InitializeComponent();
         }
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             lblUser.Text = CrntUser.Name;
