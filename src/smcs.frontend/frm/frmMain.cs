@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace smcs.frontend
 {
-    public partial class frmMain : Form
+    public partial class frmMain : Form, IMessageListener
     {
         public frmMain()
         {
@@ -15,7 +15,8 @@ namespace smcs.frontend
         {
             lblUser.Text = CrntUser.Name;
             lblVersion.Text = Application.ProductVersion.ToString();
-            //lblStatus.Text = string.Format("کاربر گرامی «{0}»؛ ورود شما ({1}) در سیستم ثبت شد", CrntUser.Name, DateTime.Now);
+
+            MessageObserver.Attach(this);
         }
 
         private void signatureDefinitionMenuItem_Click(object sender, EventArgs e)
@@ -53,11 +54,19 @@ namespace smcs.frontend
             new frmExtendMission().ShowDialog();
         }
         
-        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             new BizProvider().Logout();
 
+            MessageObserver.Detach(this);
+
             System.Windows.Forms.Application.Exit();
+        }
+
+        public void update(Message msg)
+        {
+            //lblStatus.Text = string.Format("کاربر گرامی «{0}»؛ ورود شما ({1}) در سیستم ثبت شد", CrntUser.Name, DateTime.Now);
+            lblStatus.Text = msg.Text;
         }
     }
 }
