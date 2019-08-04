@@ -32,8 +32,8 @@
             this.btnApply = new System.Windows.Forms.Button();
             this.txtJouniorBoss = new System.Windows.Forms.TextBox();
             this.lblJouniorBoss = new System.Windows.Forms.Label();
-            this.txtBigBoss = new System.Windows.Forms.TextBox();
-            this.lblBigBoss = new System.Windows.Forms.Label();
+            this.txtBoss = new System.Windows.Forms.TextBox();
+            this.lblBoss = new System.Windows.Forms.Label();
             this.txtManager = new System.Windows.Forms.TextBox();
             this.lblManager = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -44,8 +44,8 @@
             this.groupBox1.Controls.Add(this.btnApply);
             this.groupBox1.Controls.Add(this.txtJouniorBoss);
             this.groupBox1.Controls.Add(this.lblJouniorBoss);
-            this.groupBox1.Controls.Add(this.txtBigBoss);
-            this.groupBox1.Controls.Add(this.lblBigBoss);
+            this.groupBox1.Controls.Add(this.txtBoss);
+            this.groupBox1.Controls.Add(this.lblBoss);
             this.groupBox1.Controls.Add(this.txtManager);
             this.groupBox1.Controls.Add(this.lblManager);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -85,19 +85,19 @@
             // 
             // txtBigBoss
             // 
-            this.txtBigBoss.Location = new System.Drawing.Point(12, 64);
-            this.txtBigBoss.Name = "txtBigBoss";
-            this.txtBigBoss.Size = new System.Drawing.Size(191, 34);
-            this.txtBigBoss.TabIndex = 1;
+            this.txtBoss.Location = new System.Drawing.Point(12, 64);
+            this.txtBoss.Name = "txtBigBoss";
+            this.txtBoss.Size = new System.Drawing.Size(191, 34);
+            this.txtBoss.TabIndex = 1;
             // 
             // lblBigBoss
             // 
-            this.lblBigBoss.AutoSize = true;
-            this.lblBigBoss.Location = new System.Drawing.Point(238, 67);
-            this.lblBigBoss.Name = "lblBigBoss";
-            this.lblBigBoss.Size = new System.Drawing.Size(158, 26);
-            this.lblBigBoss.TabIndex = 0;
-            this.lblBigBoss.Text = "رئیس دایره مسابقات:";
+            this.lblBoss.AutoSize = true;
+            this.lblBoss.Location = new System.Drawing.Point(238, 67);
+            this.lblBoss.Name = "lblBigBoss";
+            this.lblBoss.Size = new System.Drawing.Size(158, 26);
+            this.lblBoss.TabIndex = 0;
+            this.lblBoss.Text = "رئیس دایره مسابقات:";
             // 
             // txtManager
             // 
@@ -138,8 +138,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtJouniorBoss;
         private System.Windows.Forms.Label lblJouniorBoss;
-        private System.Windows.Forms.TextBox txtBigBoss;
-        private System.Windows.Forms.Label lblBigBoss;
+        private System.Windows.Forms.TextBox txtBoss;
+        private System.Windows.Forms.Label lblBoss;
         private System.Windows.Forms.TextBox txtManager;
         private System.Windows.Forms.Label lblManager;
         private System.Windows.Forms.Button btnApply;
