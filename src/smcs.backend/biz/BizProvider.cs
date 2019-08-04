@@ -21,8 +21,6 @@ namespace smcs.backend.biz
                     break;
                 case "end-user":
                     break;
-                default:
-                    throw new ApplicationException("Invalid ConStr on BizProvider ..");
             }
         }
         
@@ -90,8 +88,6 @@ namespace smcs.backend.biz
                     return BizErrCod.AG_REG_SUCC;
                 else
                     return BizErrCod.AG_REG_FAIL;
-
-                // UNDONE نمایش انجام به کاربر
             }
         }
 
@@ -105,7 +101,6 @@ namespace smcs.backend.biz
                     return BizErrCod.AG_UPDT_SUCC;
 
             return BizErrCod.AG_UPDT_FAIL;
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message UpdateAgentAndMission(Agent ag, Mission mi)
@@ -121,7 +116,6 @@ namespace smcs.backend.biz
                 return BizErrCod.AG_N_MIS_UPDT_SUCC;
 
             return BizErrCod.AG_N_MIS_UPDT_FAIL;
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message DismissTheAgent(Agent ag, DateTime retToUnt)
@@ -151,8 +145,6 @@ namespace smcs.backend.biz
 
                 return BizErrCod.AG_DISM_FAIL;
             }
-
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message RegisterTheAgentOnOffice(Agent agnt, Int32 off)
@@ -166,8 +158,6 @@ namespace smcs.backend.biz
 
                 return BizErrCod.AG_OFC_REG_FAIL;
             }
-
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message RemoveOfficeOfAgent(Agent agnt)
@@ -181,8 +171,6 @@ namespace smcs.backend.biz
 
                 return BizErrCod.AG_OFC_REM_FAIL;
             }
-
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message WriteTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
@@ -224,8 +212,6 @@ namespace smcs.backend.biz
             }
             else
                 return BizErrCod.AGNT_NOT_EXST;
-
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message RemoveTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
@@ -259,8 +245,6 @@ namespace smcs.backend.biz
             }
             else
                 return BizErrCod.AGNT_NOT_EXST;
-            
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message UpdateSignature(Signature sign)
@@ -270,7 +254,6 @@ namespace smcs.backend.biz
                     return BizErrCod.UPDT_SIGN_SUCC;
 
             return BizErrCod.SIGN_UPDT_FAIL;
-            // UNDONE نمایش انجام به کاربر
         }
 
         public Message ExtendMission(Int32 mi, DateTime extDt)
@@ -289,8 +272,6 @@ namespace smcs.backend.biz
                 else
                     return BizErrCod.MIS_NOT_EXST;
             }
-
-            // UNDONE نمایش انجام به کاربر
         }
 
         /* ------------------ private merhod(es) ------------------ */
