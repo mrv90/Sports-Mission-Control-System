@@ -18,7 +18,7 @@ namespace smcs.backend.biz
                 listeners.Remove(listener);
         }
 
-        private static void Notify(Message msg)
+        internal static void Notify(Message msg)
         {
             // TODO به منظور ایجاد کارکرد روزانه، باید در اینجا پیغام مورد نظر در دیتابیس ثبت شود
 
