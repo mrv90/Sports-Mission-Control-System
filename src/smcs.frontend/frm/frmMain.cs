@@ -18,6 +18,10 @@ namespace smcs.frontend
             lblVersion.Text = Application.ProductVersion.ToString();
 
             MessageObserver.Attach(this);
+
+            this.Hide();
+            new frmLogin().ShowDialog();
+            this.Show();
         }
 
         private void signatureDefinitionMenuItem_Click(object sender, EventArgs e)

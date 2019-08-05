@@ -31,8 +31,8 @@ namespace smcs.frontend.frm
             var msg = new BizProvider().Login(cmbUserName.Text, txtPass.Text.Trim());
             if (msg.Id == Message.SUCC)
             {
-                this.Hide();
-                new frmMain().ShowDialog();
+                this.Close();
+                //new frmMain().ShowDialog();
             }
             else
                 MessageBox.Show(msg.Text);
