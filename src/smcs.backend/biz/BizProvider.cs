@@ -40,14 +40,14 @@ namespace smcs.backend.biz
                         if (repoOfSessions.AddSingle(ses).Commit())
                         {
                             CrntUser.SesId = ses.SesId;
-                            return Message.Succ("ورودبه‌سیستم", " نام " + usr.Name, " شنا.کار " + usr.UsrId);
+                            return Message.Succ("ورودبه‌سیستم", " نام " , usr.Name, " شنا.کار " , usr.UsrId);
                         }
                         else
-                            return Message.Fail("ورودبه‌سیستم", " نام " + usr.Name, " شنا.کار " + usr.UsrId);
+                            return Message.Fail("ورودبه‌سیستم", " نام " , usr.Name, " شنا.کار " , usr.UsrId);
                     }
                 }
                 else
-                    return Message.NotExist("ورودبه‌سیستم", " نام " + usr.Name, " شنا.کار " + usr.UsrId);
+                    return Message.NotExist("ورودبه‌سیستم", " نام " , usr.Name, " شنا.کار " , usr.UsrId);
             }
         }
 
@@ -62,12 +62,12 @@ namespace smcs.backend.biz
                 {
                     sesi.TermDate = DateTime.Now;
                     if (rOfS.Upd(sesi).Commit())
-                        return Message.Succ("خروج‌ازسیستم", " شنا.کار " + sesi.UsrRef);
+                        return Message.Succ("خروج‌ازسیستم", " شنا.کار " , sesi.UsrRef);
 
-                    return Message.Fail("خروج‌ازسیستم", " شنا.کار " + sesi.UsrRef);
+                    return Message.Fail("خروج‌ازسیستم", " شنا.کار " , sesi.UsrRef);
                 }
 
-                return Message.NotExist("خروج‌ازسیستم", " شنا.نِش " + sesi.SesId);
+                return Message.NotExist("خروج‌ازسیستم", " شنا.نِش " , sesi.SesId);
             }
         }
         
@@ -85,9 +85,9 @@ namespace smcs.backend.biz
                 ag.Mission = mis;
 
                 if (rOfA.AddMultiple(ag).Commit()) // تاریخچه ثبت می‌شود؟
-                    return Message.Succ("پذیرش", " شنا.مات " + mis.MisId, " شنا.مام " + ag.Id);
+                    return Message.Succ("پذیرش", " شنا.مام " , ag.Id, " شنا.مات " , mis.MisId);
                 else
-                    return Message.Fail("پذیرش", " شنا.مات " + mis.MisId, " شنا.مام " + ag.Id);
+                    return Message.Fail("پذیرش", " شنا.مام ", ag.Id, " شنا.مات ", mis.MisId);
             }
         }
 
@@ -113,9 +113,9 @@ namespace smcs.backend.biz
 
             var rOfA = new Repository<Agent>(csName);
             if (rOfA.Upd(ag).Commit()) // تاریخچه ثبت می‌شود؟
-                return Message.Succ("بروزرسانی‌مامور و مشخصات‌ماموریت", " شنا.مات " + mi.MisId, " شنا.مام " + ag.Id);
+                return Message.Succ("بروزرسانی‌مامور و مشخصات‌ماموریت", " شنا.مام " , ag.Id, " شنا.مات " , mi.MisId);
 
-            return Message.Fail("بروزرسانی‌مامور و مشخصات‌ماموریت", " شنا.مات " + mi.MisId, " شنا.مام " + ag.Id);
+            return Message.Fail("بروزرسانی‌مامور و مشخصات‌ماموریت", " شنا.مام ", ag.Id, " شنا.مات ", mi.MisId);
         }
 
         public Message DismissTheAgent(Agent ag, DateTime retToUnt)
@@ -126,9 +126,9 @@ namespace smcs.backend.biz
             var rOfA = new Repository<Agent>(csName);
             var exAg = rOfA.Ret(a => a.Id == ag.Id);
             if (exAg == null)
-                return Message.NotExist("پایان‌مامور", " م.ب.ی " + retToUnt.ToShortDateString(), " شنا.مام " + ag.Id);
+                return Message.NotExist("پایان‌مامور", " شنا.مام ", ag.Id, " م.ب.ی " , retToUnt.ToShortDateString());
             else if (exAg.Enbl == false)
-                return Message.NotExist("پایان‌مامور", " م.ب.ی " + retToUnt.ToShortDateString(), " غیرفعال " , " شنا.مام " + ag.Id);
+                return Message.NotExist("پایان‌مامور", " شنا.مام ", ag.Id, " غیرفعال ", " م.ب.ی " , retToUnt.ToShortDateString());
 
             ag.Enbl = false;
             rOfA.Upd(ag);
@@ -137,13 +137,13 @@ namespace smcs.backend.biz
             {
                 var exMi = rOfM.Ret(s => s.MisId.Equals(ag.MisRef) && s.Ret2UntDate.Equals(null));
                 if (exMi == null)
-                    return Message.NotExist("پایان‌ماموریت", " شنا.مات " + exMi.MisId);
+                    return Message.NotExist("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
 
                 exMi.Ret2UntDate = retToUnt;
                 if (rOfM.Upd(exMi).Commit())
-                    return Message.Succ("پایان‌ماموریت", " شنا.مات " + exMi.MisId);
+                    return Message.Succ("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
 
-                return Message.Fail("پایان‌ماموریت", " شنا.مات " + exMi.MisId);
+                return Message.Fail("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
             }
         }
 
@@ -154,9 +154,9 @@ namespace smcs.backend.biz
                 var mis = rOfM.Ret(e => e.MisId == ag.MisRef && e.Enbl == true);
                 mis.OffcRef = -1;
                 if (rOfM.Upd(mis).Commit())
-                    return Message.Succ("ثبت‌قسمت", " شنا.قِس " + ofc, " شنا.مام " + ag.Id);
+                    return Message.Succ("ثبت‌قسمت", " شنا.مام " , ag.Id, " شنا.قِس ", ofc);
 
-                return Message.Fail("ثبت‌قسمت", " شنا.قِس " + ofc, " شنا.مام " + ag.Id);
+                return Message.Fail("ثبت‌قسمت", " شنا.مام ", ag.Id, " شنا.قِس ", ofc);
             }
         }
 
@@ -167,9 +167,9 @@ namespace smcs.backend.biz
                 var mis = rOfM.Ret(e => e.MisId == ag.MisRef && e.Enbl == true);
                 mis.OffcRef = -1;
                 if (rOfM.Upd(mis).Commit())
-                    return Message.Succ("حذف ثبت‌قسمت", " شنا.مام " + ag.Id);
+                    return Message.Succ("حذف ثبت‌قسمت", " شنا.مام " , ag.Id);
 
-                return Message.Fail("حذف ثبت‌قسمت", " شنا.مام " + ag.Id);
+                return Message.Fail("حذف ثبت‌قسمت", " شنا.مام " , ag.Id);
             }
         }
 
@@ -189,29 +189,29 @@ namespace smcs.backend.biz
                     {
                         case "OffDay":
                             if (!WriteOperation<OffDay>(new OffDay(date, ag.MisRef, CrntUser.SesId)))
-                                return Message.Fail("ثبت مرخصی", " در " + date.ToShortDateString(), " شنا.مات " + ag.MisRef);
+                                return Message.Fail("ثبت مرخصی", " شنا.مات ", ag.MisRef, " در " , date.ToString("yyyy/MM/dd"));
                             break;
                         case "OnDuty":
                             if (!WriteOperation<OnDuty>(new OnDuty(date, ag.MisRef, CrntUser.SesId)))
-                                return Message.Fail("ثبت امورخدمتی", " در " + date.ToShortDateString(), " شنا.مات " + ag.MisRef);
+                                return Message.Fail("ثبت امورخدمتی", " شنا.مات ", ag.MisRef, " در ", date.ToString("yyyy/MM/dd"));
                             break;
                         case "UndTreat":
                             if (!WriteOperation<UndTreat>(new UndTreat(date, ag.MisRef, CrntUser.SesId)))
-                                return Message.Fail("ثبت اعزام‌به‌بهداری", " در " + date.ToShortDateString(), " شنا.مات " + ag.MisRef);
+                                return Message.Fail("ثبت اعزام‌به‌بهداری", " شنا.مات ", ag.MisRef, " در ", date.ToString("yyyy/MM/dd"));
                             break;
                         case "Absence":
                             if (!WriteOperation<Absence>(new Absence(date, ag.MisRef, CrntUser.SesId)))
-                                return Message.Fail("ثبت نهست", " در " + date.ToShortDateString(), " شنا.مات " + ag.MisRef);
+                                return Message.Fail("ثبت نهست", " شنا.مات ", ag.MisRef, " در ", date.ToString("yyyy/MM/dd"));
                             break;
                     }
 
-                    return Message.Succ("ثبت گردشکار", " در " + date.ToShortDateString(), " شنا.مات " + ag.MisRef);
+                    return Message.Succ("ثبت گردشکار", " شنا.مات ", ag.MisRef, " در ", date.ToString("yyyy/MM/dd"));
                 }
                 else
-                    return Message.Conflict("ثبت گردشکار", " در " + date.ToShortDateString(), " شنا.مات " + ag.MisRef);
+                    return Message.Conflict("ثبت گردشکار", " شنا.مات ", ag.MisRef, " در ", date.ToString("yyyy/MM/dd"));
             }
             else
-                return Message.NotExist("ثبت گردشکار", " شنا.مام " + ag.Id);
+                return Message.NotExist("ثبت گردشکار", " شنا.مام ", ag.Id);
         }
 
         public Message RemoveTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
@@ -225,35 +225,35 @@ namespace smcs.backend.biz
                 {
                     case "OffDay":
                         if (!RemoveOperation<OffDay>(mis.MisRef, date))
-                            return Message.Fail("حذف مرخصی", " در " + date.ToShortDateString(), " شنا.مات " + mis.Id);
+                            return Message.Fail("حذف مرخصی", " شنا.مات ", mis.Id, " در " , date.ToString("yyyy/MM/dd"));
                         break;
                     case "OnDuty":
                         if (!RemoveOperation<OnDuty>(mis.MisRef, date))
-                            return Message.Fail("حذف امورخدمتی", " در " + date.ToShortDateString(), " شنا.مات " + mis.Id);
+                            return Message.Fail("حذف امورخدمتی", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
                         break;
                     case "UndTreat":
                         if (!RemoveOperation<UndTreat>(mis.MisRef, date))
-                            return Message.Fail("حذف اعزام‌به‌بهداری", " در " + date.ToShortDateString(), " شنا.مات " + mis.Id);
+                            return Message.Fail("حذف اعزام‌به‌بهداری", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
                         break;
                     case "Absence":
                         if (!RemoveOperation<Absence>(mis.MisRef, date))
-                            return Message.Fail("حذف نهست", " در " + date.ToShortDateString(), " شنا.مات " + mis.Id);
+                            return Message.Fail("حذف نهست", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
                         break;
                 }
 
-                return Message.Succ("حذف‌گردشکار", " در " + date.ToShortDateString(), " شنا.مات " + mis.Id);
+                return Message.Succ("حذف‌گردشکار", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
             }
             else
-                return Message.NotExist("حذف‌گردشکار", " در " + date.ToShortDateString(), " شنا.مات " + mis.Id, " شنا.مام " + agId);
+                return Message.NotExist("حذف‌گردشکار", " شنا.مام ", agId, " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
         }
 
         public Message UpdateSignature(Signature sign)
         {
             using (var r = new Repository<Signature>())
                 if (r.Upd(sign).Commit())
-                    return Message.Succ("بروزرسانی‌امضا", " متصدی " + sign.Person);
+                    return Message.Succ("بروزرسانی‌امضا", " متصدی " , sign.Person);
 
-            return Message.Fail("بروزرسانی‌امضا", " شخص " + sign.Name, " متصدی " + sign.Person);
+            return Message.Fail("بروزرسانی‌امضا", " متصدی ", sign.Person, " جایگزین " , sign.Name);
         }
 
         public Message ExtendMission(Int32 mi, DateTime extDt)
@@ -265,12 +265,12 @@ namespace smcs.backend.biz
                 {
                     mis.DeadLine = extDt;
                     if (r.Upd(mis).Commit())
-                        return Message.Succ("تمدید‌ماموریت", " تا تاریخ " + extDt, " شنا.مات " + mi);
+                        return Message.Succ("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt);
 
-                    return Message.Fail("تمدید‌ماموریت", " تا تاریخ " + extDt, " شنا.مات " + mi);
+                    return Message.Fail("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt);
                 }
                 else
-                    return Message.NotExist("تمدید‌ماموریت", " تا تاریخ " + extDt, " شنا.مات " + mi);
+                    return Message.NotExist("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt);
             }
         }
 
