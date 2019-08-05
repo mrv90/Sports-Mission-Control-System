@@ -62,9 +62,9 @@
             this.برنامهToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.لاگتغییراتToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblErrorCount = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.mcmbStatus = new smcs.frontend.crtl.MultiColorComboBox();
             this.mainMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +80,7 @@
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(10, 4, 0, 4);
-            this.mainMenu.Size = new System.Drawing.Size(780, 37);
+            this.mainMenu.Size = new System.Drawing.Size(793, 37);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -315,52 +315,54 @@
             this.lblVersion.Location = new System.Drawing.Point(0, 37);
             this.lblVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(780, 25);
+            this.lblVersion.Size = new System.Drawing.Size(793, 25);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "v0.10-13970928";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblUser
+            // lblErrorCount
             // 
-            this.lblUser.Font = new System.Drawing.Font("Samim", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUser.Location = new System.Drawing.Point(11, 19);
-            this.lblUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(138, 24);
-            this.lblUser.TabIndex = 3;
-            this.lblUser.Text = "امیر‌رحمتی";
-            this.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStatus.Font = new System.Drawing.Font("Samim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(153, 18);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(622, 24);
-            this.lblStatus.TabIndex = 4;
-            this.lblStatus.Text = "کاربر گرامی خوش آمدید!";
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblErrorCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblErrorCount.Font = new System.Drawing.Font("Samim", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorCount.ForeColor = System.Drawing.Color.Red;
+            this.lblErrorCount.Location = new System.Drawing.Point(11, 19);
+            this.lblErrorCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblErrorCount.Name = "lblErrorCount";
+            this.lblErrorCount.Size = new System.Drawing.Size(68, 24);
+            this.lblErrorCount.TabIndex = 3;
+            this.lblErrorCount.Text = "0";
+            this.lblErrorCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lblStatus);
-            this.groupBox1.Controls.Add(this.lblUser);
+            this.groupBox1.Controls.Add(this.mcmbStatus);
+            this.groupBox1.Controls.Add(this.lblErrorCount);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Location = new System.Drawing.Point(0, 528);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(780, 48);
+            this.groupBox1.Size = new System.Drawing.Size(793, 48);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
+            // 
+            // mcmbStatus
+            // 
+            this.mcmbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mcmbStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.mcmbStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.mcmbStatus.FormattingEnabled = true;
+            this.mcmbStatus.Location = new System.Drawing.Point(84, 15);
+            this.mcmbStatus.Name = "mcmbStatus";
+            this.mcmbStatus.Size = new System.Drawing.Size(703, 33);
+            this.mcmbStatus.TabIndex = 7;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 576);
+            this.ClientSize = new System.Drawing.Size(793, 576);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.mainMenu);
@@ -405,10 +407,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem مامورینمستثناازآمارToolStripMenuItem;
         private System.Windows.Forms.Label lblVersion;
-        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.Label lblErrorCount;
         private System.Windows.Forms.ToolStripMenuItem برنامهToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem لاگتغییراتToolStripMenuItem;
-        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripMenuItem dataEntryMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -419,6 +420,7 @@
         private System.Windows.Forms.ToolStripMenuItem terminateOperationMenuItem;
         private System.Windows.Forms.ToolStripMenuItem مستثنیازآمارToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private crtl.MultiColorComboBox mcmbStatus;
     }
 }
 
