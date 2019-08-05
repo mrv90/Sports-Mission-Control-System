@@ -4,6 +4,7 @@ using smcs.backend.data.model;
 using smcs.backend.data.model.basic;
 using smcs.backend.data.model.iterative;
 using System;
+using System.Windows.Forms;
 
 namespace smcs.frontend.frm
 {
@@ -59,22 +60,28 @@ namespace smcs.frontend.frm
                 Mission mi;
                 using (var repOfMis = new Repository<Mission>())
                     mi = repOfMis.Ret(m => m.MisId == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
-                lblRcpDat.Text = mi.InitDate.ToShortDateString();
 
-                using (var repOfOfc = new Repository<Office>())
-                    lblOfc.Text = repOfOfc.Ret(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
-
-                using (var repOfOff = new Repository<OffDay>())
+                if (mi != null )
                 {
-                    var off = repOfOff.RetList(o => o.MisRef == ag.MisRef && o.Enbl == true);
-                    NumOffDay.Value = (off != null) ? off.Count : 0;
-                }
+                    lblRcpDat.Text = mi.InitDate.ToShortDateString();
 
-                using (var repOfAbs = new Repository<Absence>())
-                {
-                    var abs = repOfAbs.RetList(b => b.MisRef == ag.MisRef && b.Enbl == true);
-                    NumAbs.Value = (abs != null) ? abs.Count : 0;
+                    using (var repOfOfc = new Repository<Office>())
+                        lblOfc.Text = repOfOfc.Ret(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
+
+                    using (var repOfOff = new Repository<OffDay>())
+                    {
+                        var off = repOfOff.RetList(o => o.MisRef == ag.MisRef && o.Enbl == true);
+                        NumOffDay.Value = (off != null) ? off.Count : 0;
+                    }
+
+                    using (var repOfAbs = new Repository<Absence>())
+                    {
+                        var abs = repOfAbs.RetList(b => b.MisRef == ag.MisRef && b.Enbl == true);
+                        NumAbs.Value = (abs != null) ? abs.Count : 0;
+                    }
                 }
+                else
+                    MessageBox.Show("ماموریت مامور انتخاب شده قبل‌تر پایان پذیرفته");
             }
         }
 
