@@ -355,6 +355,7 @@
             this.txtEmgNum.Size = new System.Drawing.Size(226, 32);
             this.txtEmgNum.TabIndex = 11;
             this.txtEmgNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEmgNum.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.txtEmgNum.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmgNum_Validating);
             // 
             // txtCntcNum
@@ -368,6 +369,7 @@
             this.txtCntcNum.Size = new System.Drawing.Size(226, 32);
             this.txtCntcNum.TabIndex = 10;
             this.txtCntcNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCntcNum.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.txtCntcNum.Validating += new System.ComponentModel.CancelEventHandler(this.txtCntcNum_Validating);
             // 
             // txtOrdrBy
