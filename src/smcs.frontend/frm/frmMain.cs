@@ -17,7 +17,7 @@ namespace smcs.frontend
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            lblErrorCount.Text = CrntUser.Name;
+            lblUser.Text = CrntUser.Name;
             lblVersion.Text = Application.ProductVersion.ToString();
         }
 
@@ -68,9 +68,28 @@ namespace smcs.frontend
         public void update(Message msg)
         {
             mcmbStatus.Items.Add(new ComboBoxItem(msg.Text, 0, msg.Color));
-            mcmbStatus.SelectedIndex = 0; // TODO اندیس آخرین پیغام باید نمایش داده شود
+            mcmbStatus.SelectedIndex = mcmbStatus.Items.Count -1;
 
-            //TODO تعداد خطاها در برچسب موردنظر بروز شود
+            if (msg.Id != Message.SUCC)
+                lblErrorCount.Text = (lblErrorCount.Text.ToInt32() + 1).ToString();
+        }
+
+        private void tsmiDelItem_Click(object sender, EventArgs e)
+        {
+            if (mcmbStatus.Focused)
+            {
+                ComboBoxItem item = mcmbStatus.SelectedItem as ComboBoxItem;
+                if (item != null)
+                {
+                    if (item.ForeColor != Message.SUCC_COL)
+                        lblErrorCount.Text = (lblErrorCount.Text.ToInt32() > 0) ? (lblErrorCount.Text.ToInt32() - 1).ToString() : "0";
+
+                    mcmbStatus.Items.Remove(item);
+                }
+
+                mcmbStatus.Text = string.Empty;
+                mcmbStatus.SelectedIndex = (mcmbStatus.Items.Count > 0) ? 0 : -1;
+            }
         }
     }
 }
