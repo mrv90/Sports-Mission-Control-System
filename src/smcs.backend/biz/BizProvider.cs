@@ -205,7 +205,7 @@ namespace smcs.backend.biz
                             break;
                     }
 
-                    return Message.Fail("ثبت گردشکار", " تاریخ" + date, " ش.مات " + ag.MisRef);
+                    return Message.Succ("ثبت گردشکار", " تاریخ" + date, " ش.مات " + ag.MisRef);
                 }
                 else
                     return Message.Conflict("ثبت گردشکار", " تاریخ" + date, " ش.مات " + ag.MisRef);
