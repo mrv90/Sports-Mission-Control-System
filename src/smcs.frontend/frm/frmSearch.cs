@@ -95,7 +95,7 @@ namespace smcs.frontend.frm
 
                 foreach (Mission mis in lst_of_mis)
                 {
-                    cmbMisPerd.Items.Add(new PairDataItem(mis.MisId, mis.InitDate.ToShortDateString()));
+                    cmbMisPerd.Items.Add(new PairDataItem(mis.MisId, mis.InitDate.ToString("yyyy/MM/dd")));
 
                     if (mis.Enbl == true)
                     {
@@ -271,9 +271,9 @@ namespace smcs.frontend.frm
             lblName.Text = ag.Name;
             lblFthrName.Text = ag.FthrName;
             lblUnit.Text = extNameFromBasicEntity<Unit>(ag.UntRef);
-            lblDteOfDisp.Text = ag.DateOfDisp.ToShortDateString();
-            lblRcptDte.Text = mis.InitDate.ToShortDateString();
-            lblTermDte.Text = mis.Ret2UntDate != null ? mis.Ret2UntDate.Value.ToShortDateString() : "-";
+            lblDteOfDisp.Text = ag.DateOfDisp.ToString("yyyy/MM/dd");
+            lblRcptDte.Text = mis.InitDate.ToString("yyyy/MM/dd");
+            lblTermDte.Text = mis.Ret2UntDate != null ? mis.Ret2UntDate.Value.ToString("yyyy/MM/dd") : "-";
             lblSprt.Text = extNameFromBasicEntity<Sports>(mis.SprtRef);
             lblOffc.Text = extNameFromBasicEntity<Office>(mis.OffcRef);
             lblNtioCode.Text = ag.NtioCode.ToString();
@@ -281,8 +281,8 @@ namespace smcs.frontend.frm
             lblOrdrBy.Text = mis.OrdrBy;
             lblCntcNum.Text = ag.Cntc;
             lblEmgNum.Text = ag.ECntc;
-            lblRegDt.Text = ag.TimeStmp.ToString(); // NOTE نمایش تاریخ‌وزمان قابل قبول است؟
-            lblExtDt.Text = mis.DeadLine.ToShortDateString();
+            lblRegDt.Text = ag.TimeStmp.ToString("hh:mm:ss yyyy/MM/dd"); // NOTE نمایش تاریخ‌وزمان قابل قبول است؟
+            lblExtDt.Text = mis.DeadLine.ToString("yyyy/MM/dd");
             lblAddr.Text = ag.Addr;
 
             lblOffDatCont.Text = extTotalDaysFromPeriodEntity<OffDay>(mis.MisId).ToString();

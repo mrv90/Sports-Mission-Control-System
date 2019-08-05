@@ -85,6 +85,7 @@
             this.tsmItemApplyOpr = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmItemExtdMiss = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmItemRecpAgnt = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmItemModfAgnt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmItemTermMiss = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +95,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.rbtnSrchByNtioCode = new System.Windows.Forms.RadioButton();
             this.rbtnSrchByName = new System.Windows.Forms.RadioButton();
-            this.tsmItemRecpAgnt = new System.Windows.Forms.ToolStripMenuItem();
             this.gpbLower.SuspendLayout();
             this.gbxUpper.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -343,7 +343,6 @@
             this.lblExtDt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblExtDt.Location = new System.Drawing.Point(6, 250);
             this.lblExtDt.Name = "lblExtDt";
-            this.lblExtDt.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblExtDt.Size = new System.Drawing.Size(204, 25);
             this.lblExtDt.TabIndex = 34;
             this.lblExtDt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -355,7 +354,6 @@
             this.lblRegDt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblRegDt.Location = new System.Drawing.Point(7, 214);
             this.lblRegDt.Name = "lblRegDt";
-            this.lblRegDt.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblRegDt.Size = new System.Drawing.Size(204, 25);
             this.lblRegDt.TabIndex = 34;
             this.lblRegDt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -367,7 +365,6 @@
             this.lblEmgNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblEmgNum.Location = new System.Drawing.Point(7, 178);
             this.lblEmgNum.Name = "lblEmgNum";
-            this.lblEmgNum.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblEmgNum.Size = new System.Drawing.Size(204, 25);
             this.lblEmgNum.TabIndex = 35;
             this.lblEmgNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -379,7 +376,6 @@
             this.lblCntcNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblCntcNum.Location = new System.Drawing.Point(7, 142);
             this.lblCntcNum.Name = "lblCntcNum";
-            this.lblCntcNum.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblCntcNum.Size = new System.Drawing.Size(204, 25);
             this.lblCntcNum.TabIndex = 36;
             this.lblCntcNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -508,7 +504,6 @@
             this.lblRcptDte.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblRcptDte.Location = new System.Drawing.Point(342, 292);
             this.lblRcptDte.Name = "lblRcptDte";
-            this.lblRcptDte.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblRcptDte.Size = new System.Drawing.Size(239, 25);
             this.lblRcptDte.TabIndex = 18;
             this.lblRcptDte.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -521,7 +516,6 @@
             this.lblDteOfDisp.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblDteOfDisp.Location = new System.Drawing.Point(342, 220);
             this.lblDteOfDisp.Name = "lblDteOfDisp";
-            this.lblDteOfDisp.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblDteOfDisp.Size = new System.Drawing.Size(239, 25);
             this.lblDteOfDisp.TabIndex = 17;
             this.lblDteOfDisp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -756,43 +750,50 @@
             this.tsmItemTermMiss});
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.contextMenu.Size = new System.Drawing.Size(181, 148);
+            this.contextMenu.Size = new System.Drawing.Size(149, 126);
             // 
             // tsmItemApplyOpr
             // 
             this.tsmItemApplyOpr.Name = "tsmItemApplyOpr";
-            this.tsmItemApplyOpr.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemApplyOpr.Size = new System.Drawing.Size(148, 22);
             this.tsmItemApplyOpr.Text = "گردش‌کار";
             this.tsmItemApplyOpr.Click += new System.EventHandler(this.tsmItemApplyOpr_Click);
             // 
             // tsmItemExtdMiss
             // 
             this.tsmItemExtdMiss.Name = "tsmItemExtdMiss";
-            this.tsmItemExtdMiss.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemExtdMiss.Size = new System.Drawing.Size(148, 22);
             this.tsmItemExtdMiss.Text = "تمدید ماموریت";
             this.tsmItemExtdMiss.Click += new System.EventHandler(this.tsmItemExtdMiss_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
+            // 
+            // tsmItemRecpAgnt
+            // 
+            this.tsmItemRecpAgnt.Name = "tsmItemRecpAgnt";
+            this.tsmItemRecpAgnt.Size = new System.Drawing.Size(148, 22);
+            this.tsmItemRecpAgnt.Text = "پذیرش";
+            this.tsmItemRecpAgnt.Click += new System.EventHandler(this.tsmItemRecpAgnt_Click);
             // 
             // tsmItemModfAgnt
             // 
             this.tsmItemModfAgnt.Name = "tsmItemModfAgnt";
-            this.tsmItemModfAgnt.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemModfAgnt.Size = new System.Drawing.Size(148, 22);
             this.tsmItemModfAgnt.Text = "ویرایش";
             this.tsmItemModfAgnt.Click += new System.EventHandler(this.tsmItemModfAgnt_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
             // 
             // tsmItemTermMiss
             // 
             this.tsmItemTermMiss.Name = "tsmItemTermMiss";
-            this.tsmItemTermMiss.Size = new System.Drawing.Size(180, 22);
+            this.tsmItemTermMiss.Size = new System.Drawing.Size(148, 22);
             this.tsmItemTermMiss.Text = "پایان";
             this.tsmItemTermMiss.Click += new System.EventHandler(this.tsmItemTermMiss_Click);
             // 
@@ -882,13 +883,6 @@
             this.rbtnSrchByName.Text = "نام‌مامور؛";
             this.rbtnSrchByName.UseVisualStyleBackColor = true;
             this.rbtnSrchByName.CheckedChanged += new System.EventHandler(this.rbtnSrchByName_CheckedChanged);
-            // 
-            // tsmItemRecpAgnt
-            // 
-            this.tsmItemRecpAgnt.Name = "tsmItemRecpAgnt";
-            this.tsmItemRecpAgnt.Size = new System.Drawing.Size(180, 22);
-            this.tsmItemRecpAgnt.Text = "پذیرش";
-            this.tsmItemRecpAgnt.Click += new System.EventHandler(this.tsmItemRecpAgnt_Click);
             // 
             // frmSearch
             // 
