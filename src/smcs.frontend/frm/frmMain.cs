@@ -1,4 +1,5 @@
 ﻿using smcs.backend.biz;
+using smcs.frontend.crtl;
 using smcs.frontend.frm;
 using System;
 using System.Windows.Forms;
@@ -10,18 +11,14 @@ namespace smcs.frontend
         public frmMain()
         {
             InitializeComponent();
+
+            MessageObserver.Attach(this);
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            lblUser.Text = CrntUser.Name;
+            lblErrorCount.Text = CrntUser.Name;
             lblVersion.Text = Application.ProductVersion.ToString();
-
-            MessageObserver.Attach(this);
-
-            this.Hide();
-            new frmLogin().ShowDialog();
-            this.Show();
         }
 
         private void signatureDefinitionMenuItem_Click(object sender, EventArgs e)
@@ -63,13 +60,17 @@ namespace smcs.frontend
         {
             new BizProvider().Logout();
 
-            MessageObserver.Detach(this);
+            //MessageObserver.Detach(this);
+
+            this.Hide();
         }
 
         public void update(Message msg)
         {
-            lblStatus.Text = msg.Text;
-            lblStatus.ForeColor = msg.Color;
+            mcmbStatus.Items.Add(new ComboBoxItem(msg.Text, 0, msg.Color));
+            mcmbStatus.SelectedIndex = 0; // TODO اندیس آخرین پیغام باید نمایش داده شود
+
+            //TODO تعداد خطاها در برچسب موردنظر بروز شود
         }
     }
 }
