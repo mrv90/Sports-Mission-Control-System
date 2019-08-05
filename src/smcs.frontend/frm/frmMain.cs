@@ -64,13 +64,10 @@ namespace smcs.frontend
             new BizProvider().Logout();
 
             MessageObserver.Detach(this);
-
-            System.Windows.Forms.Application.Exit();
         }
 
         public void update(Message msg)
         {
-            //lblStatus.Text = string.Format("کاربر گرامی «{0}»؛ ورود شما ({1}) در سیستم ثبت شد", CrntUser.Name, DateTime.Now);
             lblStatus.Text = msg.Text;
             lblStatus.ForeColor = msg.Color;
         }
