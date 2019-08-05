@@ -265,12 +265,12 @@ namespace smcs.backend.biz
                 {
                     mis.DeadLine = extDt;
                     if (r.Upd(mis).Commit())
-                        return Message.Succ("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt);
+                        return Message.Succ("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt.ToString("yyyy/MM/dd"));
 
-                    return Message.Fail("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt);
+                    return Message.Fail("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt.ToString("yyyy/MM/dd"));
                 }
                 else
-                    return Message.NotExist("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt);
+                    return Message.NotExist("تمدید‌ماموریت", " شنا.مات ", mi, " تا تاریخ ", extDt.ToString("yyyy/MM/dd"));
             }
         }
 
