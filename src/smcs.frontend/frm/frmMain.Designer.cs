@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.BasicDataMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.قسمتToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,8 +66,12 @@
             this.lblErrorCount = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mcmbStatus = new smcs.frontend.crtl.MultiColorComboBox();
+            this.cmuDelMsg = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tmsiDelItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblUser = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.cmuDelMsg.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -80,7 +85,7 @@
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(10, 4, 0, 4);
-            this.mainMenu.Size = new System.Drawing.Size(793, 37);
+            this.mainMenu.Size = new System.Drawing.Size(998, 37);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -310,12 +315,12 @@
             // 
             // lblVersion
             // 
-            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.Font = new System.Drawing.Font("Samim", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(0, 37);
+            this.lblVersion.Location = new System.Drawing.Point(761, 37);
             this.lblVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(793, 25);
+            this.lblVersion.Size = new System.Drawing.Size(226, 20);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "v0.10-13970928";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -339,9 +344,9 @@
             this.groupBox1.Controls.Add(this.mcmbStatus);
             this.groupBox1.Controls.Add(this.lblErrorCount);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(0, 528);
+            this.groupBox1.Location = new System.Drawing.Point(0, 530);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(793, 48);
+            this.groupBox1.Size = new System.Drawing.Size(998, 48);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
@@ -351,19 +356,47 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mcmbStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.mcmbStatus.ContextMenuStrip = this.cmuDelMsg;
             this.mcmbStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.mcmbStatus.FormattingEnabled = true;
             this.mcmbStatus.Location = new System.Drawing.Point(84, 15);
             this.mcmbStatus.Name = "mcmbStatus";
-            this.mcmbStatus.Size = new System.Drawing.Size(703, 33);
+            this.mcmbStatus.Size = new System.Drawing.Size(908, 33);
             this.mcmbStatus.TabIndex = 7;
+            // 
+            // cmuDelMsg
+            // 
+            this.cmuDelMsg.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tmsiDelItem});
+            this.cmuDelMsg.Name = "cmuDelMsg";
+            this.cmuDelMsg.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmuDelMsg.Size = new System.Drawing.Size(181, 48);
+            // 
+            // tmsiDelItem
+            // 
+            this.tmsiDelItem.Name = "tmsiDelItem";
+            this.tmsiDelItem.Size = new System.Drawing.Size(180, 22);
+            this.tmsiDelItem.Text = "حذف";
+            this.tmsiDelItem.Click += new System.EventHandler(this.tsmiDelItem_Click);
+            // 
+            // lblUser
+            // 
+            this.lblUser.Font = new System.Drawing.Font("Samim", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUser.Location = new System.Drawing.Point(2, 37);
+            this.lblUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(226, 20);
+            this.lblUser.TabIndex = 1;
+            this.lblUser.Text = "امیر رحمتی";
+            this.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 576);
+            this.ClientSize = new System.Drawing.Size(998, 578);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.lblUser);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.mainMenu);
             this.Font = new System.Drawing.Font("Samim", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -377,6 +410,7 @@
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.cmuDelMsg.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -421,6 +455,9 @@
         private System.Windows.Forms.ToolStripMenuItem مستثنیازآمارToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private crtl.MultiColorComboBox mcmbStatus;
+        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.ContextMenuStrip cmuDelMsg;
+        private System.Windows.Forms.ToolStripMenuItem tmsiDelItem;
     }
 }
 
