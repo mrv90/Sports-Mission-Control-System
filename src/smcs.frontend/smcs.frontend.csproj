@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="crtl\CustomComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="frm\frmBase.cs">
       <SubType>Form</SubType>
     </Compile>
