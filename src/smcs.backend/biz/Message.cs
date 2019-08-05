@@ -23,39 +23,50 @@ public class Message
         this.Color = clr;
     }
 
-    public static Message Fail(string opr, params string[] args)
+    public static Message Fail(string opr, params object[] args)
     {
-        var msg = new Message(FAIL, DateTime.Now.ToShortTimeString() + " - " + " شکست" + opr + "؛ " + args, Color.Red);
+        var msg = new Message(FAIL, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " شکست " + opr + "؛ " + ParamsToString(args) , Color.Red);
         MessageObserver.Notify(msg);
         return msg;
     }
 
-    public static Message Succ(string opr, params string[] args)
+    public static Message Succ(string opr, params object[] args)
     {
-        var msg = new Message(SUCC, DateTime.Now.ToShortTimeString() + " - " + " عملیات موفق" + opr + "؛ " + args, Color.Green);
+        var msg = new Message(SUCC, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات موفق " + opr + "؛ " + ParamsToString(args), Color.Green);
         MessageObserver.Notify(msg);
         // ثبت عملیات موفق در کارکرد روزانه
         return msg;
     }
 
-    public static Message AlreadyExist(string opr, params string[] args)
+    public static Message AlreadyExist(string opr, params object[] args)
     {
-        var msg = new Message(ALDY_EXST, DateTime.Now.ToShortTimeString() + " - " + " عملیات" + opr + " به علت تکراری بودن مقادیر " + args + ".لغو شد ", Color.Black);
+        var msg = new Message(ALDY_EXST, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت تکراری بودن مقادیر " + ParamsToString(args) + ".لغو شد ", Color.Black);
         MessageObserver.Notify(msg);
         return msg;
     }
 
-    public static Message NotExist(string opr, params string[] args)
+    public static Message NotExist(string opr, params object[] args)
     {
-        var msg = new Message(NOT_EXST, DateTime.Now.ToShortTimeString() + " - " + " عملیات" + opr + " به علت عدم وجود مقادیر " + args + ".لغو شد ", Color.Black);
+        var msg = new Message(NOT_EXST, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت عدم وجود مقادیر " + ParamsToString(args) + ".لغو شد ", Color.Black);
         MessageObserver.Notify(msg);
         return msg;
     }
 
-    internal static Message Conflict(string opr, params string[] args)
+    internal static Message Conflict(string opr, params object[] args)
     {
-        var msg = new Message(CONFLICT, DateTime.Now.ToShortTimeString() + " - " + " عملیات" + opr + " به علت مغایرت و همپوشانی مقادیر " + args + ".لغو شد ", Color.Black);
+        var msg = new Message(CONFLICT, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت مغایرت و همپوشانی مقادیر " + ParamsToString(args) + ".لغو شد ", Color.Black);
         MessageObserver.Notify(msg);
         return msg;
+    }
+
+    /* ------------------ private merhod(es) ------------------ */
+
+    private static string ParamsToString(object[] args)
+    {
+        string result = "( ";
+        foreach (var o in args)
+            result += o.ToString() + " ";
+
+        return result += " )";
     }
 }
