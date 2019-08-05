@@ -342,6 +342,7 @@
             this.mtxtPersCode.Size = new System.Drawing.Size(226, 32);
             this.mtxtPersCode.TabIndex = 8;
             this.mtxtPersCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtxtPersCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.mtxtPersCode.Validating += new System.ComponentModel.CancelEventHandler(this.mtxtPersCode_Validating);
             // 
             // txtEmgNum
