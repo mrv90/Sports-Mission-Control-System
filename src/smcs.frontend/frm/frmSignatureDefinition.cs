@@ -1,6 +1,6 @@
 ﻿using smcs.backend.biz;
 using smcs.backend.data.access;
-using smcs.backend.data.model;
+using smcs.backend.data.model.basic;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
