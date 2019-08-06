@@ -69,6 +69,8 @@
             this.cmuDelMsg = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tmsiDelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUser = new System.Windows.Forms.Label();
+            this.tmsiDelWholeList = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.mainMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.cmuDelMsg.SuspendLayout();
@@ -367,10 +369,12 @@
             // cmuDelMsg
             // 
             this.cmuDelMsg.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tmsiDelItem});
+            this.tmsiDelItem,
+            this.toolStripSeparator7,
+            this.tmsiDelWholeList});
             this.cmuDelMsg.Name = "cmuDelMsg";
             this.cmuDelMsg.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmuDelMsg.Size = new System.Drawing.Size(181, 48);
+            this.cmuDelMsg.Size = new System.Drawing.Size(181, 76);
             // 
             // tmsiDelItem
             // 
@@ -389,6 +393,18 @@
             this.lblUser.TabIndex = 1;
             this.lblUser.Text = "امیر رحمتی";
             this.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tmsiDelWholeList
+            // 
+            this.tmsiDelWholeList.Name = "tmsiDelWholeList";
+            this.tmsiDelWholeList.Size = new System.Drawing.Size(180, 22);
+            this.tmsiDelWholeList.Text = "حذف همه پیغام‌ها";
+            this.tmsiDelWholeList.Click += new System.EventHandler(this.tmsiDelWholeList_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(177, 6);
             // 
             // frmMain
             // 
@@ -458,6 +474,8 @@
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.ContextMenuStrip cmuDelMsg;
         private System.Windows.Forms.ToolStripMenuItem tmsiDelItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem tmsiDelWholeList;
     }
 }
 

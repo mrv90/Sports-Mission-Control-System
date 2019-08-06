@@ -91,5 +91,16 @@ namespace smcs.frontend
                 mcmbStatus.SelectedIndex = (mcmbStatus.Items.Count > 0) ? 0 : -1;
             }
         }
+
+        private void tmsiDelWholeList_Click(object sender, EventArgs e)
+        {
+            if ((mcmbStatus.Focused) && (DialogResult.Yes == MessageBox.Show("؟همه پیغام‌ها پاک شود","", MessageBoxButtons.YesNo)))
+            {
+                mcmbStatus.Items.Clear();
+                mcmbStatus.Text = string.Empty;
+
+                lblErrorCount.Text = "0";
+            }
+        }
     }
 }
