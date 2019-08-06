@@ -1,6 +1,6 @@
 ﻿using smcs.backend.data.model.parent;
 
-namespace smcs.backend.data.model
+namespace smcs.backend.data.model.basic
 {
     public class Signature : Base
     {
