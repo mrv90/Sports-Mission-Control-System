@@ -72,7 +72,6 @@
     <Compile Include="data\model\iterative\Absence.cs" />
     <Compile Include="data\model\Agent.cs" />
     <Compile Include="data\model\iterative\UndTreat.cs" />
-    <Compile Include="data\model\History.cs" />
     <Compile Include="data\model\parent\Enabler.cs" />
     <Compile Include="data\model\parent\Iterative.cs" />
     <Compile Include="data\model\parent\Base.cs" />
@@ -91,6 +90,7 @@
     <Compile Include="ext\DateTimeExtensionMethod.cs" />
     <Compile Include="ext\LogExtensionMethod.cs" />
     <Compile Include="ext\StringExtensionMethods.cs" />
+    <Compile Include="ext\TypeExtensionMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

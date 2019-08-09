@@ -2,7 +2,6 @@
 using smcs.backend.data.model;
 using smcs.backend.data.model.basic;
 using smcs.backend.data.model.iterative;
-using smcs.backend.ext;
 using System;
 using System.Data.Entity;
 
@@ -12,7 +11,6 @@ namespace smcs.backend.data
     {
         public DbSet<Absence> Absence { get; set; }
         public DbSet<Agent> Agent { get; set; }
-        public DbSet<History> History { get; set; }
         public DbSet<Mission> Mission { get; set; }
         public DbSet<OffDay> OffDay { get; set; }
         public DbSet<Office> Office { get; set; }
@@ -52,7 +50,6 @@ namespace smcs.backend.data
             modelBuilder.Entity<Absence>().ToTable("Absence").HasKey(x => x.Id);
             modelBuilder.Entity<Agent>().ToTable("Agent").HasKey(x => x.Id);
             modelBuilder.Entity<Agent>().HasRequired(x => x.Mission).WithMany().HasForeignKey(x => x.MisRef);
-            modelBuilder.Entity<History>().ToTable("History").HasKey(x => x.Id);
             modelBuilder.Entity<Mission>().ToTable("Mission").HasKey(x => x.MisId);
             modelBuilder.Entity<OffDay>().ToTable("OffDay").HasKey(x => x.Id);
             modelBuilder.Entity<Office>().ToTable("Office").HasKey(x => x.Id);

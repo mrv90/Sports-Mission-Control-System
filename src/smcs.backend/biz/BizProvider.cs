@@ -94,9 +94,6 @@ namespace smcs.backend.biz
 
         public Message UpdateAgent(Agent ag)
         {
-            using (var repOfHis = new Repository<History>(csName))
-                repOfHis.AddSingle(new History(Crud.Update, "Mission", ag.Id));
-
             using (var rOfA = new Repository<Agent>(csName))
                 if (rOfA.Upd(ag).Commit()) // تاریخچه ثبت می‌شود؟
                     return Message.Succ("بروزرسانی مامور", " شنا.مام " + ag.Id);
@@ -106,9 +103,6 @@ namespace smcs.backend.biz
 
         public Message UpdateAgentAndMission(Agent ag, Mission mi)
         {
-            var rOfH = new Repository<History>(csName);
-            rOfH.AddSingle(new History(Crud.Update, "Mission", ag.Id));
-
             var rOfM = new Repository<Mission>(csName);
             rOfM.Upd(mi);
 
@@ -121,9 +115,6 @@ namespace smcs.backend.biz
 
         public Message DismissTheAgent(Agent ag, DateTime retToUnt)
         {
-            var rOfH = new Repository<History>(csName);
-            rOfH.AddSingle(new History(Crud.Delete, "Mission", ag.MisRef));
-
             var rOfA = new Repository<Agent>(csName);
             var exAg = rOfA.Ret(a => a.Id == ag.Id);
             if (exAg == null)
@@ -287,9 +278,6 @@ namespace smcs.backend.biz
 
         private bool WriteOperation<T>(T t) where T: Iterative
         {
-            using (var rOfH = new Repository<History>(csName))
-                rOfH.AddSingle(new History(Crud.Create, typeof(T).Name, t.Id));
-
             using (var rOfT = new Repository<T>(csName))
                 if (rOfT.AddSingle(t).Commit()) // تاریخ‌چه هم ثبت می‌شود؟
                     return true;

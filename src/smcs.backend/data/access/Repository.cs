@@ -1,7 +1,6 @@
 ﻿using Backend.Data.Model.Parent;
 using smcs.backend.data.model;
 using smcs.backend.data.model.iterative;
-using smcs.backend.ext;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -51,9 +50,6 @@ namespace smcs.backend.data.access
 
             else if (typeof(T).Name == "Agent")
                 unOfWrk.Cntx.Agent.Add(t as Agent);
-
-            else if (typeof(T).Name == "History")
-                unOfWrk.Cntx.History.Add(t as History);
 
             else if (typeof(T).Name == "Mission")
                 unOfWrk.Cntx.Mission.Add(t as Mission);
