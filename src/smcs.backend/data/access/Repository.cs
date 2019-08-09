@@ -28,45 +28,6 @@ namespace smcs.backend.data.access
             this.unOfWrk = new UnitOfWork(csName);
         }
 
-        public Repository<T> AddSingle(T t)
-        {
-            unOfWrk.Cntx.Entry(t).State = EntityState.Added;
-            return this;
-        }
-
-        public Repository<T> AddMultiple(T t)
-        {
-            if (typeof(T).Name == "Absence")
-                unOfWrk.Cntx.Absence.Add(t as Absence);
-
-            else if (typeof(T).Name == "OffDay")
-                unOfWrk.Cntx.OffDay.Add(t as OffDay);
-
-            else if (typeof(T).Name == "OnDuty")
-                unOfWrk.Cntx.OnDuty.Add(t as OnDuty);
-
-            else if (typeof(T).Name == "UndTreat")
-                unOfWrk.Cntx.UndTreat.Add(t as UndTreat);
-
-            else if (typeof(T).Name == "Agent")
-                unOfWrk.Cntx.Agent.Add(t as Agent);
-
-            else if (typeof(T).Name == "Mission")
-                unOfWrk.Cntx.Mission.Add(t as Mission);
-
-            else if (typeof(T).Name == "Session")
-                unOfWrk.Cntx.Session.Add(t as Session);
-
-            else if (typeof(T).Name == "User")
-                unOfWrk.Cntx.User.Add(t as User);
-
-            else {
-                // UNDONE یه استنای برنامه‌ای با متن موجودیت ثبت نشده، ایجاد شود
-            }
-
-            return this;
-        }
-
         public virtual T Ret(Expression<Func<T, bool>> expr)
         {
             try
@@ -212,6 +173,45 @@ namespace smcs.backend.data.access
             }
 
             return 0.0d;
+        }
+
+        internal Repository<T> AddSingle(T t)
+        {
+            unOfWrk.Cntx.Entry(t).State = EntityState.Added;
+            return this;
+        }
+
+        internal Repository<T> AddMultiple(T t)
+        {
+            if (typeof(T).Name == "Absence")
+                unOfWrk.Cntx.Absence.Add(t as Absence);
+
+            else if (typeof(T).Name == "OffDay")
+                unOfWrk.Cntx.OffDay.Add(t as OffDay);
+
+            else if (typeof(T).Name == "OnDuty")
+                unOfWrk.Cntx.OnDuty.Add(t as OnDuty);
+
+            else if (typeof(T).Name == "UndTreat")
+                unOfWrk.Cntx.UndTreat.Add(t as UndTreat);
+
+            else if (typeof(T).Name == "Agent")
+                unOfWrk.Cntx.Agent.Add(t as Agent);
+
+            else if (typeof(T).Name == "Mission")
+                unOfWrk.Cntx.Mission.Add(t as Mission);
+
+            else if (typeof(T).Name == "Session")
+                unOfWrk.Cntx.Session.Add(t as Session);
+
+            else if (typeof(T).Name == "User")
+                unOfWrk.Cntx.User.Add(t as User);
+
+            else {
+                // UNDONE یه استنای برنامه‌ای با متن موجودیت ثبت نشده، ایجاد شود
+            }
+
+            return this;
         }
 
         internal Repository<T> Upd(T t)
