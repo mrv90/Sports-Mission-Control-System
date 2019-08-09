@@ -75,7 +75,7 @@ namespace smcs.frontend.frm
             {
                 using (var repOfMi = new Repository<Mission>())
                 {
-                    foreach (Mission mi in repOfMi.RetList(m => m.OffcRef == ((PairDataItem)cmbSearchAgnts.SelectedItem).Id && m.Enbl == true))
+                    foreach (Mission mi in repOfMi.RetList(m => m.OffcRef == ((PairDataItem)cmbSearchAgnts.SelectedItem).Id && m.Last == true))
                     {
                         using (var repOfAg = new Repository<Agent>())
                         {
