@@ -48,7 +48,7 @@ namespace smcs.backend.biz
                     }
                 }
                 else
-                    return Message.NotExist("ورودبه‌سیستم", " نام " , usr.Name, " شنا.کار " , usr.UsrId);
+                    return Message.NotExist("ورودبه‌سیستم", " شنا.کار " , usrNam);
             }
         }
 
@@ -71,7 +71,7 @@ namespace smcs.backend.biz
                 return Message.NotExist("خروج‌ازسیستم", " شنا.نِش " , sesi.SesId);
             }
         }
-        
+
         public Message RegisterTheAgent(Mission mis, Agent ag)
         {
             //using (var repOfHis = new Repository<History>(csName))
@@ -215,39 +215,6 @@ namespace smcs.backend.biz
                 return Message.NotExist("ثبت گردشکار", " شنا.مام ", ag.Id);
         }
 
-        public Message RemoveTheAgentsIteration<T>(Int32 agId, DateTime date) where T: Iterative
-        {
-            var r = new Repository<Agent>(csName);
-            var mis = r.Ret(e => e.Id == agId && e.Enbl == true);
-
-            if (mis != null)
-            {
-                switch (typeof(T).Name)
-                {
-                    case "OffDay":
-                        if (!RemoveOperation<OffDay>(mis.MisRef, date))
-                            return Message.Fail("حذف مرخصی", " شنا.مات ", mis.Id, " در " , date.ToString("yyyy/MM/dd"));
-                        break;
-                    case "OnDuty":
-                        if (!RemoveOperation<OnDuty>(mis.MisRef, date))
-                            return Message.Fail("حذف امورخدمتی", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
-                        break;
-                    case "UndTreat":
-                        if (!RemoveOperation<UndTreat>(mis.MisRef, date))
-                            return Message.Fail("حذف اعزام‌به‌بهداری", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
-                        break;
-                    case "Absence":
-                        if (!RemoveOperation<Absence>(mis.MisRef, date))
-                            return Message.Fail("حذف نهست", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
-                        break;
-                }
-
-                return Message.Succ("حذف‌گردشکار", " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
-            }
-            else
-                return Message.NotExist("حذف‌گردشکار", " شنا.مام ", agId, " شنا.مات ", mis.Id, " در ", date.ToString("yyyy/MM/dd"));
-        }
-
         public Message UpdateSignature(Signature sign)
         {
             using (var r = new Repository<Signature>())
@@ -275,6 +242,47 @@ namespace smcs.backend.biz
             }
         }
 
+        public Message RemoveIteration<T>(int id) where T: Iterative
+        {
+            using (var r = new Repository<T>(csName))
+            {
+                if (r.RemCond(x => x.Id == id && x.Enbl == true).Commit())
+                    return Message.Succ("لغو‌عملیات", "شنا.عملیات", id.ToString());
+
+                return Message.Fail("لغو‌عملیات", "شنا.عملیات", id.ToString());
+            }
+        }
+
+        public Message ResumeMission(int misId)
+        {
+            var rOfA = new Repository<Agent>(csName);
+            var ag = rOfA.Ret(a => a.MisRef == misId && a.Enbl == false);
+
+            if (ag == null)
+                return Message.NotExist("لغوعملیات پایان", "شنا.ماتِ.ما", misId.ToString());
+            else
+            {
+                ag.Enbl = true;
+                rOfA.Upd(ag);
+            }
+
+            using (var rOfM = new Repository<Mission>(csName))
+            {
+                var mis = rOfM.Ret(m => m.MisId == misId && m.Enbl == false);
+                if (mis != null)
+                {
+                    mis.Ret2UntDate = null;
+                    mis.Enbl = true;
+                    if (rOfM.Upd(mis).Commit())
+                        return Message.Succ("لغوعملیات پایان", "شنا.مات", misId.ToString());
+                }
+                else
+                    return Message.NotExist("لغوعملیات پایان", "شنا.مات", misId.ToString());
+
+                return Message.Fail("لغوعملیات پایان", "شنا.مات", misId.ToString());
+            }
+        }
+
         /* ------------------ private merhod(es) ------------------ */
 
         private bool WriteOperation<T>(T t) where T: Iterative
@@ -297,25 +305,6 @@ namespace smcs.backend.biz
                     return true;
 
             return false;
-        }
-
-        private bool RemoveOperation<T>(int misId, DateTime date) where T : Iterative
-        {
-            using (var rOfT = new Repository<T>(csName))
-            {
-                var iter = rOfT.Ret(o => o.MisRef.Equals(misId) && o.Date == date && o.Enbl == true);
-                if (iter == null)
-                    return false;
-
-                iter.Enbl = false;
-                rOfT.Upd(iter);
-
-                var rOfH = new Repository<History>(csName);
-                if (rOfH.AddSingle(new History(Crud.Delete, typeof(T).Name, iter.Id)).Commit()) // تاریخچه ثبت و عملیات لغو شده؟
-                    return true;
-
-                return true;
-            }
         }
     }
 }
