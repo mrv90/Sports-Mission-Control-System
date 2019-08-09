@@ -95,11 +95,14 @@ namespace smcs.frontend.frm
             var items = new List<PairDataItem>();
 
             var lst_of_proposed = new Repository<Agent>().RetList(a => a.NtioCode.Contains(filt));
-            foreach (var ag in lst_of_proposed)
-                items.Add(new PairDataItem(ag.MisRef, ag.NtioCode));
+            if (lst_of_proposed != null)
+            {
+                foreach (var ag in lst_of_proposed)
+                    items.Add(new PairDataItem(ag.MisRef, ag.NtioCode));
 
-            cmbSearch.Items.Clear();
-            cmbSearch.Items.AddRange(items.ToArray());
+                cmbSearch.Items.Clear();
+                cmbSearch.Items.AddRange(items.ToArray());
+            }
         }
 
         private List<ListViewItem> generateListOfLVI(int misId)
@@ -112,10 +115,18 @@ namespace smcs.frontend.frm
 
             var lst_of_lvi = new List<ListViewItem>();
 
-            generateLVIForEachIteration(ref lst_of_lvi, lst_of_off.Cast<Iterative>().ToList(), "مرخصی");
-            generateLVIForEachIteration(ref lst_of_lvi, lst_of_duty.Cast<Iterative>().ToList(), "امورخدمتی");
-            generateLVIForEachIteration(ref lst_of_lvi, lst_of_treat.Cast<Iterative>().ToList(), "اعزام‌به‌بهداری");
-            generateLVIForEachIteration(ref lst_of_lvi, lst_of_abs.Cast<Iterative>().ToList(), "نهست");
+            if (lst_of_off != null)
+                generateLVIForEachIteration(ref lst_of_lvi, lst_of_off.Cast<Iterative>().ToList(), "مرخصی");
+
+            if (lst_of_duty != null)
+                generateLVIForEachIteration(ref lst_of_lvi, lst_of_duty.Cast<Iterative>().ToList(), "امورخدمتی");
+
+            if (lst_of_treat != null)
+                generateLVIForEachIteration(ref lst_of_lvi, lst_of_treat.Cast<Iterative>().ToList(), "اعزام‌به‌بهداری");
+
+            if (lst_of_abs != null)
+                generateLVIForEachIteration(ref lst_of_lvi, lst_of_abs.Cast<Iterative>().ToList(), "نهست");
+
             if (mis.Ret2UntDate.HasValue)
             {
                 var lvi = new ListViewItem(new string[6] { (lst_of_lvi.Count+1).ToString(), mis.TimeStmp.ToString("hh:mm:ss yyyy/MM/dd"),
