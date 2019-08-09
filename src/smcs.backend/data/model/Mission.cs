@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model
 {
-    public class Mission : Enabler
+    public class Mission
     {
         internal Mission()
         {
@@ -15,13 +15,13 @@ namespace smcs.backend.data.model
         public Mission(DateTime init, Int32 sprtRef, Int32 offcRef, string ordr, Int32 sesRef)
         {
             this.InitDate = init;
-            this.DeadLine = init.AddMonths(1); // مدت پیش‌فرض ماموریت ۱ماه است
+            this.DeadLine = init.AddMonths(3); // مدت پیش‌فرض ماموریت 3ماه است
             this.SprtRef = sprtRef;
             this.OrdrBy = ordr;
             this.OffcRef = offcRef;
             this.SesRef = sesRef;
             this.TimeStmp = DateTime.Now;
-            this.Enbl = true;
+            this.Last = true; // ماموریت ایجاد شده، جدیدترین ماموریت مامور است
         }
 
         [Key]
@@ -35,6 +35,7 @@ namespace smcs.backend.data.model
         [Required] public string OrdrBy { get; set; } // پذیرش به دستور چه کسی انجام پذیرفته
         [Required] public Int32 SesRef { get; set; }
         [Required] [Column(TypeName = "datetime2")] public DateTime TimeStmp { get; set; } // تاریخ‌وزمان آخرین بروز‌رسانی
+        public bool Last { get; set; }
 
         public string InitDesc { get; set; }
         public string TermDesc { get; set; }        
