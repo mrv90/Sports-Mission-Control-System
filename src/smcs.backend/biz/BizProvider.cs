@@ -74,9 +74,6 @@ namespace smcs.backend.biz
 
         public Message RegisterTheAgent(Mission mis, Agent ag)
         {
-            //using (var repOfHis = new Repository<History>(csName))
-            //    repOfHis.AddSingle(new History(Crud.Create, "Mission", ag.Id));
-
             using (var rOfA = new Repository<Agent>(csName))
             {
                 using (var rOfM = new Repository<Mission>(csName))
@@ -85,20 +82,11 @@ namespace smcs.backend.biz
                 ag.MisRef = mis.MisId;
                 ag.Mission = mis;
 
-                if (rOfA.AddMultiple(ag).Commit()) // تاریخچه ثبت می‌شود؟
+                if (rOfA.AddMultiple(ag).Commit()) 
                     return Message.Succ("پذیرش", " شنا.مام " , ag.Id, " شنا.مات " , mis.MisId);
                 else
                     return Message.Fail("پذیرش", " شنا.مام ", ag.Id, " شنا.مات ", mis.MisId);
             }
-        }
-
-        public Message UpdateAgent(Agent ag)
-        {
-            using (var rOfA = new Repository<Agent>(csName))
-                if (rOfA.Upd(ag).Commit()) // تاریخچه ثبت می‌شود؟
-                    return Message.Succ("بروزرسانی مامور", " شنا.مام " + ag.Id);
-
-            return Message.Fail("بروزرسانی مامور", " شنا.مام " + ag.Id);
         }
 
         public Message UpdateAgentAndMission(Agent ag, Mission mi)
@@ -107,7 +95,7 @@ namespace smcs.backend.biz
             rOfM.Upd(mi);
 
             var rOfA = new Repository<Agent>(csName);
-            if (rOfA.Upd(ag).Commit()) // تاریخچه ثبت می‌شود؟
+            if (rOfA.Upd(ag).Commit()) 
                 return Message.Succ("بروزرسانی‌مامور و مشخصات‌ماموریت", " شنا.مام " , ag.Id, " شنا.مات " , mi.MisId);
 
             return Message.Fail("بروزرسانی‌مامور و مشخصات‌ماموریت", " شنا.مام ", ag.Id, " شنا.مات ", mi.MisId);
@@ -115,35 +103,55 @@ namespace smcs.backend.biz
 
         public Message DismissTheAgent(Agent ag, DateTime retToUnt)
         {
-            var rOfA = new Repository<Agent>(csName);
-            var exAg = rOfA.Ret(a => a.Id == ag.Id);
-            if (exAg == null)
-                return Message.NotExist("پایان‌مامور", " شنا.مام ", ag.Id, " م.ب.ی " , retToUnt.ToShortDateString());
-            else if (exAg.Enbl == false)
-                return Message.NotExist("پایان‌مامور", " شنا.مام ", ag.Id, " غیرفعال ", " م.ب.ی " , retToUnt.ToShortDateString());
+            using (var rOfA = new Repository<Agent>(csName))
+            {
+                var exAg = rOfA.Ret(a => a.Id == ag.Id);
+                if (exAg == null)
+                    return Message.NotExist("پایان‌مامور", " شنا.مام ", ag.Id, " م.ب.ی " , retToUnt.ToShortDateString());
+                else if (exAg.Enbl == false)
+                    return Message.NotExist("پایان‌مامور", " شنا.مام ", ag.Id, " غیرفعال ", " م.ب.ی " , retToUnt.ToShortDateString());
 
-            ag.Enbl = false;
-            rOfA.Upd(ag);
+                ag.Enbl = false;
+                rOfA.Upd(ag);
 
+                using (var rOfM = new Repository<Mission>(csName))
+                {
+                    var exMi = rOfM.Ret(s => s.MisId.Equals(ag.MisRef) && s.Ret2UntDate.Equals(null));
+                    if (exMi == null)
+                        return Message.NotExist("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
+
+                    exMi.Ret2UntDate = retToUnt;
+                    if (rOfM.Upd(exMi).Commit())
+                        return Message.Succ("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
+
+                    return Message.Fail("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
+                }
+            }
+        }
+
+        public Message AddNewMission(Agent ag, DateTime recp, int offcId, int sprtId, string ordr, int sesi)
+        {
             using (var rOfM = new Repository<Mission>(csName))
             {
-                var exMi = rOfM.Ret(s => s.MisId.Equals(ag.MisRef) && s.Ret2UntDate.Equals(null));
-                if (exMi == null)
-                    return Message.NotExist("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
+                var previous = rOfM.Ret(m => m.MisId == ag.MisRef);
+                previous.Last = false; // ماموریت قبلی، دیگر آخرین ماموریت نیست
 
-                exMi.Ret2UntDate = retToUnt;
-                if (rOfM.Upd(exMi).Commit())
-                    return Message.Succ("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
+                rOfM.Upd(previous);
+                rOfM.AddSingle(new Mission(recp, sprtId, offcId, ordr, sesi));
 
-                return Message.Fail("پایان‌ماموریت", " شنا.مات " , exMi.MisId);
+                using (var rOfA = new Repository<Agent>(csName))
+                    if (rOfA.Upd(ag).Commit()) 
+                        return Message.Succ("بروزرسانی مامور", " شنا.مام " + ag.Id);
             }
+
+            return Message.Fail("بروزرسانی مامور", " شنا.مام " + ag.Id);
         }
 
         public Message RegisterTheAgentOnOffice(Agent ag, Int32 ofc)
         {
             using (var rOfM = new Repository<Mission>(csName))
             {
-                var mis = rOfM.Ret(e => e.MisId == ag.MisRef && e.Enbl == true);
+                var mis = rOfM.Ret(e => e.MisId == ag.MisRef && e.Last == true);
                 mis.OffcRef = -1;
                 if (rOfM.Upd(mis).Commit())
                     return Message.Succ("ثبت‌قسمت", " شنا.مام " , ag.Id, " شنا.قِس ", ofc);
@@ -156,7 +164,7 @@ namespace smcs.backend.biz
         {
             using (var rOfM = new Repository<Mission>(csName))
             {
-                var mis = rOfM.Ret(e => e.MisId == ag.MisRef && e.Enbl == true);
+                var mis = rOfM.Ret(e => e.MisId == ag.MisRef && e.Last == true);
                 mis.OffcRef = -1;
                 if (rOfM.Upd(mis).Commit())
                     return Message.Succ("حذف ثبت‌قسمت", " شنا.مام " , ag.Id);
@@ -246,31 +254,31 @@ namespace smcs.backend.biz
 
         public Message ResumeMission(int misId)
         {
-            var rOfA = new Repository<Agent>(csName);
-            var ag = rOfA.Ret(a => a.MisRef == misId && a.Enbl == false);
-
-            if (ag == null)
-                return Message.NotExist("لغوعملیات پایان", "شنا.ماتِ.ما", misId.ToString());
-            else
+            using (var rOfA = new Repository<Agent>(csName))
             {
-                ag.Enbl = true;
-                rOfA.Upd(ag);
-            }
-
-            using (var rOfM = new Repository<Mission>(csName))
-            {
-                var mis = rOfM.Ret(m => m.MisId == misId && m.Enbl == false);
-                if (mis != null)
-                {
-                    mis.Ret2UntDate = null;
-                    mis.Enbl = true;
-                    if (rOfM.Upd(mis).Commit())
-                        return Message.Succ("لغوعملیات پایان", "شنا.مات", misId.ToString());
-                }
+                var ag = rOfA.Ret(a => a.MisRef == misId && a.Enbl == false);
+                if (ag == null)
+                    return Message.NotExist("لغوعملیات پایان", "شنا.ماتِ.ما", misId.ToString());
                 else
-                    return Message.NotExist("لغوعملیات پایان", "شنا.مات", misId.ToString());
+                {
+                    ag.Enbl = true;
+                    rOfA.Upd(ag);
+                }
 
-                return Message.Fail("لغوعملیات پایان", "شنا.مات", misId.ToString());
+                using (var rOfM = new Repository<Mission>(csName))
+                {
+                    var mis = rOfM.Ret(m => m.MisId == misId && m.Last == true);
+                    if (mis != null)
+                    {
+                        mis.Ret2UntDate = null;
+                        if (rOfM.Upd(mis).Commit())
+                            return Message.Succ("لغوعملیات پایان", "شنا.مات", misId.ToString());
+                    }
+                    else
+                        return Message.NotExist("لغوعملیات پایان", "شنا.مات", misId.ToString());
+
+                    return Message.Fail("لغوعملیات پایان", "شنا.مات", misId.ToString());
+                }
             }
         }
 
