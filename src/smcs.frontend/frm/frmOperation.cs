@@ -6,6 +6,7 @@ using smcs.backend.data.model.iterative;
 using smcs.backend.data.model.parent;
 using System;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace smcs.frontend.frm
 {
@@ -209,7 +210,7 @@ namespace smcs.frontend.frm
         {
             using (var rep = new Repository<T>())
             {
-                var list = rep.RetList(e => e.Enbl == true);
+                var list = rep.RetList(e => e.Enbl == true).OrderBy(e => e.Name);
                 if (list != null)
                 {
                     foreach (var e in list)
