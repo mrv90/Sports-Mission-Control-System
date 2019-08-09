@@ -5,8 +5,8 @@ using smcs.backend.data.model.basic;
 using smcs.backend.data.model.iterative;
 using smcs.backend.data.model.parent;
 using System;
-using System.Windows.Forms;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace smcs.frontend.frm
 {
@@ -65,6 +65,7 @@ namespace smcs.frontend.frm
 
         private void btnSelectAgent_Click(object sender, EventArgs e)
         {
+            // TODO نمایش اطلاعات منحصر به اسم نیست؛ برای جلوگیری از اشتباه باید نام قسمت و کدملی افزوده شود
             var one_ag = cmbSearchAgnts.SelectedItem;
 
             if (rbtnSingleAgent.Checked && !lstMarkedAgnts.Items.Contains(one_ag))
@@ -108,6 +109,7 @@ namespace smcs.frontend.frm
         {
             string one_d = dPickFrom.Value.ToShortDateString();
 
+            // TODO باید یک هشدار یا نمایش کوچک برای امکان‌پذیر بودن/نبودن عملیات به کاربر ایجاد شود
             if (rbtnSingleDay.Checked && !lstMarkedDates.Items.Contains(one_d))
                 lstMarkedDates.Items.Add(dPickFrom.Value.ToShortDateString());
 
@@ -157,9 +159,9 @@ namespace smcs.frontend.frm
                     break;
             }
 
+            var biz = new BizProvider();
             foreach (PairDataItem ag in lstMarkedAgnts.Items)
             {
-                var biz = new BizProvider();
                 foreach (var date in lstMarkedDates.Items)
                 {
                     switch (flag) {
