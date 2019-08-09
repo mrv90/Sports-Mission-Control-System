@@ -45,21 +45,21 @@ public class Message
 
     public static Message AlreadyExist(string opr, params object[] args)
     {
-        var msg = new Message(ALDY_EXST, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت تکراری بودن مقادیر " + ParamsToString(args) + ".لغو شد ", ALDY_EXST_COL);
+        var msg = new Message(ALDY_EXST, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت تکراری بودن مقادیر " + ParamsToString(args) + "لغو شد ", ALDY_EXST_COL);
         MessageObserver.Notify(msg);
         return msg;
     }
 
     public static Message NotExist(string opr, params object[] args)
     {
-        var msg = new Message(NOT_EXST, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت عدم وجود مقادیر " + ParamsToString(args) + ".لغو شد ", NOT_EXST_COL);
+        var msg = new Message(NOT_EXST, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت عدم وجود مقادیر " + ParamsToString(args) + "لغو شد ", NOT_EXST_COL);
         MessageObserver.Notify(msg);
         return msg;
     }
 
     internal static Message Conflict(string opr, params object[] args)
     {
-        var msg = new Message(CONFLICT, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت مغایرت و همپوشانی مقادیر " + ParamsToString(args) + ".لغو شد ", CONFLICT_COL);
+        var msg = new Message(CONFLICT, DateTime.Now.ToString("hh:mm:ss yy/MM/dd") + " - " + " عملیات " + opr + " به علت مغایرت و همپوشانی مقادیر " + ParamsToString(args) + "لغو شد ", CONFLICT_COL);
         MessageObserver.Notify(msg);
         return msg;
     }
