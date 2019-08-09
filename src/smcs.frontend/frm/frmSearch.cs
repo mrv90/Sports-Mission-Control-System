@@ -97,7 +97,7 @@ namespace smcs.frontend.frm
                 {
                     cmbMisPerd.Items.Add(new PairDataItem(mis.MisId, mis.InitDate.ToString("yyyy/MM/dd")));
 
-                    if (mis.Enbl == true)
+                    if (mis.Last == true)
                     {
                         act = lst_of_mis.IndexOf(mis);
                         cmbMisPerd.SelectedIndex = act;

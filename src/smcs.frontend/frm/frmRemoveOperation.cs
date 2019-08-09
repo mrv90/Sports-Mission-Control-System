@@ -39,9 +39,9 @@ namespace smcs.frontend.frm
             {
                 lstOpr.Items.AddRange(generateListOfLVI(((PairDataItem)cmbSearch.SelectedItem).Id).ToArray());
 
-                /* Note هم به فعال نیاز داریم و هم غیرفعال؛ شاید نیاز باشد غیرفعال را دوباره فعال کنیم */
+                /* NOTE باید آخرین ماموریت را لغو پایان کنیم */
                 var ag = new Repository<Agent>().Ret(i => i.MisRef == ((PairDataItem)cmbSearch.SelectedItem).Id);
-                var mis = new Repository<Mission>().Ret(m => m.MisId == ((PairDataItem)cmbSearch.SelectedItem).Id); 
+                var mis = new Repository<Mission>().Ret(m => m.MisId == ((PairDataItem)cmbSearch.SelectedItem).Id && m.Last == true); 
                 var ofc = new Repository<Office>().Ret(o => o.Id == mis.OffcRef); 
 
                 MessageBox.Show("نام: " + ag.Name + "\n" + "قسمت: " + ofc.Name + "\n" + "تاریخ اعزام: " + ag.DateOfDisp.ToString("yyyy/MM/dd") + "\n" + 
@@ -107,7 +107,7 @@ namespace smcs.frontend.frm
 
         private List<ListViewItem> generateListOfLVI(int misId)
         {
-            var mis = new Repository<Mission>().Ret(m => m.MisId == misId && m.Enbl == true);
+            var mis = new Repository<Mission>().Ret(m => m.MisId == misId && m.Last == true);
             var lst_of_off = new Repository<OffDay>().RetList(i => i.MisRef == misId && i.Enbl == true);
             var lst_of_duty = new Repository<OnDuty>().RetList(i => i.MisRef == misId && i.Enbl == true);
             var lst_of_treat = new Repository<UndTreat>().RetList(i => i.MisRef == misId && i.Enbl == true);
