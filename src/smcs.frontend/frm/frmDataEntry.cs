@@ -29,12 +29,10 @@ namespace smcs.frontend.frm
             }
         }
 
-        //UNDONE نیاز به بازتولید بسیار احساس می‌شود
         private void btnApply_Click(object sender, EventArgs e)
         {
             if (rbtnNewAgnt.Checked)
             {
-                var biz = new BizProvider();
                 var mis = new Mission(dPickDteOfRecp.Value.Date, ((PairDataItem)cmbSprt.SelectedItem).Id, ((PairDataItem)cmbOffc.SelectedItem).Id,
                     txtOrdrBy.Text.Trim(), CrntUser.SesId);
                 mis.InitDesc = txtDesc.Text.Trim();
@@ -44,25 +42,14 @@ namespace smcs.frontend.frm
                 agnt.PersCode = mtxtPersCode.Text.Replace("-", "");
                 mis.InitDesc = txtDesc.Text;
 
-                //TODO مکانزیم موفق و شکست نوار وضعیت، با متن فارسی، رنگ متناسب و تاریخ و ساعت
-                try
-                {
-                    biz.RegisterTheAgent(mis, agnt);
-                    tslblStatus.Text = string.Format("ثبت مامور جدید {0} با کدملی {1} انجام شد", txtName.Text.Trim(), mtxtNtioSearch.Text.Trim());
-                }
-                catch (ApplicationException)
-                {
-                    tslblStatus.Text = "خطا"; // TODO نوع خطا از کجا آورده شود؟؟
-                }
+                new BizProvider().RegisterTheAgent(mis, agnt);
             }
 
             else if (rbtnModfAgnt.Checked)
             {
-                var biz = new BizProvider();
-
                 Agent ag;
                 using (var repOfAgnt = new Repository<Agent>())
-                    ag = notCommitedAgentUpdate(repOfAgnt, true);
+                    ag = modifyAgentProperties(repOfAgnt, true);
 
                 Mission mi;
                 using (var rep = new Repository<Mission>())
@@ -75,41 +62,17 @@ namespace smcs.frontend.frm
                 mi.InitDesc = txtDesc.Text.Trim();
                 mi.TimeStmp = DateTime.Now;
 
-                try
-                {
-                    biz.UpdateAgentAndMission(ag, mi);
-                    tslblStatus.Text = string.Format("بروزرسانی مامور {0} با کدملی {1} انجام شد", txtName.Text.Trim(), mtxtNtioSearch.Text.Trim());
-                }
-                catch (Exception)
-                {
-                    tslblStatus.Text = "خطا"; // TODO نوع خطا از کجا آورده شود؟؟
-                }
+                new BizProvider().UpdateAgentAndMission(ag, mi);
             }
 
             else if (rbtnOldAgnt.Checked)
             {
-                using (var repOfAgnt = new Repository<Agent>())
-                {
-                    Agent ag = notCommitedAgentUpdate(repOfAgnt, true);
+                var rOfA = new Repository<Agent>();
+                Agent ag = modifyAgentProperties(rOfA, true);
 
-                    using (var rep = new Repository<Mission>())
-                        rep.AddSingle(new Mission(dPickDteOfRecp.Value, ((PairDataItem)cmbOffc.SelectedItem).Id, 
-                            ((PairDataItem)cmbSprt.SelectedItem).Id, txtOrdrBy.Text.Trim(), CrntUser.SesId));
-
-                    try
-                    {
-                        var biz = new BizProvider();
-                        biz.UpdateAgent(ag);
-                        tslblStatus.Text = string.Format("پذیرش مجدد مامور {0} با کدملی {1} انجام شد", txtName.Text.Trim(), mtxtNtioSearch.Text.Trim());
-                    }
-                    catch (Exception)
-                    {
-                        tslblStatus.Text = "خطا"; // TODO نوع خطا از کجا آورده شود؟؟
-                    }
-                }
+                new BizProvider().AddNewMission(ag, dPickDteOfRecp.Value, ((PairDataItem)cmbOffc.SelectedItem).Id,
+                    ((PairDataItem)cmbSprt.SelectedItem).Id, txtOrdrBy.Text.Trim(), CrntUser.SesId);
             }
-
-            /*UNDONE توجه شود که بعد از اعمال عملیات، باید خلاصه‌ای از کارکرد درون دیتابیس ذخیره شده و در صفحه اصلی نمایش داده شود*/
         }
 
         private void btnGenRpt_Click(object sender, EventArgs e)
@@ -156,7 +119,7 @@ namespace smcs.frontend.frm
             using (var enbleRepo = new Repository<Agent>())
                 ag = enbleRepo.Ret(a => a.NtioCode == ntio && a.Enbl == already_exist);
             using (var repOfMis = new Repository<Mission>())
-                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Enbl == already_exist);
+                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Last == already_exist);
 
             extrCmbItem(cmbRank, ag.RnkRef);
             txtName.Text = ag.Name;
@@ -182,7 +145,7 @@ namespace smcs.frontend.frm
             using (var enbleRepo = new Repository<Agent>())
                 ag = enbleRepo.Ret(a => a.Id == id && a.Enbl == already_exist);
             using (var repOfMis = new Repository<Mission>())
-                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Enbl == already_exist);
+                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Last == already_exist);
 
             extrCmbItem(cmbRank, ag.RnkRef);
             txtName.Text = ag.Name;
@@ -213,10 +176,9 @@ namespace smcs.frontend.frm
             }
         }
 
-        private Agent notCommitedAgentUpdate(Repository<Agent> repOfAgnt, bool currentAgent)
+        private Agent modifyAgentProperties(Repository<Agent> rOfA, bool currentAgent)
         {
-            //UNDONE کل این متد باید حذف شده و به بیزنس‌پرووایدر انتقال یابد
-            var agnt = repOfAgnt.Ret(a => a.NtioCode.ToString() == mtxtNtioSearch.Text && a.Enbl == currentAgent);
+            var agnt = rOfA.Ret(a => a.NtioCode.ToString() == mtxtNtioSearch.Text && a.Enbl == currentAgent);
             agnt.RnkRef = ((PairDataItem)cmbRank.SelectedItem).Id;
             agnt.Name = txtName.Text.Trim();
             agnt.FthrName = txtFthrName.Text.Trim();
