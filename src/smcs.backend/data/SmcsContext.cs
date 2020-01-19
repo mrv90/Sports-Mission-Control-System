@@ -50,17 +50,17 @@ namespace smcs.backend.data
             modelBuilder.Entity<Absence>().ToTable("Absence").HasKey(x => x.Id);
             modelBuilder.Entity<Agent>().ToTable("Agent").HasKey(x => x.Id);
             modelBuilder.Entity<Agent>().HasRequired(x => x.Mission).WithMany().HasForeignKey(x => x.MisRef);
-            modelBuilder.Entity<Mission>().ToTable("Mission").HasKey(x => x.MisId);
+            modelBuilder.Entity<Mission>().ToTable("Mission").HasKey(x => x.Id);
             modelBuilder.Entity<OffDay>().ToTable("OffDay").HasKey(x => x.Id);
             modelBuilder.Entity<Office>().ToTable("Office").HasKey(x => x.Id);
             modelBuilder.Entity<OnDuty>().ToTable("OnDuty").HasKey(x => x.Id);
             modelBuilder.Entity<Rank>().ToTable("Rank").HasKey(x => x.Id);
-            modelBuilder.Entity<Session>().ToTable("Session").HasKey(x => x.SesId);
+            modelBuilder.Entity<Session>().ToTable("Session").HasKey(x => x.Id);
             modelBuilder.Entity<Signature>().ToTable("Signature").HasKey(x => x.Id);
             modelBuilder.Entity<Sports>().ToTable("Sports").HasKey(x => x.Id);
             modelBuilder.Entity<UndTreat>().ToTable("UndTreat").HasKey(x => x.Id);
             modelBuilder.Entity<Unit>().ToTable("Unit").HasKey(x => x.Id);
-            modelBuilder.Entity<User>().ToTable("User").HasKey(x => x.UsrId);
+            modelBuilder.Entity<User>().ToTable("User").HasKey(x => x.Id);
         }
     }
 }
