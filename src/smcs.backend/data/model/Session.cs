@@ -1,13 +1,13 @@
-﻿using smcs.backend.data.model.basic;
+﻿using smcs.backend.data.model.parent;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model
 {
-    public class Session
+    public class Session : Iterative
     {
-        internal Session()
+        internal Session() : base()
         {
 
         }
@@ -22,10 +22,6 @@ namespace smcs.backend.data.model
         {
             this.TermDate = DateTime.Now;
         }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 SesId { get; set; }
 
         [Required] [Column(TypeName = "datetime2")] public DateTime InitDate { get; set; }
         [Column(TypeName = "datetime2")] public DateTime? TermDate { get; set; }

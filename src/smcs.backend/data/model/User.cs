@@ -1,13 +1,13 @@
-﻿using Backend.Data.Model.Parent;
+﻿using smcs.backend.data.model.parent;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model
 {
-    public class User : Enabler
+    public class User : Base
     {
-        internal User()
+        internal User() : base()
         {
 
         }
@@ -22,11 +22,6 @@ namespace smcs.backend.data.model
             this.Enbl = true;
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 UsrId { get; set; }
-
-        [Required] public string Name { get; set; }
         [Required] public string UsrName { get; set; }
         [Required] public string Pass { get; set; }
         [Required] public DateTime TimeStmp { get; set; }
