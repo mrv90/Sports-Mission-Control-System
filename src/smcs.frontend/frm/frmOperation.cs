@@ -73,18 +73,15 @@ namespace smcs.frontend.frm
 
             else if (rbtnWholeOffice.Checked)
             {
-                using (var repOfMi = new Repository<Mission>())
+                using (var rep = new Repository())
                 {
-                    foreach (Mission mi in repOfMi.RetList(m => m.OffcRef == ((PairDataItem)cmbSearchAgnts.SelectedItem).Id && m.Last == true))
+                    foreach (Mission mi in rep.RetList<Mission>(m => m.OffcRef == ((PairDataItem)cmbSearchAgnts.SelectedItem).Id && m.Last == true))
                     {
-                        using (var repOfAg = new Repository<Agent>())
-                        {
-                            var ag = repOfAg.Ret(a => a.MisRef == mi.MisId && a.Enbl == true);
-                            var pair_data_ag = new PairDataItem(ag.Id, ag.Name);
+                        var ag = rep.Ret<Agent>(a => a.MisRef == mi.Id && a.Enbl == true);
+                        var pair_data_ag = new PairDataItem(ag.Id, ag.Name);
 
-                            if (!lstMarkedAgnts.Items.Contains(pair_data_ag))
-                                lstMarkedAgnts.Items.Add(pair_data_ag);
-                        }
+                        if (!lstMarkedAgnts.Items.Contains(pair_data_ag))
+                            lstMarkedAgnts.Items.Add(pair_data_ag);
                     }
                 }
             }
@@ -210,9 +207,9 @@ namespace smcs.frontend.frm
 
         private void loadSearchBox<T>() where T: Base
         {
-            using (var rep = new Repository<T>())
+            using (var rep = new Repository())
             {
-                var list = rep.RetList(e => e.Enbl == true).OrderBy(e => e.Name);
+                var list = rep.RetList<T>(e => e.Enbl == true);
                 if (list != null)
                 {
                     foreach (var e in list)
@@ -222,8 +219,8 @@ namespace smcs.frontend.frm
         }
 
         private Office[] loadAllAgentsOfSingleOffice(string office) {
-            using (var repo = new Repository<Office>())
-                return repo.RetList(e => e.Name == office && e.Enbl == true).ToArray();
+            using (var repo = new Repository())
+                return repo.RetList<Office>(e => e.Name == office && e.Enbl == true).ToArray();
         }
 
         private void regulateControlsOnDemand()

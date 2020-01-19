@@ -21,7 +21,7 @@ namespace smcs.frontend.frm
 
         private void frmSearch_Load(object sender, EventArgs e)
         {
-            cmbMisPerd.ValueMember = "MisId";
+            cmbMisPerd.ValueMember = "Id";
             cmbMisPerd.DisplayMember = "InitDate";
 
             cmbSearch.ValueMember = "Id";
@@ -67,11 +67,11 @@ namespace smcs.frontend.frm
             Agent ag;
             Mission mis;
 
-            using (var repOfAg = new Repository<Agent>())
-                ag = repOfAg.Ret(a => a.Id == ((PairDataItem)cmbSearch.SelectedItem).Id);
-
-            using (var repOfMis = new Repository<Mission>())
-                mis = repOfMis.Ret(m => m.MisId == ((PairDataItem)cmbMisPerd.SelectedItem).Id);
+            using (var rep = new Repository())
+            {
+                ag = rep.Ret<Agent>(a => a.Id == ((PairDataItem)cmbSearch.SelectedItem).Id);
+                mis = rep.Ret<Mission>(m => m.Id == ((PairDataItem)cmbMisPerd.SelectedItem).Id);
+            }
 
             RefreshData(ag, mis);
         }
@@ -87,15 +87,15 @@ namespace smcs.frontend.frm
                 List<Mission> lst_of_mis;
                 int act = -1; // اندیس ماموریت فعال مامور مورد پرسش
 
-                using (var rep = new Repository<Agent>())
-                    ag = rep.Ret(a => a.Id == ((PairDataItem)cmbSearch.SelectedItem).Id);
-
-                using (var repOfMis = new Repository<Mission>())
-                    lst_of_mis = repOfMis.RetList(m => m.MisId == ag.MisRef);
+                using (var rep = new Repository())
+                {
+                    ag = rep.Ret<Agent>(a => a.Id == ((PairDataItem)cmbSearch.SelectedItem).Id);
+                    lst_of_mis = rep.RetList<Mission>(m => m.Id == ag.MisRef);
+                }
 
                 foreach (Mission mis in lst_of_mis)
                 {
-                    cmbMisPerd.Items.Add(new PairDataItem(mis.MisId, mis.InitDate.ToString("yyyy/MM/dd")));
+                    cmbMisPerd.Items.Add(new PairDataItem(mis.Id, mis.InitDate.ToString("yyyy/MM/dd")));
 
                     if (mis.Last == true)
                     {
@@ -201,40 +201,40 @@ namespace smcs.frontend.frm
             var items = new List<PairDataItem>();
             List<Agent> lst_of_ags;
             
-            using (var repo = new Repository<Agent>())
+            using (var repo = new Repository())
             {
                 switch (prop)
                 {
                     case "Name":
-                        lst_of_ags = repo.RetList(a => a.Name.Contains(filt));
+                        lst_of_ags = repo.RetList<Agent>(a => a.Name.Contains(filt));
                         if (lst_of_ags != null) {
                             foreach (Agent ag in lst_of_ags)
                                 items.Add(new PairDataItem(ag.Id, ag.Name));
                         }
                         break;
                     case "NtioCode":
-                        lst_of_ags = repo.RetList(a => a.NtioCode.Contains(filt));
+                        lst_of_ags = repo.RetList<Agent>(a => a.NtioCode.Contains(filt));
                         if (lst_of_ags != null) {
                             foreach (Agent ag in lst_of_ags)
                                 items.Add(new PairDataItem(ag.Id, ag.NtioCode));
                         }
                         break;
                     case "PersCode":
-                        lst_of_ags = repo.RetList(a => a.PersCode.Contains(filt));
+                        lst_of_ags = repo.RetList<Agent>(a => a.PersCode.Contains(filt));
                         if (lst_of_ags != null) {
                             foreach (Agent ag in lst_of_ags)
                                 items.Add(new PairDataItem(ag.Id, ag.PersCode));
                         }
                         break;
                     case "Cntc":
-                        lst_of_ags = repo.RetList(a => a.Cntc.Contains(filt));
+                        lst_of_ags = repo.RetList<Agent>(a => a.Cntc.Contains(filt));
                         if (lst_of_ags != null) {
                             foreach (Agent ag in lst_of_ags)
                                 items.Add(new PairDataItem(ag.Id, ag.Cntc));
                         }
                         break;
                     case "ECntc":
-                        lst_of_ags = repo.RetList(a => a.ECntc.Contains(filt));
+                        lst_of_ags = repo.RetList<Agent>(a => a.ECntc.Contains(filt));
                         if (lst_of_ags != null) {
                             foreach (Agent ag in lst_of_ags)
                                 items.Add(new PairDataItem(ag.Id, ag.ECntc));
@@ -249,15 +249,15 @@ namespace smcs.frontend.frm
 
         private string extNameFromBasicEntity<T>(Int32 id) where T: Base
         {
-            using (var rep = new Repository<T>())
-                return rep.Ret(e => e.Id == id && e.Enbl == true).Name;
+            using (var rep = new Repository())
+                return rep.Ret<T>(e => e.Id == id && e.Enbl == true).Name;
         }
 
         private int extTotalDaysFromPeriodEntity<T>(Int32 mis) where T : Iterative
         {
-            using (var rep = new Repository<T>())
+            using (var rep = new Repository())
             {
-                var iter = rep.RetList(e => e.MisRef == mis && e.Enbl == true);
+                var iter = rep.RetList<T>(e => e.MisRef == mis && e.Enbl == true);
                 if (iter != null)
                     return iter.Count;
 
@@ -285,9 +285,9 @@ namespace smcs.frontend.frm
             lblExtDt.Text = mis.DeadLine.ToString("yyyy/MM/dd");
             lblAddr.Text = ag.Addr;
 
-            lblOffDatCont.Text = extTotalDaysFromPeriodEntity<OffDay>(mis.MisId).ToString();
-            lblAbsCont.Text = extTotalDaysFromPeriodEntity<Absence>(mis.MisId).ToString();
-            lblOnDutyCont.Text = extTotalDaysFromPeriodEntity<OnDuty>(mis.MisId).ToString();
+            lblOffDatCont.Text = extTotalDaysFromPeriodEntity<OffDay>(mis.Id).ToString();
+            lblAbsCont.Text = extTotalDaysFromPeriodEntity<Absence>(mis.Id).ToString();
+            lblOnDutyCont.Text = extTotalDaysFromPeriodEntity<OnDuty>(mis.Id).ToString();
         }
     }
 }

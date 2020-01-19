@@ -19,9 +19,9 @@ namespace smcs.frontend.frm
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            using (var repo = new Repository<User>())
+            using (var rep = new Repository())
             {
-                var users = repo.RetList(a => a.Enbl == true);
+                var users = rep.RetList<User>(a => a.Enbl == true);
                 if (users != null)
                 {
                     foreach (var usr in users)

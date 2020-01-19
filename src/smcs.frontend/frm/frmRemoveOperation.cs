@@ -40,13 +40,16 @@ namespace smcs.frontend.frm
                 lstOpr.Items.AddRange(generateListOfLVI(((PairDataItem)cmbSearch.SelectedItem).Id).ToArray());
 
                 /* NOTE باید آخرین ماموریت را لغو پایان کنیم */
-                var ag = new Repository<Agent>().Ret(i => i.MisRef == ((PairDataItem)cmbSearch.SelectedItem).Id);
-                var mis = new Repository<Mission>().Ret(m => m.MisId == ((PairDataItem)cmbSearch.SelectedItem).Id && m.Last == true); 
-                var ofc = new Repository<Office>().Ret(o => o.Id == mis.OffcRef); 
+                using (var rep = new Repository())
+                {
+                    var ag = rep.Ret<Agent>(i => i.MisRef == ((PairDataItem)cmbSearch.SelectedItem).Id);
+                    var mis = rep.Ret<Mission>(m => m.Id == ((PairDataItem)cmbSearch.SelectedItem).Id && m.Last == true); 
+                    var ofc = rep.Ret<Office>(o => o.Id == mis.OffcRef); 
 
-                MessageBox.Show("نام: " + ag.Name + "\n" + "قسمت: " + ofc.Name + "\n" + "تاریخ اعزام: " + ag.DateOfDisp.ToString("yyyy/MM/dd") + "\n" + 
-                                "تاریخ پذیرش: " + mis.InitDate.ToString("yyyy/MM/dd") + "\n" + "تاریخ معرفی‌به‌یگان: " + 
-                                (mis.Ret2UntDate.HasValue ? mis.Ret2UntDate.Value.ToString("yyyy/MM/dd") : string.Empty), "مشخصات مامور انتخابی", MessageBoxButtons.OK);
+                    MessageBox.Show("نام: " + ag.Name + "\n" + "قسمت: " + ofc.Name + "\n" + "تاریخ اعزام: " + ag.DateOfDisp.ToString("yyyy/MM/dd") + "\n" + 
+                                    "تاریخ پذیرش: " + mis.InitDate.ToString("yyyy/MM/dd") + "\n" + "تاریخ معرفی‌به‌یگان: " + 
+                                    (mis.Ret2UntDate.HasValue ? mis.Ret2UntDate.Value.ToString("yyyy/MM/dd") : string.Empty), "مشخصات مامور انتخابی", MessageBoxButtons.OK);
+                }
             }
         }
 
@@ -94,7 +97,10 @@ namespace smcs.frontend.frm
         {
             var items = new List<PairDataItem>();
 
-            var lst_of_proposed = new Repository<Agent>().RetList(a => a.NtioCode.Contains(filt));
+            List<Agent> lst_of_proposed;
+            using (var rep = new Repository())
+                lst_of_proposed = rep.RetList<Agent>(a => a.NtioCode.Contains(filt));
+
             if (lst_of_proposed != null)
             {
                 foreach (var ag in lst_of_proposed)
@@ -107,35 +113,38 @@ namespace smcs.frontend.frm
 
         private List<ListViewItem> generateListOfLVI(int misId)
         {
-            var mis = new Repository<Mission>().Ret(m => m.MisId == misId && m.Last == true);
-            var lst_of_off = new Repository<OffDay>().RetList(i => i.MisRef == misId && i.Enbl == true);
-            var lst_of_duty = new Repository<OnDuty>().RetList(i => i.MisRef == misId && i.Enbl == true);
-            var lst_of_treat = new Repository<UndTreat>().RetList(i => i.MisRef == misId && i.Enbl == true);
-            var lst_of_abs = new Repository<Absence>().RetList(i => i.MisRef == misId && i.Enbl == true);
-
-            var lst_of_lvi = new List<ListViewItem>();
-
-            if (lst_of_off != null)
-                generateLVIForEachIteration(ref lst_of_lvi, lst_of_off.Cast<Iterative>().ToList(), "مرخصی");
-
-            if (lst_of_duty != null)
-                generateLVIForEachIteration(ref lst_of_lvi, lst_of_duty.Cast<Iterative>().ToList(), "امورخدمتی");
-
-            if (lst_of_treat != null)
-                generateLVIForEachIteration(ref lst_of_lvi, lst_of_treat.Cast<Iterative>().ToList(), "اعزام‌به‌بهداری");
-
-            if (lst_of_abs != null)
-                generateLVIForEachIteration(ref lst_of_lvi, lst_of_abs.Cast<Iterative>().ToList(), "نهست");
-
-            if (mis.Ret2UntDate.HasValue)
+            using (var rep = new Repository())
             {
-                var lvi = new ListViewItem(new string[6] { (lst_of_lvi.Count+1).ToString(), mis.TimeStmp.ToString("hh:mm:ss yyyy/MM/dd"),
-                    mis.GetType().ToPersianName() , mis.Ret2UntDate.Value.ToString("yyyy/MM/dd"), extractUser(mis.SesRef), mis.TermDesc });
-                lvi.Tag = mis.MisId;
-                lst_of_lvi.Add(lvi);
-            }
+                var mis = rep.Ret<Mission>(m => m.Id == misId && m.Last == true);
+                var lst_of_off = rep.RetList<OffDay>(i => i.MisRef == misId && i.Enbl == true);
+                var lst_of_duty = rep.RetList<OnDuty>(i => i.MisRef == misId && i.Enbl == true);
+                var lst_of_treat = rep.RetList<UndTreat>(i => i.MisRef == misId && i.Enbl == true);
+                var lst_of_abs = rep.RetList<Absence>(i => i.MisRef == misId && i.Enbl == true);
 
-            return lst_of_lvi;
+                var lst_of_lvi = new List<ListViewItem>();
+
+                if (lst_of_off != null)
+                    generateLVIForEachIteration(ref lst_of_lvi, lst_of_off.Cast<Iterative>().ToList(), "مرخصی");
+
+                if (lst_of_duty != null)
+                    generateLVIForEachIteration(ref lst_of_lvi, lst_of_duty.Cast<Iterative>().ToList(), "امورخدمتی");
+
+                if (lst_of_treat != null)
+                    generateLVIForEachIteration(ref lst_of_lvi, lst_of_treat.Cast<Iterative>().ToList(), "اعزام‌به‌بهداری");
+
+                if (lst_of_abs != null)
+                    generateLVIForEachIteration(ref lst_of_lvi, lst_of_abs.Cast<Iterative>().ToList(), "نهست");
+
+                if (mis.Ret2UntDate.HasValue)
+                {
+                    var lvi = new ListViewItem(new string[6] { (lst_of_lvi.Count+1).ToString(), mis.TimeStmp.ToString("hh:mm:ss yyyy/MM/dd"),
+                        mis.GetType().ToPersianName() , mis.Ret2UntDate.Value.ToString("yyyy/MM/dd"), extractUser(mis.SesRef), mis.TermDesc });
+                    lvi.Tag = mis.Id;
+                    lst_of_lvi.Add(lvi);
+                }
+
+                return lst_of_lvi;
+            }
         }
 
         private void generateLVIForEachIteration(ref List<ListViewItem> items, List<Iterative> iterations, string type)
@@ -158,10 +167,11 @@ namespace smcs.frontend.frm
 
         private string extractUser(int sesId)
         {
-            var rOfS = new Repository<Session>();
-            var rOfU = new Repository<User>();
-            var session = rOfS.Ret(s => s.SesId == sesId);
-            return rOfU.Ret(u => u.UsrId == session.UsrRef).Name;
+            using (var rep = new Repository())
+            {
+                var session = rep.Ret<Session>(s => s.Id == sesId);
+                return rep.Ret<User>(u => u.Id == session.UsrRef).Name;
+            }
         }
     }
 }

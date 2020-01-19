@@ -46,8 +46,8 @@ namespace smcs.frontend.frm
 
         private void updateUI()
         {
-            using (var rOfS = new Repository<Signature>())
-                all_signs = rOfS.RetList(r => r.Enbl == true);
+            using (var rOfS = new Repository())
+                all_signs = rOfS.RetList<Signature>(r => r.Enbl == true);
 
             lblManager.Text = all_signs[0].Name;
             txtManager.Text = all_signs[0].Person;

@@ -35,10 +35,11 @@ namespace smcs.frontend.frm
             if (ag != null)
             {
                 var biz = new BizProvider();
-                biz.DismissTheAgent(ag, dPickUntil.Value.Date);
+                if (Message.SUCC == biz.DismissTheAgent(ag, dPickUntil.Value.Date).Id)
+                    clearAll();
 
                 //if (chkGenRpt.Checked)
-                    /*UNDONE چاپ گزارش پایان با تعداد مرخصی|نهست انتخاب شده*/
+                /*UNDONE چاپ گزارش پایان با تعداد مرخصی|نهست انتخاب شده*/
 
                 /*UNDONE اطلاع به کاربر در صورت موفق بودن*/
             }
@@ -48,72 +49,55 @@ namespace smcs.frontend.frm
 
         public void updateUI(string ntio)
         {
-            using (var repOfAg = new Repository<Agent>())
-                ag = repOfAg.Ret(a => a.NtioCode == ntio && a.Enbl == true);
-
-            if (ag != null)
+            using (var rep = new Repository())
             {
-                lblAgNam.Text = ag.Name;
-                lblCntc.Text = ag.Cntc;
-                lblECntc.Text = ag.ECntc;
-
-                Mission mi;
-                using (var repOfMis = new Repository<Mission>())
-                    mi = repOfMis.Ret(m => m.MisId == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
-
-                if (mi != null )
+                ag = rep.Ret<Agent>(a => a.NtioCode == ntio && a.Enbl == true);
+                if (ag != null)
                 {
-                    lblRcpDat.Text = mi.InitDate.ToShortDateString();
+                    lblAgNam.Text = ag.Name;
+                    lblCntc.Text = ag.Cntc;
+                    lblECntc.Text = ag.ECntc;
 
-                    using (var repOfOfc = new Repository<Office>())
-                        lblOfc.Text = repOfOfc.Ret(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
+                    var mi = rep.Ret<Mission>(m => m.Id == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
 
-                    using (var repOfOff = new Repository<OffDay>())
+                    if (mi != null )
                     {
-                        var off = repOfOff.RetList(o => o.MisRef == ag.MisRef && o.Enbl == true);
+                        lblRcpDat.Text = mi.InitDate.ToShortDateString();
+                        lblOfc.Text = rep.Ret<Office>(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
+
+                        var off = rep.RetList<OffDay>(o => o.MisRef == ag.MisRef && o.Enbl == true);
                         NumOffDay.Value = (off != null) ? off.Count : 0;
-                    }
 
-                    using (var repOfAbs = new Repository<Absence>())
-                    {
-                        var abs = repOfAbs.RetList(b => b.MisRef == ag.MisRef && b.Enbl == true);
+                        var abs = rep.RetList<Absence>(b => b.MisRef == ag.MisRef && b.Enbl == true);
                         NumAbs.Value = (abs != null) ? abs.Count : 0;
                     }
+                    else
+                        MessageBox.Show("ماموریت مامور انتخاب شده قبل‌تر پایان پذیرفته");
                 }
-                else
-                    MessageBox.Show("ماموریت مامور انتخاب شده قبل‌تر پایان پذیرفته");
             }
         }
 
         public void updateUI(int id)
         {
-            using (var repOfAg = new Repository<Agent>())
-                ag = repOfAg.Ret(a => a.Id == id && a.Enbl == true);
-
-            if (ag != null)
+            using (var rep = new Repository())
             {
-                mtxtNtioSearch.Text = ag.NtioCode;
-                lblAgNam.Text = ag.Name;
-                lblCntc.Text = ag.Cntc;
-                lblECntc.Text = ag.ECntc;
-
-                Mission mi;
-                using (var repOfMis = new Repository<Mission>())
-                    mi = repOfMis.Ret(m => m.MisId == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
-                lblRcpDat.Text = mi.InitDate.ToShortDateString();
-
-                using (var repOfOfc = new Repository<Office>())
-                    lblOfc.Text = repOfOfc.Ret(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
-
-                using (var repOfOff = new Repository<OffDay>())
+                ag = rep.Ret<Agent>(a => a.Id == id && a.Enbl == true);
+                if (ag != null)
                 {
-                    var off = repOfOff.RetList(o => o.MisRef == ag.MisRef && o.Enbl == true);
+                    mtxtNtioSearch.Text = ag.NtioCode;
+                    lblAgNam.Text = ag.Name;
+                    lblCntc.Text = ag.Cntc;
+                    lblECntc.Text = ag.ECntc;
+
+                    var mi = rep.Ret<Mission>(m => m.Id == ag.MisRef && ag.Enbl == true && m.Ret2UntDate == null);
+                    lblRcpDat.Text = mi.InitDate.ToShortDateString();
+
+                    lblOfc.Text = rep.Ret<Office>(f => f.Id == mi.OffcRef && f.Enbl == true).Name;
+
+                    var off = rep.RetList<OffDay>(o => o.MisRef == ag.MisRef && o.Enbl == true);
                     NumOffDay.Value = (off != null) ? off.Count : 0;
-                }
 
-                using (var repOfAbs = new Repository<Absence>())
-                {
-                    var abs = repOfAbs.RetList(b => b.MisRef == ag.MisRef && b.Enbl == true);
+                    var abs = rep.RetList<Absence>(b => b.MisRef == ag.MisRef && b.Enbl == true);
                     NumAbs.Value = (abs != null) ? abs.Count : 0;
                 }
             }

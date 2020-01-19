@@ -4,7 +4,6 @@ using smcs.backend.data.model;
 using smcs.backend.data.model.basic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace smcs.frontend.frm
 {
@@ -74,9 +73,9 @@ namespace smcs.frontend.frm
                 var biz = new BizProvider();
                 foreach (PairDataItem it in lstMarkedAgnts.Items)
                 {
-                    using (var rep = new Repository<Agent>())
+                    using (var rep = new Repository())
                     {
-                        var mi = rep.Ret(a => a.Id == it.Id);
+                        var mi = rep.Ret<Mission>(a => a.Id == it.Id);
                         biz.ExtendMission(mi.Id, dPickUntil.Value);
                     }
                 }
@@ -103,21 +102,21 @@ namespace smcs.frontend.frm
         private void loadNotExtAgOnCmb(DateTime extDt, int? ofc)
         {
             List<Mission> ls_of_mi;
-            using (var repOfMi = new Repository<Mission>())
+            using (var repOfMi = new Repository())
             {
                 if (ofc is null)
-                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < extDt.Date);
+                    ls_of_mi = repOfMi.RetList<Mission>(m => m.Last == true && m.DeadLine < extDt.Date);
                 else
-                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < extDt.Date && m.OffcRef == ofc);
+                    ls_of_mi = repOfMi.RetList<Mission>(m => m.Last == true && m.DeadLine < extDt.Date && m.OffcRef == ofc);
             }
 
             if (ls_of_mi != null)
             {
-                using (var repOfAg = new Repository<Agent>())
+                using (var rep = new Repository())
                 {
                     foreach (Mission mi in ls_of_mi)
                     {
-                        var ag = repOfAg.Ret(a => a.Enbl == true && a.MisRef == mi.MisId);
+                        var ag = rep.Ret<Agent>(a => a.Enbl == true && a.MisRef == mi.Id);
                         if (ag != null)
                             cmbSearch.Items.Add(new PairDataItem(ag.Id, ag.Name));
                     }
@@ -127,9 +126,9 @@ namespace smcs.frontend.frm
 
         private void loadAllOffices()
         {
-            using (var rep = new Repository<Office>())
+            using (var rep = new Repository())
             {
-                foreach (var o in rep.RetList(e => e.Enbl == true))
+                foreach (var o in rep.RetList<Office>(e => e.Enbl == true))
                     cmbSearch.Items.Add(new PairDataItem(o.Id, o.Name));
             }
         }
@@ -137,19 +136,16 @@ namespace smcs.frontend.frm
         private void addNotExtAgToLst(int? ofc)
         {
             List<Mission> ls_of_mi;
-            using (var repOfMi = new Repository<Mission>())
+            using (var rep = new Repository())
             {
                 if (ofc is null)
-                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < dPickUntil.Value.Date);
+                    ls_of_mi = rep.RetList<Mission>(m => m.Last == true && m.DeadLine < dPickUntil.Value.Date);
                 else
-                    ls_of_mi = repOfMi.RetList(m => m.Enbl == true && m.DeadLine < dPickUntil.Value.Date && m.OffcRef == ofc);
-            }
-
-            using (var repOfAg = new Repository<Agent>())
-            {
+                    ls_of_mi = rep.RetList<Mission>(m => m.Last == true && m.DeadLine < dPickUntil.Value.Date && m.OffcRef == ofc);
+            
                 foreach (Mission mi in ls_of_mi)
                 {
-                    var ag = repOfAg.Ret(a => a.Enbl == true && a.MisRef == mi.MisId);
+                    var ag = rep.Ret<Agent>(a => a.Enbl == true && a.MisRef == mi.Id);
                     lstMarkedAgnts.Items.Add(new PairDataItem(ag.Id, ag.Name));
                 }
             }
@@ -162,16 +158,17 @@ namespace smcs.frontend.frm
 
             lblAgentCount.Text = lstMarkedAgnts.Items.Count.ToString();
             
-            using (var rep = new Repository<Mission>())
+            using (var rep = new Repository())
             {
-                var ls_of_not_ext = rep.RetList(m => m.Enbl == true &&
+                var ls_of_not_ext = rep.RetList<Mission>(m => m.Last == true &&
                     m.DeadLine < dPickUntil.Value.Date);
 
                 if (ls_of_not_ext != null)
                 {
                     lblNotExtendedCount.Text = ls_of_not_ext.Count.ToString();
-                    lblLastExtDate.Text = rep.RetEnum(m => m.Enbl == true && m.DeadLine < dPickUntil.Value)
-                        .Max(m => m.DeadLine).ToShortDateString();
+                    //lblLastExtDate.Text = rep.RetEnum(m => m.Enbl == true && m.DeadLine < dPickUntil.Value)
+                    //    .Max(m => m.DeadLine).ToShortDateString();
+                    lblLastExtDate.Text = rep.RetMax<Mission>(m => m.Last == true && m.DeadLine < dPickUntil.Value).DeadLine.ToString("yyyy/MM/dd");
                 }
             }
         }
