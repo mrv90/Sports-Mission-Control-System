@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace smcs.backend.data.model.parent
 {
-    public abstract class Base : Enabler
+    public abstract class Base
     {
         protected Base()
         {
@@ -22,6 +22,8 @@ namespace smcs.backend.data.model.parent
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
 
-        [Required] public string Name { get; set; }
+        public string Name { get; set; } // توجه شود که این فیلد در iterative استفاده نمی‌شود
+
+        public bool Enbl { get; set; }
     }
 }
