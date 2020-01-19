@@ -32,32 +32,32 @@ namespace smcs.backend.data.access
             }
             catch (DbUpdateException e)
             {
-                //Logger.Exception(e.Message, e)
+                e.Log();
                 return false;
             }
             catch (DbEntityValidationException e)
             {
-                //Logger.Exception(e.Message, e)
+                e.Log();
                 return false;
             }
             catch (NotSupportedException e)
             {
-                //Logger.Exception(e.Message, e)
+                e.Log();
                 return false;
             }
             catch (ObjectDisposedException e)
             {
-                //Logger.Exception(e.Message, e)
+                e.Log();
                 return false;
             }
             catch (InvalidOperationException e)
             {
-                //Logger.Exception(e.Message, e)
+                e.Log();
                 return false;
             }
             catch (Exception e)
             {
-                //Logger.Exception(e.Message, e)
+                e.Log();
                 return false;
             }
         }

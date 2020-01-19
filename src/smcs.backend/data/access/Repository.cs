@@ -1,5 +1,4 @@
-﻿using Backend.Data.Model.Parent;
-using smcs.backend.data.model.parent;
+﻿using smcs.backend.data.model.parent;
 using System;
 using System.Collections.Generic;
 using System.Data;
