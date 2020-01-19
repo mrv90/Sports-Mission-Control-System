@@ -8,11 +8,12 @@ namespace smcs.backend.data.model.parent
     /// <summary>
     /// کلاس والد برای موجودیت‌های دوره‌ای
     /// </summary>
-    public abstract class Iterative : Enabler
+    public abstract class Iterative : Base
     {
         internal Iterative()
         {
-
+            this.TimeStmp = DateTime.Now;
+            this.Enbl = true;
         }
 
         internal Iterative(DateTime date, Int32 misRef, Int32 sesRef)
@@ -24,10 +25,6 @@ namespace smcs.backend.data.model.parent
             this.TimeStmp = DateTime.Now;
             this.Enbl = true;
         }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 Id { get; set; }
 
         [Required] [Column(TypeName = "datetime2")] public DateTime Date { get; set; }
 
