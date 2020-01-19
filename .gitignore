@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 /src/smcs.backend.test/Fakes/smcs.backend.fakes
+/src/smcs.backend/data/access/Repository-new.cs
+*.sql
+*.bak

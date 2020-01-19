@@ -106,6 +106,7 @@
             this.mtxtNtioSearch.Size = new System.Drawing.Size(616, 32);
             this.mtxtNtioSearch.TabIndex = 19;
             this.mtxtNtioSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtxtNtioSearch.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.mtxtNtioSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtNtioSearch_KeyDown);
             // 
             // label6
