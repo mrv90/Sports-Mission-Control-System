@@ -1,6 +1,5 @@
 ﻿using Backend.Data.Model.Parent;
-using smcs.backend.data.model;
-using smcs.backend.data.model.iterative;
+using smcs.backend.data.model.parent;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace smcs.backend.data.access
 {
-    public class Repository<T> : IDisposable where T: class
+    public class Repository : IDisposable
     {
         IUnitOfWork unOfWrk;
 
@@ -28,12 +27,12 @@ namespace smcs.backend.data.access
             this.unOfWrk = new UnitOfWork(csName);
         }
 
-        public virtual T Ret(Expression<Func<T, bool>> expr)
+        public TEntity Ret<TEntity>(Expression<Func<TEntity, bool>> expr) where TEntity: Base
         {
             try
             {
-                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
-                    return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).FirstOrDefault();
+                if (unOfWrk.Cntx.Set<TEntity>().AsNoTracking().Any())
+                    return unOfWrk.Cntx.Set<TEntity>().AsNoTracking().Where(expr).FirstOrDefault();
             }
             catch (InvalidOperationException e)
             {
@@ -55,12 +54,12 @@ namespace smcs.backend.data.access
             return null;
         }
 
-        public virtual IEnumerable<T> RetEnum(Expression<Func<T, bool>> expr)
+        public IEnumerable<TEntity> RetEnum<TEntity>(Expression<Func<TEntity, bool>> expr) where TEntity : Base
         {
             try
             {
-                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
-                    return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).AsEnumerable();
+                if (unOfWrk.Cntx.Set<TEntity>().AsNoTracking().Any())
+                    return unOfWrk.Cntx.Set<TEntity>().AsNoTracking().Where(expr).AsEnumerable();
             }
             catch (InvalidOperationException e)
             {
@@ -82,12 +81,12 @@ namespace smcs.backend.data.access
             return null;
         }
 
-        public virtual T RetMax(Expression<Func<T, bool>> expr)
+        public TEntity RetMax<TEntity>(Expression<Func<TEntity, bool>> expr) where TEntity : Base
         {
             try
             {
-                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
-                    return unOfWrk.Cntx.Set<T>().AsNoTracking().OrderByDescending(expr).First();
+                if (unOfWrk.Cntx.Set<TEntity>().AsNoTracking().Any())
+                    return unOfWrk.Cntx.Set<TEntity>().AsNoTracking().OrderByDescending(expr).First();
             }
             catch (NotSupportedException e)
             {
@@ -113,12 +112,12 @@ namespace smcs.backend.data.access
             return null;
         }
 
-        public List<T> RetList(Expression<Func<T, bool>> expr)
+        public List<TEntity> RetList<TEntity>(Expression<Func<TEntity, bool>> expr) where TEntity : Base
         {
             try
             {
-                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any()) 
-                    return unOfWrk.Cntx.Set<T>().AsNoTracking().Where(expr).ToList();
+                if (unOfWrk.Cntx.Set<TEntity>().AsNoTracking().Any()) 
+                    return unOfWrk.Cntx.Set<TEntity>().AsNoTracking().Where(expr).ToList();
             }
             catch (DataException e)
             {
@@ -144,13 +143,13 @@ namespace smcs.backend.data.access
             return null;
         }
 
-        public double RetRoundedAvg(Expression<Func<T, bool>> cond, Expression<Func<T, double>> expr)
+        public double RetRoundedAvg<TEntity>(Expression<Func<Base, bool>> cond, Expression<Func<Base, double>> expr)
         {
             try
             {
-                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                if (unOfWrk.Cntx.Set<Base>().AsNoTracking().Any())
                 {
-                    var result = unOfWrk.Cntx.Set<T>().AsNoTracking().Where(cond);
+                    var result = unOfWrk.Cntx.Set<Base>().AsNoTracking().Where(cond);
                     if (result.Any())
                         return Math.Round(result.Average(expr), 1);
                 }
@@ -175,75 +174,44 @@ namespace smcs.backend.data.access
             return 0.0d;
         }
 
-        internal Repository<T> AddSingle(T t)
+        internal Repository Add<TEntity>(TEntity t) where TEntity : Base
         {
+            unOfWrk.Cntx.Set(t.GetType()).Add(t);
             unOfWrk.Cntx.Entry(t).State = EntityState.Added;
             return this;
         }
 
-        internal Repository<T> AddMultiple(T t)
+        internal Repository Upd<TEntity>(TEntity t) where TEntity : Base
         {
-            if (typeof(T).Name == "Absence")
-                unOfWrk.Cntx.Absence.Add(t as Absence);
-
-            else if (typeof(T).Name == "OffDay")
-                unOfWrk.Cntx.OffDay.Add(t as OffDay);
-
-            else if (typeof(T).Name == "OnDuty")
-                unOfWrk.Cntx.OnDuty.Add(t as OnDuty);
-
-            else if (typeof(T).Name == "UndTreat")
-                unOfWrk.Cntx.UndTreat.Add(t as UndTreat);
-
-            else if (typeof(T).Name == "Agent")
-                unOfWrk.Cntx.Agent.Add(t as Agent);
-
-            else if (typeof(T).Name == "Mission")
-                unOfWrk.Cntx.Mission.Add(t as Mission);
-
-            else if (typeof(T).Name == "Session")
-                unOfWrk.Cntx.Session.Add(t as Session);
-
-            else if (typeof(T).Name == "User")
-                unOfWrk.Cntx.User.Add(t as User);
-
-            else {
-                // UNDONE یه استنای برنامه‌ای با متن موجودیت ثبت نشده، ایجاد شود
-            }
-
-            return this;
-        }
-
-        internal Repository<T> Upd(T t)
-        {
+            unOfWrk.Cntx.Set(t.GetType()).Attach(t);
             unOfWrk.Cntx.Entry(t).State = EntityState.Modified;
             return this;
         }
 
-        internal bool RemSngl(T t)
+        internal Repository Rem<TEntity>(TEntity t) where TEntity : Base
         {
-            T existing = unOfWrk.Cntx.Set<T>().Find(t);
-            if (existing != null)
+            var exist = unOfWrk.Cntx.Set<Base>().Find(t);
+            if (exist != null)
             {
-                (t as Enabler).Enbl = false;
+                t.Enbl = false;
                 unOfWrk.Cntx.Entry(t).State = EntityState.Modified;
             }
 
-            return unOfWrk.Commit();
+            return this;
         }
 
-        internal Repository<T> RemCond(Expression<Func<T, bool>> cond)
+        internal Repository Rem<TEntity>(Expression<Func<Base, bool>> cond)
         {
             try
             {
-                if (unOfWrk.Cntx.Set<T>().AsNoTracking().Any())
+                if (unOfWrk.Cntx.Set<Base>().AsNoTracking().Any())
                 {
-                    var list = unOfWrk.Cntx.Set<T>().AsNoTracking().Where(cond).ToList();
+                    var list = unOfWrk.Cntx.Set<Base>().AsNoTracking().Where(cond).ToList();
                     if (list != null && list.Count > 0)
                     {
                         foreach (var i in list)
                         {
-                            (i as Enabler).Enbl = false;
+                            i.Enbl = false;
                             unOfWrk.Cntx.Entry(i).State = EntityState.Modified;
                         }
                     }
