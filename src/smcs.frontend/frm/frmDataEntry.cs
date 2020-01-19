@@ -37,7 +37,7 @@ namespace smcs.frontend.frm
                     txtOrdrBy.Text.Trim(), CrntUser.SesId);
                 mis.InitDesc = txtDesc.Text.Trim();
                 var agnt = new Agent(txtName.Text.Trim(), ((PairDataItem)cmbRank.SelectedItem).Id, txtFthrName.Text.Trim(), mtxtNtioSearch.Text.Replace("-", ""),
-                    dPickDteOfDisp.Value.Date, txtCntcNum.Text.Trim(), txtEmgNum.Text.Trim(), ((PairDataItem)cmbUnit.SelectedItem).Id, mis.MisId);
+                    dPickDteOfDisp.Value.Date, txtCntcNum.Text.Trim(), txtEmgNum.Text.Trim(), ((PairDataItem)cmbUnit.SelectedItem).Id, mis.Id);
                 agnt.Addr = txtAddr.Text.Trim();
                 agnt.PersCode = mtxtPersCode.Text.Replace("-", "");
                 mis.InitDesc = txtDesc.Text;
@@ -47,13 +47,9 @@ namespace smcs.frontend.frm
 
             else if (rbtnModfAgnt.Checked)
             {
-                Agent ag;
-                using (var repOfAgnt = new Repository<Agent>())
-                    ag = modifyAgentProperties(repOfAgnt, true);
-
-                Mission mi;
-                using (var rep = new Repository<Mission>())
-                    mi = rep.Ret(m => m.MisId == ag.MisRef);
+                var rep = new Repository();
+                var ag = modifyAgentProperties(true);
+                var mi = rep.Ret<Mission>(m => m.Id == ag.MisRef);
 
                 mi.InitDate = dPickDteOfRecp.Value.Date;
                 mi.SprtRef = ((PairDataItem)cmbSprt.SelectedItem).Id;
@@ -67,8 +63,8 @@ namespace smcs.frontend.frm
 
             else if (rbtnOldAgnt.Checked)
             {
-                var rOfA = new Repository<Agent>();
-                Agent ag = modifyAgentProperties(rOfA, true);
+                var rep = new Repository();
+                var ag = modifyAgentProperties(true);
 
                 new BizProvider().AddNewMission(ag, dPickDteOfRecp.Value, ((PairDataItem)cmbOffc.SelectedItem).Id,
                     ((PairDataItem)cmbSprt.SelectedItem).Id, txtOrdrBy.Text.Trim(), CrntUser.SesId);
@@ -104,9 +100,9 @@ namespace smcs.frontend.frm
             cmb.DisplayMember = "Name";            
             cmb.ValueMember = "Id";
 
-            using (var repo = new Repository<T>())
+            using (var rep = new Repository())
             {
-                var all = repo.RetList(e => e.Enbl == true);
+                var all = rep.RetList<T>(e => e.Enbl == true);
                 foreach (var ins in all)
                     cmb.Items.Add(new PairDataItem(ins.Id, ins.Name));
             }
@@ -114,54 +110,58 @@ namespace smcs.frontend.frm
 
         public void fillControls(string ntio, bool already_exist)
         {
-            Agent ag;
-            Mission mis;
-            using (var enbleRepo = new Repository<Agent>())
-                ag = enbleRepo.Ret(a => a.NtioCode == ntio && a.Enbl == already_exist);
-            using (var repOfMis = new Repository<Mission>())
-                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Last == already_exist);
+            var rep = new Repository();
+            var ag = rep.Ret<Agent>(a => a.NtioCode == ntio && a.Enbl == already_exist);
+            var mis = rep.Ret<Mission>(m => m.Id == ag.MisRef && m.Last == already_exist);
 
-            extrCmbItem(cmbRank, ag.RnkRef);
-            txtName.Text = ag.Name;
-            txtFthrName.Text = ag.FthrName;
-            extrCmbItem(cmbUnit, ag.UntRef);
-            dPickDteOfDisp.Value = ag.DateOfDisp.Date;
-            dPickDteOfRecp.Value = mis.InitDate.Date;
-            extrCmbItem(cmbSprt, mis.SprtRef);
-            extrCmbItem(cmbOffc, mis.OffcRef);
-            mtxtNtioSearch.Text = ag.NtioCode.ToString();
-            mtxtPersCode.Text = ag.PersCode.ToString();
-            txtOrdrBy.Text = mis.OrdrBy;
-            txtCntcNum.Text = ag.Cntc;
-            txtEmgNum.Text = ag.ECntc;
-            txtAddr.Text = ag.Addr;
-            txtDesc.Text = mis.InitDesc;
+            if (ag != null && mis != null)
+            {
+                extrCmbItem(cmbRank, ag.RnkRef);
+                txtName.Text = ag.Name;
+                txtFthrName.Text = ag.FthrName;
+                extrCmbItem(cmbUnit, ag.UntRef);
+                dPickDteOfDisp.Value = ag.DateOfDisp.Date;
+                dPickDteOfRecp.Value = mis.InitDate.Date;
+                extrCmbItem(cmbSprt, mis.SprtRef);
+                extrCmbItem(cmbOffc, mis.OffcRef);
+                mtxtNtioSearch.Text = ag.NtioCode.ToString();
+                mtxtPersCode.Text = ag.PersCode.ToString();
+                txtOrdrBy.Text = mis.OrdrBy;
+                txtCntcNum.Text = ag.Cntc;
+                txtEmgNum.Text = ag.ECntc;
+                txtAddr.Text = ag.Addr;
+                txtDesc.Text = mis.InitDesc;
+            }
+            else
+                MessageBox.Show("مطابق با مشخصات وارد شده، موردی یافت نشد");
         }
 
         public void fillControls(int id, bool already_exist)
         {
-            Agent ag;
-            Mission mis;
-            using (var enbleRepo = new Repository<Agent>())
-                ag = enbleRepo.Ret(a => a.Id == id && a.Enbl == already_exist);
-            using (var repOfMis = new Repository<Mission>())
-                mis = repOfMis.Ret(m => m.MisId == ag.MisRef && m.Last == already_exist);
+            var rep = new Repository();
+            var ag = rep.Ret<Agent>(a => a.Id == id && a.Enbl == already_exist);
+            var mi = rep.Ret<Mission>(m => m.Id == ag.MisRef && m.Last == already_exist);
 
-            extrCmbItem(cmbRank, ag.RnkRef);
-            txtName.Text = ag.Name;
-            txtFthrName.Text = ag.FthrName;
-            extrCmbItem(cmbUnit, ag.UntRef);
-            dPickDteOfDisp.Value = ag.DateOfDisp.Date;
-            dPickDteOfRecp.Value = mis.InitDate.Date;
-            extrCmbItem(cmbSprt, mis.SprtRef);
-            extrCmbItem(cmbOffc, mis.OffcRef);
-            mtxtNtioSearch.Text = ag.NtioCode.ToString();
-            mtxtPersCode.Text = ag.PersCode.ToString();
-            txtOrdrBy.Text = mis.OrdrBy;
-            txtCntcNum.Text = ag.Cntc;
-            txtEmgNum.Text = ag.ECntc;
-            txtAddr.Text = ag.Addr;
-            txtDesc.Text = mis.InitDesc;
+            if (ag != null && mi != null)
+            {
+                extrCmbItem(cmbRank, ag.RnkRef);
+                txtName.Text = ag.Name;
+                txtFthrName.Text = ag.FthrName;
+                extrCmbItem(cmbUnit, ag.UntRef);
+                dPickDteOfDisp.Value = ag.DateOfDisp.Date;
+                dPickDteOfRecp.Value = mi.InitDate.Date;
+                extrCmbItem(cmbSprt, mi.SprtRef);
+                extrCmbItem(cmbOffc, mi.OffcRef);
+                mtxtNtioSearch.Text = ag.NtioCode.ToString();
+                mtxtPersCode.Text = ag.PersCode.ToString();
+                txtOrdrBy.Text = mi.OrdrBy;
+                txtCntcNum.Text = ag.Cntc;
+                txtEmgNum.Text = ag.ECntc;
+                txtAddr.Text = ag.Addr;
+                txtDesc.Text = mi.InitDesc;
+            }
+            else
+                MessageBox.Show("مطابق با مشخصات وارد شده، موردی یافت نشد");
         }
 
         private void extrCmbItem(ComboBox cmb, Int32 id)
@@ -176,9 +176,9 @@ namespace smcs.frontend.frm
             }
         }
 
-        private Agent modifyAgentProperties(Repository<Agent> rOfA, bool currentAgent)
+        private Agent modifyAgentProperties(bool currentAgent)
         {
-            var agnt = rOfA.Ret(a => a.NtioCode.ToString() == mtxtNtioSearch.Text && a.Enbl == currentAgent);
+            var agnt = new Repository().Ret<Agent>(a => a.NtioCode.ToString() == mtxtNtioSearch.Text && a.Enbl == currentAgent);
             agnt.RnkRef = ((PairDataItem)cmbRank.SelectedItem).Id;
             agnt.Name = txtName.Text.Trim();
             agnt.FthrName = txtFthrName.Text.Trim();
